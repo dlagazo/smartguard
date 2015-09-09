@@ -1,0 +1,80 @@
+﻿@model SmartGuardPortalv1.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+
+    var listItems = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Mr.", Value = "0" }, 
+              new SelectListItem { Text = "Ms.", Value = "1" },
+              new SelectListItem { Text = "Mrs.", Value = "2" }, 
+              new SelectListItem { Text = "Dr.", Value = "3" },
+    };
+    
+}
+
+<p>Welcome to the Smartguard Web Portal!</p>
+<p>Congratulations on your new Smartguard!</p>
+<p>Please enter your personal information and pick your new username and password.</p>
+<p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Registration Form</legend>
+           <table>
+               <tr>
+                   <td>
+                       @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
+                        @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
+                <br />
+            
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password)
+            
+            
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+
+                        @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
+                        @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
+        
+                        @Html.LabelFor(m => m.BirthDate) 
+                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = DateTime.Now, id = "datepicker" })
+                        @Html.ValidationMessageFor(model => model.BirthDate)
+                        
+                        
+                        
+                   </td>
+                   <td valign="top">
+                        
+                        
+                       
+                        <table>
+                            <tr>
+                                <td>@Html.LabelFor(m => m.FkTitle) @Html.DropDownList("FkTitle",  new SelectList(listItems , "Value" , "Text"))</td>
+                                <td>@Html.LabelFor(m => m.Gender) @Html.CheckBoxFor(m => m.Gender)</td>
+                                <td>@Html.LabelFor(m => m.Hand) @Html.CheckBoxFor(m => m.Hand)</td>
+                            </tr>
+                        </table>
+                        
+                        
+                        @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
+                        @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
+                        @Html.LabelFor(m => m.Country) @Html.TextBoxFor(m => m.Country)
+                        @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
+                        <br />
+                        <input type="submit" value="Register" />
+                   </td>
+               </tr>
+
+           </table>
+            
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

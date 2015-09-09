@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    if (Request.IsAuthenticated) {}
+}
+
+<div align="center">
+    <b>SMART GUARD</b>
+    <br />
+    <br />
+    <table>
+        <tr>
+            <td>
+                <a href="@Url.Action("Login","Account",new { login_type  = 0 })">
+                    <img  src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="256" width="256">
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("Login","Account",new { login_type  = 1 })">
+                    <img  src="http://cdn.flaticon.com/png/256/21519.png" height="256" width="256">
+                </a>
+            </td>
+            
+        </tr>
+        <tr align="center">
+            <td>USER</td>
+            <td>CONTACT PERSON</td>
+        </tr>
+    </table>
+
+</div>
