@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using SmartGuardPortalv1.Filters;
 using SmartGuardPortalv1.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace SmartGuardPortalv1.Controllers
 {
@@ -78,17 +80,42 @@ namespace SmartGuardPortalv1.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
+
+                //Random temporary password generator
+                string tempPassword = System.Web.Security.Membership.GeneratePassword(12,0);
                 try
                 {
                     
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, 
+                    WebSecurity.CreateUserAndAccount(model.UserName, tempPassword, 
                         propertyValues: new { LastName = model.LastName, FirstName = model.FirstName,
                             FkTitle = model.FkTitle, BirthDate = model.BirthDate, Email = model.Email,
                             Phone = model.Phone, Address = model.Address, City = model.City, Country = model.Country,
                             Zip = model.Zip, Gender = model.Gender, Hand = model.Hand, UserType = model.UserType});
-                    WebSecurity.Login(model.UserName, model.Password);
+                    var emailMessage = new SendGrid.SendGridMessage();
+                    emailMessage.From = new MailAddress("mailer-no-reply@smartguard.com");
+                    emailMessage.AddTo(model.Email);
+
+                    string salutation = "";
+                    if (model.FkTitle == 0)
+                        salutation = "Mr.";
+                    else if (model.FkTitle == 1)
+                        salutation = "Ms.";
+                    else if (model.FkTitle == 2)
+                        salutation = "Mrs.";
+                    else if (model.FkTitle == 3)
+                        salutation = "Dr.";
+
+                    emailMessage.Subject = "Smart Guard temporary password";
+                    emailMessage.Html = "Dear " + salutation + " " + model.LastName + ", <br/><br/>" +
+                        "<p>Thank you for registering. Your temporary password is:</p> <br/><br/>" +
+                        tempPassword + "<br/><br/>" +
+                        "<p>Please log in using your temporary password and change it.</p>" + 
+                        "<br/><br/>Regards, <br/> Smart Guard Team";
+
+                    sendEmail(emailMessage);
+                    //WebSecurity.Login(model.UserName, tempPassword);
                     
-                    return RedirectToAction("Module", "Home", new  { userID = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Login", "Account", new  { userType = model.UserType });
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -100,6 +127,21 @@ namespace SmartGuardPortalv1.Controllers
             return View(model);
         }
 
+        public Boolean sendEmail(SendGrid.SendGridMessage message)
+        {
+            var username = "azure_569256974a694fa7ba6f292deb63d995@azure.com";
+            var password = "hleUwJY2m46FV3M";
+            var credentials = new NetworkCredential(username, password);
+
+            // Create an Web transport for sending email.
+            var transportWeb = new SendGrid.Web(credentials);
+
+            // Send the email.
+            // You can also use the **DeliverAsync** method, which returns an awaitable task.
+            transportWeb.DeliverAsync(message);
+
+            return true;
+        }
         //
         // POST: /Account/Disassociate
 

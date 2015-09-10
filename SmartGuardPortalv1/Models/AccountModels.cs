@@ -97,7 +97,7 @@ namespace SmartGuardPortalv1.Models
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         //[RegularExpression(@"_[A-Z][0-9][a-z]{8,}", ErrorMessage = "Username must be between 8 and 12 alphanumberic characters")]
         public string UserName { get; set; }
-
+        /*
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -108,6 +108,7 @@ namespace SmartGuardPortalv1.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        */
         [StringLength(20)]
         public string LastName { get; set; }
         public string FirstName { get; set; }
