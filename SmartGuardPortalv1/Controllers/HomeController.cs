@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SmartGuardPortalv1.Filters;
-
+using WebMatrix.WebData;
+using System.Web.Security;
 namespace SmartGuardPortalv1.Controllers
 {
     [InitializeSimpleMembership]
@@ -13,8 +14,16 @@ namespace SmartGuardPortalv1.Controllers
         
         public ActionResult Index()
         {
-            
-                
+
+            if(WebSecurity.CurrentUserName!= null)
+            {
+                if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Administrator"))
+                    return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
+                    return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
+                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
+                    return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
+            }
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
             return View();

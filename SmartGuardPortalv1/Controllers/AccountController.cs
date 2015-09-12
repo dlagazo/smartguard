@@ -40,7 +40,12 @@ namespace SmartGuardPortalv1.Controllers
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 //return RedirectToLocal(returnUrl);
-                return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
+                if(Roles.GetRolesForUser(model.UserName).Contains("User"))
+                    return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
+                    return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
+                    return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
             }
 
             // If we got this far, something failed, redisplay form
@@ -90,7 +95,7 @@ namespace SmartGuardPortalv1.Controllers
                         propertyValues: new { LastName = model.LastName, FirstName = model.FirstName,
                             FkTitle = model.FkTitle, BirthDate = model.BirthDate, Email = model.Email,
                             Phone = model.Phone, Address = model.Address, City = model.City, Country = model.Country,
-                            Zip = model.Zip, Gender = model.Gender, Hand = model.Hand, UserType = model.UserType});
+                            Zip = model.Zip, Gender = model.Gender, Hand = model.Hand});
                     var emailMessage = new SendGrid.SendGridMessage();
                     emailMessage.From = new MailAddress("mailer-no-reply@smartguard.com");
                     emailMessage.AddTo(model.Email);
@@ -114,8 +119,21 @@ namespace SmartGuardPortalv1.Controllers
 
                     sendEmail(emailMessage);
                     //WebSecurity.Login(model.UserName, tempPassword);
-                    
-                    return RedirectToAction("Login", "Account", new  { userType = model.UserType });
+                    if (model.UserType == 0)
+                    {
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("User"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "User" });
+                        }
+                    }
+                    else if (model.UserType == 1)
+                    {
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("Contact"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Contact" });
+                        }
+                    }
+                    return RedirectToAction("Login", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {

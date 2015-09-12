@@ -18,6 +18,7 @@ namespace SmartGuardPortalv1.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 
+
     [Table("UserProfile")]
     public class UserProfile
     {
@@ -42,8 +43,7 @@ namespace SmartGuardPortalv1.Models
         public string Zip { get; set; }
         public bool Gender { get; set; }
         public bool Hand { get; set; }
-        //0-admin, 1-user, 2-contact
-        public short UserType { get; set; }
+     
     }
 
 
@@ -122,8 +122,9 @@ namespace SmartGuardPortalv1.Models
         public string Zip { get; set; }
         public bool Gender { get; set; }
         public bool Hand { get; set; }
-        //0-admin, 1-user, 2-contact
+
         public short UserType { get; set; }
+      
     }
 
     public class ExternalLogin

@@ -284,6 +284,26 @@
     <Compile Include="Migrations\201509091532161_Initial11.Designer.cs">
       <DependentUpon>201509091532161_Initial11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509121314019_Initial12.cs" />
+    <Compile Include="Migrations\201509121314019_Initial12.Designer.cs">
+      <DependentUpon>201509121314019_Initial12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509121321561_Initial13.cs" />
+    <Compile Include="Migrations\201509121321561_Initial13.Designer.cs">
+      <DependentUpon>201509121321561_Initial13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509121331208_Initial14.cs" />
+    <Compile Include="Migrations\201509121331208_Initial14.Designer.cs">
+      <DependentUpon>201509121331208_Initial14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509121509318_Initial15.cs" />
+    <Compile Include="Migrations\201509121509318_Initial15.Designer.cs">
+      <DependentUpon>201509121509318_Initial15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509121512144_Initial16.cs" />
+    <Compile Include="Migrations\201509121512144_Initial16.Designer.cs">
+      <DependentUpon>201509121512144_Initial16.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -433,6 +453,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509091532161_Initial11.resx">
       <DependentUpon>201509091532161_Initial11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509121314019_Initial12.resx">
+      <DependentUpon>201509121314019_Initial12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509121321561_Initial13.resx">
+      <DependentUpon>201509121321561_Initial13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509121331208_Initial14.resx">
+      <DependentUpon>201509121331208_Initial14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509121509318_Initial15.resx">
+      <DependentUpon>201509121509318_Initial15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509121512144_Initial16.resx">
+      <DependentUpon>201509121512144_Initial16.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
