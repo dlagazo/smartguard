@@ -12,6 +12,7 @@ namespace SmartGuardPortalv1.Controllers
     public class HomeController : Controller
     {
         
+        
         public ActionResult Index()
         {
 
@@ -42,27 +43,34 @@ namespace SmartGuardPortalv1.Controllers
 
             return View();
         }
-        [Authorize]
+
+        [InitializeSimpleMembership]
+        [Authorize(Roles = "User")]
         public ActionResult Welcome()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
-        [Authorize]
+
+        [InitializeSimpleMembership]
+        [Authorize(Roles="User")]
         public ActionResult Module()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
-        [Authorize]
+
+        [InitializeSimpleMembership]
+        [Authorize(Roles = "User")]
         public ActionResult FallModule()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+
         [Authorize(Roles = "Administrator")]
         public ActionResult Authorized()
         {

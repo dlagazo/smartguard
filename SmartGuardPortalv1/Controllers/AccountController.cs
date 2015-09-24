@@ -13,6 +13,7 @@ using SmartGuardPortalv1.Models;
 using System.Net.Mail;
 using System.Net;
 
+
 namespace SmartGuardPortalv1.Controllers
 {
     [Authorize]
@@ -31,6 +32,14 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // POST: /Account/Login
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult MobileLogin(LoginModel model, string returnUrl)
+        {
+            return null;
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -112,9 +121,13 @@ namespace SmartGuardPortalv1.Controllers
 
                     emailMessage.Subject = "Smart Guard temporary password";
                     emailMessage.Html = "Dear " + salutation + " " + model.LastName + ", <br/><br/>" +
-                        "<p>Thank you for registering. Your temporary password is:</p> <br/><br/>" +
-                        tempPassword + "<br/><br/>" +
-                        "<p>Please log in using your temporary password and change it.</p>" + 
+                        "<p>Thank you for registering. Your registration information:</p> <br/><br/>" +
+                        "<p>username: " + model.UserName + "</p><br/>" +
+                        "<p>password: " + tempPassword + "</p><br/><br/>" +
+
+                        "<p>Please log in using your temporary password and change it immediately.</p>" +
+                        "<p>If you did not register, please disregard this message.</p>" + 
+
                         "<br/><br/>Regards, <br/> Smart Guard Team";
 
                     sendEmail(emailMessage);
