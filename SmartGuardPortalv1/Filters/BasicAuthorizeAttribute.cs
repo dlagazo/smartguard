@@ -19,6 +19,9 @@ namespace SmartGuardPortalv1.Filters
 
         public BasicAuthorizeAttribute(int resourceId, Operations operation, string role)
         {
+            
+
+                
             _resourceId = resourceId;
             _operation = operation;
             _role = role;

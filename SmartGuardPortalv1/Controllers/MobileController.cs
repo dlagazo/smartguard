@@ -15,11 +15,23 @@ namespace SmartGuardPortalv1.Controllers
         // GET api/mobile
         //[MembershipHttpAuthorizeAttribute(Roles="User")]
         [BasicAuthorizeAttribute(1,Operations.Read, "User")]
-        public IEnumerable<string> Get(string user)
+        //public IQueryable<item> Get(string user)
+        //public string Get(string user)
+        public HttpResponseMessage Get(string user)
         {
-            string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
-            return roles;
+            //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
+            //string json_data = JsonConvert.SerializeObject(arr);
+            List<item> items = new List<item>();
+            items.Add(new item());
+            items.Add(new item());
+            return Request.CreateResponse(HttpStatusCode.OK, items);
             
+        }
+
+        class item
+        {
+            public int id = 0;
+            public string value = "value";
         }
 
         // GET api/mobile/5
