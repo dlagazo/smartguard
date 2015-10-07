@@ -6,16 +6,18 @@ using System.Web.Mvc;
 using SmartGuardPortalv1.Filters;
 using WebMatrix.WebData;
 using System.Web.Security;
+using SmartGuardPortalv1.Models;
+
 namespace SmartGuardPortalv1.Controllers
 {
     [InitializeSimpleMembership]
     public class HomeController : Controller
     {
-        
+        private UsersContext db = new UsersContext();
         
         public ActionResult Index()
         {
-
+            /*
             if(WebSecurity.CurrentUserName!= null)
             {
                 if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Administrator"))
@@ -26,6 +28,13 @@ namespace SmartGuardPortalv1.Controllers
                     return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
             }
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            */
+            return View();
+        }
+
+        public ActionResult Landing()
+        {
+            ViewBag.Message = "Your app description page.";
 
             return View();
         }
@@ -77,6 +86,20 @@ namespace SmartGuardPortalv1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [Authorize(Roles="Contact")]
+        public ActionResult ContactMain()
+        {
+            int userId = (int)WebSecurity.CurrentUserId;
+            string email = db.UserProfiles.Where(i => i.UserId == userId).First().Email;
+            List<Contact> myContacts = db.Contacts.Where(i => i.Email == email).ToList();
+            List<UserProfile> users = new List<UserProfile>();
+            foreach (Contact contact in myContacts)
+            {
+                users.Add(db.UserProfiles.Where(i => i.UserId == contact.fkUserId).First());
+            }
+            return View(users);
         }
     }
 }

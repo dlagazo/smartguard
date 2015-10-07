@@ -22,7 +22,7 @@ namespace SmartGuardPortalv1.Controllers
     {
         //
         // GET: /Account/Login
-
+        private UsersContext db = new UsersContext();
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -52,9 +52,9 @@ namespace SmartGuardPortalv1.Controllers
                 if(Roles.GetRolesForUser(model.UserName).Contains("User"))
                     return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
-                    return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("ContactMain", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
-                    return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Index", "Role", new { userName = WebSecurity.CurrentUserName });
             }
 
             // If we got this far, something failed, redisplay form
@@ -204,7 +204,7 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Account/Manage
-
+        [Authorize]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -217,6 +217,12 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult Profile()
+        {
+            UserProfile up = db.UserProfiles.Where(i => i.UserId == (int)WebSecurity.CurrentUserId).First();
+            return View(up);
+        }
         //
         // POST: /Account/Manage
 

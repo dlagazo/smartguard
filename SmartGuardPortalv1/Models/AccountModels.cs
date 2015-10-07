@@ -16,6 +16,9 @@ namespace SmartGuardPortalv1.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 
 
@@ -89,6 +92,41 @@ namespace SmartGuardPortalv1.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+
+    [Table("FeatureTable")]
+    public class Feature
+    {
+        public int FeatureId { get; set; }
+        [Display(Name = "Feature Name")]
+        public string FeatureName { get; set; }
+
+    }
+
+    [Table("PlacesTable")]
+    public class Place
+    {
+        public int PlaceId { get; set; }
+        public string PlaceName { get; set; }
+        public int fkUserId { get; set; }
+        public string PlaceLat { get; set; }
+        public string PlaceLong { get; set; }
+    }   
+
+    [Table("ContactTable")]
+    public class Contact
+    {
+        public int ContactId { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string Relationship { get; set; }
+        public short Rank { get; set; }
+        public int fkUserId { get; set; }
+
+    }
+
 
     public class RegisterModel
     {

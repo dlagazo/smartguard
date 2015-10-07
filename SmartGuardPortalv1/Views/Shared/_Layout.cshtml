@@ -14,12 +14,14 @@
                 <div class="float-left">
                     @* <p class="site-title">@Html.ActionLink("SMART GUARD", "Index", "Home")</p> *@
                     @Html.Partial("_LoginPartial")
+                    
                 </div>
                 <div class="float-right">
                     <section id="login">
                          
                         <img src="https://www.wmc-card.com/wp-content/uploads/2014/08/germany_small.png" />
                         <img src="https://www.wmc-card.com/wp-content/uploads/2014/08/uk_small.png" />
+                        @Request.Headers["Host"]
                     </section>
                     <nav>
                         @*

@@ -14,6 +14,7 @@ namespace SmartGuardPortalv1.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(SmartGuardPortalv1.Models.UsersContext context)
@@ -21,13 +22,17 @@ namespace SmartGuardPortalv1.Migrations
 
             WebSecurity.InitializeDatabaseConnection("DefaultConnection",
             "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            
             if (!Roles.RoleExists("Administrator"))
                 Roles.CreateRole("Administrator");
             if (!Roles.RoleExists("User"))
                 Roles.CreateRole("User");
             if (!Roles.RoleExists("Contact"))
                 Roles.CreateRole("Contact");
-            
+            if (!Roles.RoleExists("DE-Administrator"))
+                Roles.CreateRole("DE-Administrator");
+            if (!Roles.RoleExists("AT-Administrator"))
+                Roles.CreateRole("AT-Administrator");
 
             if (!WebSecurity.UserExists("Smartguardadmin"))
             {

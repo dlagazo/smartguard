@@ -19,19 +19,25 @@ namespace SmartGuardPortalv1.Controllers
         //public string Get(string user)
         public HttpResponseMessage Get(string user)
         {
-            //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
+            string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
             //string json_data = JsonConvert.SerializeObject(arr);
-            List<item> items = new List<item>();
-            items.Add(new item());
-            items.Add(new item());
-            return Request.CreateResponse(HttpStatusCode.OK, items);
+            List<LoginResponse> responses = new List<LoginResponse>();
+            responses.Add(new LoginResponse("Result", "Success"));
+            responses.Add(new LoginResponse("Roles", roles[0]));
+            
+            return Request.CreateResponse(HttpStatusCode.OK, responses);
             
         }
 
-        class item
+        class LoginResponse
         {
-            public int id = 0;
+            public string response = "id";
             public string value = "value";
+            public LoginResponse(string resp, string val)
+            {
+                response = resp;
+                value = val;
+            }
         }
 
         // GET api/mobile/5

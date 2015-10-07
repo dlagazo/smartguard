@@ -106,7 +106,6 @@
     <Reference Include="System.Data">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
@@ -234,10 +233,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\FeatureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MobileContactController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Filters\BasicAuthorizeAttribute.cs" />
     <Compile Include="Filters\BasicHttpAuthorizeAttribute .cs" />
+    <Compile Include="Filters\FeatureHelper.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\MembershipHttpAuthorizeAttribute.cs" />
     <Compile Include="Filters\Operations.cs" />
@@ -311,6 +315,14 @@
     <Compile Include="Migrations\201509121512144_Initial16.cs" />
     <Compile Include="Migrations\201509121512144_Initial16.Designer.cs">
       <DependentUpon>201509121512144_Initial16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509281204348_Initial17.cs" />
+    <Compile Include="Migrations\201509281204348_Initial17.Designer.cs">
+      <DependentUpon>201509281204348_Initial17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510061221283_Initial18.cs" />
+    <Compile Include="Migrations\201510061221283_Initial18.Designer.cs">
+      <DependentUpon>201510061221283_Initial18.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -418,6 +430,21 @@
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Home\FallModule.cshtml" />
     <Content Include="Views\Home\Authorized.cshtml" />
+    <Content Include="Views\Feature\Index.cshtml" />
+    <Content Include="Views\Feature\Details.cshtml" />
+    <Content Include="Views\Feature\Create.cshtml" />
+    <Content Include="Views\Feature\Edit.cshtml" />
+    <Content Include="Views\Feature\Delete.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\RoleManagement.cshtml" />
+    <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Contact\Delete.cshtml" />
+    <Content Include="Views\Contact\Details.cshtml" />
+    <Content Include="Views\Contact\Edit.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Home\ContactMain.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -476,6 +503,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509121512144_Initial16.resx">
       <DependentUpon>201509121512144_Initial16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509281204348_Initial17.resx">
+      <DependentUpon>201509281204348_Initial17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510061221283_Initial18.resx">
+      <DependentUpon>201510061221283_Initial18.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
