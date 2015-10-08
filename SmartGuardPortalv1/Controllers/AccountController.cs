@@ -26,6 +26,7 @@ namespace SmartGuardPortalv1.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.Title = "Login";
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -46,6 +47,7 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            ViewBag.Title = "Login";
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 //return RedirectToLocal(returnUrl);
@@ -80,6 +82,7 @@ namespace SmartGuardPortalv1.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Title = "Register";
             return View();
         }
 
@@ -91,6 +94,7 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
+            ViewBag.Title = "Register";
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -207,6 +211,7 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize]
         public ActionResult Manage(ManageMessageId? message)
         {
+            ViewBag.Title = "My Account";
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -220,6 +225,7 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize]
         public ActionResult Profile()
         {
+            ViewBag.Title = "My Profile";
             UserProfile up = db.UserProfiles.Where(i => i.UserId == (int)WebSecurity.CurrentUserId).First();
             return View(up);
         }
@@ -230,6 +236,7 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model)
         {
+            ViewBag.Title = "My Account";
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");

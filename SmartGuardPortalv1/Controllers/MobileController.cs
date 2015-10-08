@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using SmartGuardPortalv1.Filters;
 using System.Web.Security;
+using System.Text;
+using SmartGuardPortalv1.Models;
 
 namespace SmartGuardPortalv1.Controllers
 {
@@ -13,32 +15,24 @@ namespace SmartGuardPortalv1.Controllers
     public class MobileController : ApiController
     {
         // GET api/mobile
-        //[MembershipHttpAuthorizeAttribute(Roles="User")]
+       
         [BasicAuthorizeAttribute(1,Operations.Read, "User")]
-        //public IQueryable<item> Get(string user)
-        //public string Get(string user)
-        public HttpResponseMessage Get(string user)
+        
+        public HttpResponseMessage Get()
         {
-            string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
+            string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
             //string json_data = JsonConvert.SerializeObject(arr);
-            List<LoginResponse> responses = new List<LoginResponse>();
-            responses.Add(new LoginResponse("Result", "Success"));
-            responses.Add(new LoginResponse("Roles", roles[0]));
+            List<Response> responses = new List<Response>();
+            responses.Add(new Response("Result", "Success"));
+            responses.Add(new Response("Roles", roles[0]));
             
+
+
             return Request.CreateResponse(HttpStatusCode.OK, responses);
             
         }
 
-        class LoginResponse
-        {
-            public string response = "id";
-            public string value = "value";
-            public LoginResponse(string resp, string val)
-            {
-                response = resp;
-                value = val;
-            }
-        }
+        
 
         // GET api/mobile/5
         public string Get(int id)
@@ -59,6 +53,15 @@ namespace SmartGuardPortalv1.Controllers
         // DELETE api/mobile/5
         public void Delete(int id)
         {
+        }
+
+        public string getUserCredential(string auth)
+        {
+            string[] splitAuth = auth.Split(' ');
+            byte[] data = Convert.FromBase64String(splitAuth[1]);
+            string decodedString = Encoding.UTF8.GetString(data);
+            string[] credentials = decodedString.Split(':');
+            return credentials[0];
         }
     }
 }

@@ -57,6 +57,7 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Welcome()
         {
+            ViewBag.Title = "My Dashboard";
             ViewBag.Message = "Your contact page.";
 
             return View();

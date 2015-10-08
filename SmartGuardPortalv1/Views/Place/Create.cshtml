@@ -1,0 +1,54 @@
+﻿@model SmartGuardPortalv1.Models.Place
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<h2>Create @userId</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlaceLat)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PlaceLat)
+            @Html.ValidationMessageFor(model => model.PlaceLat)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlaceLong)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PlaceLong)
+            @Html.ValidationMessageFor(model => model.PlaceLong)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlaceName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PlaceName)
+            @Html.ValidationMessageFor(model => model.PlaceName)
+        </div>
+        
+
+        
+        <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

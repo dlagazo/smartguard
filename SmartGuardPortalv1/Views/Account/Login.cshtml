@@ -1,24 +1,13 @@
 ﻿@model SmartGuardPortalv1.Models.LoginModel
 
 @{
-    ViewBag.Title = "Log in";
+    
     int login_type = Request.Params["login_type"].AsInt();
 }
 
-
+<h2>@ViewBag.Title</h2>
 
 <section id="loginForm">
-
-    @{
-        if(login_type == 0)
-            {   
-                @:USER-LOGIN 
-            }
-        else 
-            {   
-                @:CONTACT PERSON-LOGIN 
-            }
-    }
 
 
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {

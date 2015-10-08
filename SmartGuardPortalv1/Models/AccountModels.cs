@@ -19,6 +19,8 @@ namespace SmartGuardPortalv1.Models
 
         public DbSet<Feature> Features { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Place> Places { get; set; }
+        public DbSet<Memory> Memories { get; set; }
     }
 
 
@@ -110,22 +112,46 @@ namespace SmartGuardPortalv1.Models
         public int fkUserId { get; set; }
         public string PlaceLat { get; set; }
         public string PlaceLong { get; set; }
-    }   
+    }
+
+    [Table("MemoryTable")]
+    public class Memory
+    {
+        public int MemoryId { get; set; }
+        public string MemoryName { get; set; }
+        public int fkUserId { get; set; }
+        public DateTime MemoryDate { get; set; }
+        public int MemoryFreq { get; set; }
+    }
 
     [Table("ContactTable")]
     public class Contact
     {
         public int ContactId { get; set; }
-        [Display(Name = "First Name")]
+        [Display(Name = "First")]
         public string FirstName { get; set; }
+        [Display(Name = "Last")]
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        [Display(Name = "Relation")]
         public string Relationship { get; set; }
         public short Rank { get; set; }
         public int fkUserId { get; set; }
 
     }
+
+    [Table("SubscriptionTable")]
+    public class Subscription
+    {
+        public int SubId { get; set; }
+        public string SubName { get; set; }
+        public string SubType { get; set; }
+        public DateTime SubStart { get; set; }
+        public DateTime SubEnd { get; set; }
+        public Boolean SubStatus { get; set; }
+    }
+
 
 
     public class RegisterModel

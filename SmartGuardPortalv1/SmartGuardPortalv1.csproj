@@ -234,6 +234,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\FeatureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MobileContactController.cs" />
@@ -326,6 +327,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\SyncData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +447,11 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Home\ContactMain.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Place\Create.cshtml" />
+    <Content Include="Views\Place\Delete.cshtml" />
+    <Content Include="Views\Place\Details.cshtml" />
+    <Content Include="Views\Place\Edit.cshtml" />
+    <Content Include="Views\Place\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

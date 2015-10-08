@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Place>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceLat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceLong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlaceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkUserId)
+        </th>
+        
+        
+    </tr>
+
+@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+    <tr>
+        <td>
+             @item.PlaceLat
+        </td>
+        <td>
+             @item.PlaceLong
+        </td>
+        <td>
+             @item.PlaceName
+        </td>
+        <td>
+             @item.fkUserId
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PlaceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PlaceId })
+        </td>
+    </tr>
+}
+
+</table>
