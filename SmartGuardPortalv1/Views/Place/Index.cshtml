@@ -3,50 +3,32 @@
 @{
     ViewBag.Title = "Index";
     int userId = (int)WebSecurity.CurrentUserId;
+    
 }
 
-<h2>Index</h2>
+<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Places</b>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create a new place", "Create")
 </p>
 <table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PlaceLat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlaceLong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PlaceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fkUserId)
-        </th>
-        
-        
-    </tr>
-
+    
 @foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+    string marker = item.PlaceLat + "," + item.PlaceLong;
     <tr>
+        
         <td>
-             @item.PlaceLat
-        </td>
-        <td>
-             @item.PlaceLong
-        </td>
-        <td>
-             @item.PlaceName
-        </td>
-        <td>
-             @item.fkUserId
+            <b>@item.PlaceName</b> 
+            @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) |
+            @* Html.ActionLink("Details", "Details", new { id=item.PlaceId }) | *@
+            @Html.ActionLink("Delete", "Delete", new { id=item.PlaceId })
+            <br />
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=@item.PlaceLat,@item.PlaceLong&zoom=16&size=600x300&maptype=roadmap
+&markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PlaceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PlaceId })
+            
         </td>
     </tr>
 }

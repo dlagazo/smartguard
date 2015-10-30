@@ -16,13 +16,35 @@ namespace SmartGuardPortalv1.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
-
+        public DbSet<UserInformation> UserInfos { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Memory> Memories { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<GeoLocation> GeoLocations { get; set; }
+        public DbSet<Fall> Falls { get; set; }
     }
 
+    [Table("UserInformation")]
+    public class UserInformation
+    {
+        [Key]
+        public int InfoId { get; set; }
+        public int fkUserId { get; set; }
+        [Display(Name = "Title")]
+        public short FkTitle { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Zip { get; set; }
+        [Display(Name = "Female?")]
+        public bool Gender { get; set; }
+        [Display(Name = "Right-handed?")]
+        public bool Hand { get; set; }
+    }
 
     [Table("UserProfile")]
     public class UserProfile
@@ -38,16 +60,10 @@ namespace SmartGuardPortalv1.Models
         [StringLength(20)]
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public short FkTitle { get; set; }
-        public DateTime BirthDate { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
+
         public string Country { get; set; }
-        public string Zip { get; set; }
-        public bool Gender { get; set; }
-        public bool Hand { get; set; }
+        
      
     }
 
@@ -101,7 +117,7 @@ namespace SmartGuardPortalv1.Models
         public int FeatureId { get; set; }
         [Display(Name = "Feature Name")]
         public string FeatureName { get; set; }
-
+        public string FeatureFxns { get; set; }
     }
 
     [Table("PlacesTable")]
@@ -114,14 +130,41 @@ namespace SmartGuardPortalv1.Models
         public string PlaceLong { get; set; }
     }
 
+    [Table("GeoLocationTable")]
+    public class GeoLocation
+    {
+        public int GeoLocationId { get; set; }
+        public string GeoLocationLat { get; set; }
+        public string GeoLocationLong { get; set; }
+        public DateTime GeoLocationTimeStamp { get; set; }
+        public int fkUserId { get; set; }
+        
+    }
+
+    [Table("FallTable")]
+    public class Fall
+    {
+        public int FallId { get; set; }
+        public DateTime FallTimeStamp { get; set; }
+        public string FallResult { get; set; }
+        public int fkUserId { get; set; }
+        public string FallLat { get; set; }
+        public string FallLong { get; set; }
+    }
+
     [Table("MemoryTable")]
     public class Memory
     {
         public int MemoryId { get; set; }
+        [Display(Name = "Title")]
         public string MemoryName { get; set; }
         public int fkUserId { get; set; }
+        [Display(Name = "Date")]
         public DateTime MemoryDate { get; set; }
+        [Display(Name = "Frequency")]
         public int MemoryFreq { get; set; }
+        [Display(Name = "Instruction")]
+        public string MemoryInstructions { get; set; }
     }
 
     [Table("ContactTable")]
@@ -144,14 +187,36 @@ namespace SmartGuardPortalv1.Models
     [Table("SubscriptionTable")]
     public class Subscription
     {
+        [Key]
         public int SubId { get; set; }
-        public string SubName { get; set; }
-        public string SubType { get; set; }
+        public int fkFeatureId { get; set; }
+        public int fkUserId { get; set; }
+        public int SubType { get; set; }
         public DateTime SubStart { get; set; }
         public DateTime SubEnd { get; set; }
         public Boolean SubStatus { get; set; }
     }
 
+    [Table("CountryTable")]
+    public class Country
+    {
+        [Key]
+        public string CountryId { get; set; }
+        public string CountryName { get; set; }
+        public string AdminRole { get; set; }
+    }
+
+    [Table("MyLocationTable")]
+    public class MyLocation
+    {
+        [Key]
+        public int MyLocationId { get; set; }
+        public string MyLat { get; set; }
+        public string MyLong { get; set; }
+        public int fkUserId { get; set; }
+        public DateTime MyLocationStamp { get; set; }
+    }
+    
 
 
     public class RegisterModel
@@ -173,20 +238,31 @@ namespace SmartGuardPortalv1.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         */
+        [Required]
         [StringLength(20)]
         public string LastName { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Display(Name = "Title")]
         public short FkTitle { get; set; }
         public DateTime BirthDate { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
+        [Display(Name = "Mobile Number")]
         public string Phone { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
+        [Required]
         public string Country { get; set; }
         public string Zip { get; set; }
+        [Display(Name = "Female?")]
         public bool Gender { get; set; }
+        [Required]
+        [Display(Name = "Right-handed?")]
         public bool Hand { get; set; }
-
+     
+        //0 - user, 1 - contact, 2 - content admin, 3 - local admin, 4 - super admin
         public short UserType { get; set; }
       
     }

@@ -56,7 +56,11 @@ namespace SmartGuardPortalv1.Controllers
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
                     return RedirectToAction("ContactMain", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
-                    return RedirectToAction("Index", "Role", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Administrator", "Home", new { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(model.UserName).Contains("ContentAdministrator"))
+                    return RedirectToAction("Content", "Home", new { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(model.UserName).Contains("LocalAdministrator"))
+                    return RedirectToAction("Local", "Home", new { userName = WebSecurity.CurrentUserName });
             }
 
             // If we got this far, something failed, redisplay form
@@ -74,6 +78,91 @@ namespace SmartGuardPortalv1.Controllers
             WebSecurity.Logout();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        public ActionResult AdminAccount()
+        {
+            ViewBag.Title = "Register";
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminAccount(RegisterModel model)
+        {
+            ViewBag.Title = "Register";
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (model.UserType == 2)
+                    {
+                        WebSecurity.CreateUserAndAccount(model.UserName, "smartguard",
+                        propertyValues: new
+                        {
+                            LastName = model.LastName,
+                            Country = model.Country,
+                            FirstName = model.FirstName,
+                            Email = model.Email
+                        });
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("ContentAdministrator"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "ContentAdministrator" });
+                        }
+                        
+                        
+                        db.SaveChanges();
+                        return RedirectToAction("Login", "Account");
+                    }
+
+                    else if (model.UserType == 3)
+                    {
+                        WebSecurity.CreateUserAndAccount(model.UserName, "smartguard",
+                        propertyValues: new
+                        {
+                            LastName = model.LastName,
+                            Country = model.Country,
+                            FirstName = model.FirstName,
+                            Email = model.Email
+                        });
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("LocalAdministrator"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "LocalAdministrator" });
+                        }
+
+
+                        db.SaveChanges();
+                        return RedirectToAction("Login", "Account");
+                    }
+                    if (model.UserType == 4)
+                    {
+                        WebSecurity.CreateUserAndAccount(model.UserName, "smartguard",
+                        propertyValues: new
+                        {
+                            LastName = model.LastName,
+                            Country = model.Country,
+                            FirstName = model.FirstName,
+                            Email = model.Email
+                        });
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Administrator" });
+                        }
+
+
+                        db.SaveChanges();
+                        return RedirectToAction("Login", "Account");
+                    }
+
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
+            }
+            return View(model);
         }
 
         //
@@ -105,12 +194,15 @@ namespace SmartGuardPortalv1.Controllers
                 {
                     
                     WebSecurity.CreateUserAndAccount(model.UserName, tempPassword, 
-                        propertyValues: new { LastName = model.LastName, FirstName = model.FirstName,
-                            FkTitle = model.FkTitle, BirthDate = model.BirthDate, Email = model.Email,
+                        propertyValues: new { LastName = model.LastName, Country = model.Country,
+                            FirstName = model.FirstName, Email = model.Email});
+                            /*
+                            FkTitle = model.FkTitle, BirthDate = model.BirthDate, ,
                             Phone = model.Phone, Address = model.Address, City = model.City, Country = model.Country,
                             Zip = model.Zip, Gender = model.Gender, Hand = model.Hand});
+                             */
                     var emailMessage = new SendGrid.SendGridMessage();
-                    emailMessage.From = new MailAddress("mailer-no-reply@smartguard.com");
+                    emailMessage.From = new MailAddress("mailer-no-reply@smartguard");
                     emailMessage.AddTo(model.Email);
 
                     string salutation = "";
@@ -142,6 +234,18 @@ namespace SmartGuardPortalv1.Controllers
                         {
                             Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "User" });
                         }
+                        UserInformation ui = new UserInformation();
+                        ui.Address = model.Address;
+                        ui.BirthDate = model.BirthDate;
+                        ui.City = model.City;
+                        ui.FkTitle = model.FkTitle;
+                        ui.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        ui.Gender = model.Gender;
+                        ui.Hand = model.Hand;
+                        ui.Phone = model.Phone;
+                        ui.Zip = model.Zip;
+                        db.UserInfos.Add(ui);
+                        db.SaveChanges();
                     }
                     else if (model.UserType == 1)
                     {
@@ -149,7 +253,22 @@ namespace SmartGuardPortalv1.Controllers
                         {
                             Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Contact" });
                         }
+                        UserInformation ui = new UserInformation();
+                        ui.Address = model.Address;
+                        ui.BirthDate = model.BirthDate;
+                        ui.City = model.City;
+                        ui.FkTitle = model.FkTitle;
+                        ui.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        ui.Gender = model.Gender;
+                        //ui.Hand = model.Hand;
+                        ui.Phone = model.Phone;
+                        ui.Zip = model.Zip;
+                        db.UserInfos.Add(ui);
+                        db.SaveChanges();
                     }
+
+
+
                     return RedirectToAction("Login", "Account");
                 }
                 catch (MembershipCreateUserException e)
@@ -164,8 +283,8 @@ namespace SmartGuardPortalv1.Controllers
 
         public Boolean sendEmail(SendGrid.SendGridMessage message)
         {
-            var username = "azure_569256974a694fa7ba6f292deb63d995@azure.com";
-            var password = "hleUwJY2m46FV3M";
+            var username = "azure_73e080e9b84e851c07cbce4a6d9c166d@azure.com";//"azure_569256974a694fa7ba6f292deb63d995@azure.com";
+            var password = "5fZ66AWPEzHA1TI";//"hleUwJY2m46FV3M";
             var credentials = new NetworkCredential(username, password);
 
             // Create an Web transport for sending email.

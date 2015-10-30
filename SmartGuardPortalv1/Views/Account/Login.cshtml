@@ -5,10 +5,10 @@
     int login_type = Request.Params["login_type"].AsInt();
 }
 
-<h2>@ViewBag.Title</h2>
+
 
 <section id="loginForm">
-
+<b>@ViewBag.Title</b>
 
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()

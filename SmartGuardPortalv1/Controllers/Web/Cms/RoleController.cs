@@ -18,7 +18,7 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
-        public ActionResult RoleManagement()
+        public ActionResult Create()
         {
             return View();
         }
@@ -34,10 +34,7 @@ namespace SmartGuardPortalv1.Controllers
         //
         // GET: /Role/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        
 
         //
         // POST: /Role/Create

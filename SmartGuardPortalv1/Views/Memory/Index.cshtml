@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Memory>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Memories</b>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryDate)
+        </th>
+        <th>
+            Remind
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryInstructions)
+        </th>
+        
+        
+    </tr>
+
+@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+    <tr>
+        <td>
+             @item.MemoryName
+        </td>
+        <td>
+             @item.MemoryDate
+        </td>
+        <td>
+             @{
+                 if(@item.MemoryFreq==1)
+                 {
+                     <text>Once</text>
+                 }
+                 else if (@item.MemoryFreq == 2)
+                 {
+                     <text>Daily</text>
+                 }
+                 else if (@item.MemoryFreq == 3)
+                 {
+                     <text>Weekly</text>
+                 }
+                 else if (@item.MemoryFreq == 4)
+                 {
+                     <text>Monthly</text>
+                 }
+              }
+                
+        </td>
+        <td>
+             @item.MemoryInstructions
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MemoryId }) |
+            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
+            @Html.ActionLink("Delete", "Delete", new { id=item.MemoryId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -20,6 +20,13 @@
             @Html.EditorFor(model => model.FeatureName)
             @Html.ValidationMessageFor(model => model.FeatureName)
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FeatureFxns)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FeatureFxns)
+            @Html.ValidationMessageFor(model => model.FeatureFxns)
+        </div>
 
         <p>
             <input type="submit" value="Create" />

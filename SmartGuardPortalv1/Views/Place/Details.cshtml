@@ -1,52 +1,17 @@
-﻿@model SmartGuardPortalv1.Models.Contact
+﻿@model SmartGuardPortalv1.Models.Place
 
 @{
     ViewBag.Title = "Details";
+    string marker = Model.PlaceLat + "," + Model.PlaceLong;
 }
 
-<h2>Details</h2>
+<b> Dashboard > My Places > @Model.PlaceName</b>
+<br />
+<br />
+<img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.PlaceLat,@Model.PlaceLong&zoom=7&size=600x300&maptype=roadmap
+&markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
 
-<fieldset>
-    <legend>Feature</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FirstName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FirstName)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastName)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Mobile)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Mobile)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Rank)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Rank)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Relationship)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Relationship)
-    </div>
-</fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ContactId }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PlaceId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

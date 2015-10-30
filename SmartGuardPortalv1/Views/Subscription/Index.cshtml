@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Subscription>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fkFeatureId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubStatus)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkFeatureId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubId}) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubId })
+        </td>
+    </tr>
+}
+
+</table>

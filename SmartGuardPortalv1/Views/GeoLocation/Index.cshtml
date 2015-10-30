@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.GeoLocation>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Memories</b>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoLocationLat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoLocationLong)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.GeoLocationTimeStamp)
+        </th>
+        
+        
+    </tr>
+
+@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+    <tr>
+        <td>
+             @item.GeoLocationLat
+        </td>
+        <td>
+             @item.GeoLocationLong
+        </td>
+        
+        <td>
+             @item.GeoLocationTimeStamp
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GeoLocationId }) |
+            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
+            @Html.ActionLink("Delete", "Delete", new { id=item.GeoLocationId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Fall Record</b>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FallTimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FallLat)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.FallLong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FallResult)
+        </th>
+        
+        
+    </tr>
+
+@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+    <tr>
+        <td>
+             @item.FallTimeStamp
+        </td>
+        <td>
+             @item.FallLat
+        </td>
+        
+        <td>
+             @item.FallLong
+        </td>
+        <td>
+             @item.FallResult
+        </td>
+        
+        
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FallId }) |
+            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
+            @Html.ActionLink("Delete", "Delete", new { id=item.FallId })
+        </td>
+    </tr>
+}
+
+</table>

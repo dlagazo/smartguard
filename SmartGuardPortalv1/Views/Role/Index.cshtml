@@ -1,18 +1,29 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+    
 }
 
-Webpage Content Management <br />
-Role Management<br />
-User Management<br />
-Reports <br />
-Feature Management<br />
-Download and Version Management<br /> 
-Billing <br />
-
+<b>@Html.ActionLink("Dashboard", "Administrator", "Home") > Users and Roles</b>
+<br />
+@Html.ActionLink("Create New", "AdminAccount", "Account")
+@{
+    foreach(string role in Roles.GetAllRoles())
+    {
+        <b>@role</b> 
+        <br /> 
+        
+       
+        foreach(string user in Roles.GetUsersInRole(role))
+        {
+            @user
+            <br />
+        }
+        <br />
+        
+    }
+}
 
     
 
 
-<h2>Index</h2>
+

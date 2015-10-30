@@ -14,11 +14,13 @@ namespace SmartGuardPortalv1.Models
         public List<Subscription> subscriptions { get; set; }
         public List<Response> responses { get; set; }
 
-        public SyncData(List<Contact> _contacts, List<Place> _places, List<string> _roles, List<Response> _responses)
+        public SyncData(List<Contact> _contacts, List<Place> _places, List<string> _roles, 
+            List<Memory> _memories, List<Response> _responses)
         {
             contacts = _contacts;
             places = _places;
             roles = _roles;
+            memories = _memories;
             responses = _responses;
         }
 

@@ -4,23 +4,16 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<b>Dashboard > @Html.ActionLink("My Contacts", "Index")</b>
+<br />
+<br />
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Contact</legend>
+<b>Are you sure you want to delete @Model.FirstName @Model.LastName from your contacts list?</b>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FirstName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FirstName)
-    </div>
-</fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Delete" /> 
+        
     </p>
 }

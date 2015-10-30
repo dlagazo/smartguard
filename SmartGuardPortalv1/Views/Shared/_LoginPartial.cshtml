@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
         Hello @User.Identity.Name! @Html.ActionLink("change password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
-        @Html.ActionLink("profile", "Profile", "Account")
+        @*Html.ActionLink("profile", "Profile", "Account") *@
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>

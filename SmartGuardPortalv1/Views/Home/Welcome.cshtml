@@ -2,31 +2,63 @@
     
 }
 
-<h2>@ViewBag.Title</h2>
+<div align="center"><b>Dashboard</b></div>
 
-<div align="left">
+
+<div align="center">
     
     <br />
     <br />
     <table>
         <tr>
+            <td><img src="http://findicons.com/files/icons/88/mac/128/setting.png" /></td>
+            <td><img src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-2/128/contact-icon.png" /></td>
+            <td><img src="https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/256/Google_Places.png" width="128" height="128"/></td>
+            <td><img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/appointment_reminders.png" /></td>
+        </tr>
+        <tr align="center">
+
             <td>
-                @Html.ActionLink("My Modules","Module", "Home") <br /> 
-                @Html.ActionLink("My Contacts","Index", "Contact") <br /> 
-                @Html.ActionLink("My Places","Index", "Place") <br /> 
-                @Html.ActionLink("My Memories","Index", "Memory") <br /> 
-                @Html.ActionLink("My Medical Records","Index", "Record") <br /> 
-                @Html.ActionLink("My Smartguard","Index", "Contact") <br /> 
-                @Html.ActionLink("My Subscription","Index", "Contact") <br /> 
-                @Html.ActionLink("My Activity & Fitness","Index", "Contact") <br /> 
-                MANUAL/FUNCTION OVERVIEW     <br /><br />
-                CUSTOMER SUPPORT <br />
-                
+                My Settings@*Html.ActionLink("My Settings","Module", "Home")*@
             </td>
             <td>
-                
+                @Html.ActionLink("My Contacts","Index", "Contact")
+            </td>
+            <td> 
+                @Html.ActionLink("My Places","Index", "Place") 
+            </td>
+            <td> 
+                @Html.ActionLink("My Memories","Index", "Memory")  
             </td>
             
+            
+        </tr>
+        <tr>
+            <td><br /></td>
+        </tr>
+
+        <tr>
+            <td><img src="http://www.nuemd.com/sites/default/files/icons/icon-electronic-hr_0.png" width="128" height="128"/></td>
+            <td><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/75890-200.png" width="128" height="128" /></td>
+            <td><img src="http://t2.ftcdn.net/jpg/00/31/12/13/400_F_31121390_Phsd2Ax52pYAHPtGfI27zLThao9qfBqv.jpg" width="128" height="128"/></td>
+            <td><img src="https://cdn3.iconfinder.com/data/icons/bodybuilding/500/barbell_fitnessstrength_weight_exercise_expander_fitness_trainer_fitness_room_gym_gymnastic_health-512.png" width="128" height="128"/></td>
+        </tr>
+
+        <tr align="center">
+            <td>
+                My Records @*Html.ActionLink("My Medical Records","Index", "Record") *@
+            </td>
+            <td>
+                @Html.ActionLink("My Tracker","Index", "GeoLocation") 
+            </td>
+            <td>  
+                My Subscription @*Html.ActionLink("My Subscription","Index", "Contact") *@
+            </td>
+            <td>
+                My Fitness @*Html.ActionLink("My Activity & Fitness","Index", "Contact") *@
+            </td>
+
+
         </tr>
         
     </table>

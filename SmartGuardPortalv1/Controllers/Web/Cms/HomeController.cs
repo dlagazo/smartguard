@@ -17,18 +17,18 @@ namespace SmartGuardPortalv1.Controllers
         
         public ActionResult Index()
         {
-            /*
-            if(WebSecurity.CurrentUserName!= null)
+            
+            if(WebSecurity.IsAuthenticated)
             {
                 if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Administrator"))
-                    return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Administrator", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
-                    return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Welcome", "Home", new { userName = WebSecurity.CurrentUserName });
                 if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
                     return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
             }
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            */
+            
             return View();
         }
 
@@ -82,7 +82,23 @@ namespace SmartGuardPortalv1.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult Authorized()
+        public ActionResult Administrator()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "LocalAdministrator")]
+        public ActionResult Local()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "ContentAdministrator")]
+        public ActionResult Content()
         {
             ViewBag.Message = "Your contact page.";
 

@@ -1,0 +1,55 @@
+﻿@model SmartGuardPortalv1.Models.Country
+
+@{
+    ViewBag.Title = "Create";
+    //int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<h2>Create a Country</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CountryId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CountryId)
+            @Html.ValidationMessageFor(model => model.CountryId)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CountryName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CountryName)
+            @Html.ValidationMessageFor(model => model.CountryName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdminRole)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AdminRole)
+            @Html.ValidationMessageFor(model => model.AdminRole)
+        </div>
+        
+
+        
+        
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

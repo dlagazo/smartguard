@@ -1,7 +1,7 @@
 ﻿@model SmartGuardPortalv1.Models.RegisterModel
 @{
     
-
+    int loginType = Request.Params["login_type"].AsInt();
     var listItems = new List<SelectListItem> 
     { 
               new SelectListItem { Text = "Mr.", Value = "0" }, 
@@ -9,16 +9,36 @@
               new SelectListItem { Text = "Mrs.", Value = "2" }, 
               new SelectListItem { Text = "Dr.", Value = "3" },
     };
+
+    var listCountries = new List<SelectListItem>();
+
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+    foreach(SmartGuardPortalv1.Models.Country country in db.Countries)
+    {
+        listCountries.Add(new SelectListItem{ Text = country.CountryName, Value = country.CountryId});
+    }
     
 }
 
-<h2>@ViewBag.Title</h2>
+<b>@ViewBag.Title</b>
 
-<p>Welcome to the Smartguard Web Portal!</p>
-<p>Congratulations on your new Smartguard!</p>
-<p>Please enter your personal information and pick your new username and password.</p>
-<p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
+@{
+    if(loginType == 0)
+    {
+        <p>Welcome to the Smartguard Web Portal!</p>
+        <p>Congratulations on your new Smartguard!</p>
+        <p>Please enter your personal information and pick your new username and password.</p>
+        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
+    }
+    else if(loginType == 1)
+    {
+        <p>Welcome to the Smartguard Web Portal!</p>
+        <p>Thank you for registering as a contact person for our Smartguard users!</p>
+        <p>Please enter your personal information and pick your new username and password.</p>
+        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
+    }
 
+}
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -29,7 +49,7 @@
            <table>
                <tr>
                    <td>
-                       @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
+                        @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
                         @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
                 <br />
             
@@ -53,15 +73,21 @@
                             <tr>
                                 <td>@Html.LabelFor(m => m.FkTitle) @Html.DropDownList("FkTitle",  new SelectList(listItems , "Value" , "Text"))</td>
                                 <td>@Html.LabelFor(m => m.Gender) @Html.CheckBoxFor(m => m.Gender)</td>
-                                <td>@Html.LabelFor(m => m.Hand) @Html.CheckBoxFor(m => m.Hand)</td>
+                                @{
+                                    if(loginType == 0)
+                                    {
+                                        <td>@Html.LabelFor(m => m.Hand) @Html.CheckBoxFor(m => m.Hand)</td>
+                                    }
+                                }
                             </tr>
                         </table>
                         
                         
                         @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
                         @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
-                        @Html.LabelFor(m => m.Country) @Html.TextBoxFor(m => m.Country)
+                        @Html.LabelFor(m => m.Country) @Html.DropDownList("Country",  new SelectList(listCountries , "Value" , "Text"))
                         @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
+                        @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
                         <br />
                         <input type="submit" value="Register" />
                    </td>

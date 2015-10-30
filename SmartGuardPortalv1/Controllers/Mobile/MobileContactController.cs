@@ -18,20 +18,46 @@ namespace SmartGuardPortalv1.Controllers
         //public string Get(string user)
         public HttpResponseMessage Get()
         {
+            
             string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
             //string json_data = JsonConvert.SerializeObject(arr);
             List<Response> responses = new List<Response>();
             responses.Add(new Response("Result", "Success"));
-            
+             
             
             int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
+            
+            
+            //int title = db.UserInfos.Where(i => i.fkUserId == userId).First().FkTitle;
+            string firstname = db.UserProfiles.Where(i => i.UserId == userId).First().FirstName;
+            string lastname = db.UserProfiles.Where(i => i.UserId == userId).First().LastName;
+            //string salute;
+            /*
+            if(title == 1)
+                salute = "Mr.";
+            else if(title == 2)
+                salute = "Mrs.";
+            else if(title == 3)
+                salute = "Ms.";
+            else if(title == 4)
+                salute = "Dr.";
+            else
+                salute = " ";
+             * */
+            responses.Add(new Response("Name", firstname + " " + lastname));
+            
             //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
             //string json_data = JsonConvert.SerializeObject(arr);
             List<Contact> contacts = new List<Contact>();
             contacts = db.Contacts.Where(i => i.fkUserId == userId).ToList();
+            
             List<Place> places = new List<Place>();
+            places = db.Places.Where(i => i.fkUserId == userId).ToList();
 
-            SyncData sd = new SyncData(contacts, places, roles.ToList(), responses);
+            List<Memory> memories = new List<Memory>();
+            memories = db.Memories.Where(i => i.fkUserId == userId).ToList();
+
+            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, responses);
 
 
 

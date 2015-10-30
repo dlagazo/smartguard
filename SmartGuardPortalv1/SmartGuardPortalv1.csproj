@@ -232,14 +232,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
-    <Compile Include="Controllers\PlaceController.cs" />
-    <Compile Include="Controllers\FeatureController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MobileContactController.cs" />
-    <Compile Include="Controllers\MobileController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\Web\Cms\AccountController.cs" />
+    <Compile Include="Controllers\Web\Features\ContactController.cs" />
+    <Compile Include="Controllers\Web\Features\FallController.cs" />
+    <Compile Include="Controllers\Web\Features\GeoLocationController.cs" />
+    <Compile Include="Controllers\Mobile\MobileFallController.cs" />
+    <Compile Include="Controllers\Mobile\MobileGeoLocationController.cs" />
+    <Compile Include="Controllers\Web\Cms\SubscriptionController.cs" />
+    <Compile Include="Controllers\Web\Cms\CountryController.cs" />
+    <Compile Include="Controllers\Web\Features\MemoryController.cs" />
+    <Compile Include="Controllers\Web\Features\PlaceController.cs" />
+    <Compile Include="Controllers\Web\Cms\FeatureController.cs" />
+    <Compile Include="Controllers\Web\Cms\HomeController.cs" />
+    <Compile Include="Controllers\Mobile\MobileContactController.cs" />
+    <Compile Include="Controllers\Mobile\MobileController.cs" />
+    <Compile Include="Controllers\Web\Cms\RoleController.cs" />
     <Compile Include="Filters\BasicAuthorizeAttribute.cs" />
     <Compile Include="Filters\BasicHttpAuthorizeAttribute .cs" />
     <Compile Include="Filters\FeatureHelper.cs" />
@@ -325,12 +332,42 @@
     <Compile Include="Migrations\201510061221283_Initial18.Designer.cs">
       <DependentUpon>201510061221283_Initial18.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510080111488_Initial19.cs" />
+    <Compile Include="Migrations\201510080111488_Initial19.Designer.cs">
+      <DependentUpon>201510080111488_Initial19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510080139409_Initial20.cs" />
+    <Compile Include="Migrations\201510080139409_Initial20.Designer.cs">
+      <DependentUpon>201510080139409_Initial20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510080225261_Initial21.cs" />
+    <Compile Include="Migrations\201510080225261_Initial21.Designer.cs">
+      <DependentUpon>201510080225261_Initial21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510080635207_Initial22.cs" />
+    <Compile Include="Migrations\201510080635207_Initial22.Designer.cs">
+      <DependentUpon>201510080635207_Initial22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510080647239_Initial23.cs" />
+    <Compile Include="Migrations\201510080647239_Initial23.Designer.cs">
+      <DependentUpon>201510080647239_Initial23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510090540142_Initial24.cs" />
+    <Compile Include="Migrations\201510090540142_Initial24.Designer.cs">
+      <DependentUpon>201510090540142_Initial24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510300648054_Initial25.cs" />
+    <Compile Include="Migrations\201510300648054_Initial25.Designer.cs">
+      <DependentUpon>201510300648054_Initial25.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\SyncData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\Austria-icon.png" />
+    <Content Include="Content\images\Germany-icon.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -370,6 +407,8 @@
     <None Include="Properties\PublishProfiles\ateneoinnovation - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -431,14 +470,14 @@
     <Content Include="Views\Home\Module.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Home\FallModule.cshtml" />
-    <Content Include="Views\Home\Authorized.cshtml" />
+    <Content Include="Views\Home\Administrator.cshtml" />
     <Content Include="Views\Feature\Index.cshtml" />
     <Content Include="Views\Feature\Details.cshtml" />
     <Content Include="Views\Feature\Create.cshtml" />
     <Content Include="Views\Feature\Edit.cshtml" />
     <Content Include="Views\Feature\Delete.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
-    <Content Include="Views\Role\RoleManagement.cshtml" />
     <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Contact\Create.cshtml" />
     <Content Include="Views\Contact\Delete.cshtml" />
@@ -452,6 +491,33 @@
     <Content Include="Views\Place\Details.cshtml" />
     <Content Include="Views\Place\Edit.cshtml" />
     <Content Include="Views\Place\Index.cshtml" />
+    <Content Include="Views\Memory\Create.cshtml" />
+    <Content Include="Views\Memory\Delete.cshtml" />
+    <Content Include="Views\Memory\Details.cshtml" />
+    <Content Include="Views\Memory\Edit.cshtml" />
+    <Content Include="Views\Memory\Index.cshtml" />
+    <Content Include="Views\Country\Create.cshtml" />
+    <Content Include="Views\Country\Delete.cshtml" />
+    <Content Include="Views\Country\Details.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Home\Content.cshtml" />
+    <Content Include="Views\Subscription\Create.cshtml" />
+    <Content Include="Views\Subscription\Delete.cshtml" />
+    <Content Include="Views\Subscription\Details.cshtml" />
+    <Content Include="Views\Subscription\Edit.cshtml" />
+    <Content Include="Views\Subscription\Index.cshtml" />
+    <Content Include="Views\Account\AdminAccount.cshtml" />
+    <Content Include="Views\GeoLocation\Create.cshtml" />
+    <Content Include="Views\GeoLocation\Delete.cshtml" />
+    <Content Include="Views\GeoLocation\Details.cshtml" />
+    <Content Include="Views\GeoLocation\Edit.cshtml" />
+    <Content Include="Views\GeoLocation\Index.cshtml" />
+    <Content Include="Views\Fall\Create.cshtml" />
+    <Content Include="Views\Fall\Delete.cshtml" />
+    <Content Include="Views\Fall\Details.cshtml" />
+    <Content Include="Views\Fall\Edit.cshtml" />
+    <Content Include="Views\Fall\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -516,6 +582,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510061221283_Initial18.resx">
       <DependentUpon>201510061221283_Initial18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080111488_Initial19.resx">
+      <DependentUpon>201510080111488_Initial19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080139409_Initial20.resx">
+      <DependentUpon>201510080139409_Initial20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080225261_Initial21.resx">
+      <DependentUpon>201510080225261_Initial21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080635207_Initial22.resx">
+      <DependentUpon>201510080635207_Initial22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510080647239_Initial23.resx">
+      <DependentUpon>201510080647239_Initial23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510090540142_Initial24.resx">
+      <DependentUpon>201510090540142_Initial24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510300648054_Initial25.resx">
+      <DependentUpon>201510300648054_Initial25.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

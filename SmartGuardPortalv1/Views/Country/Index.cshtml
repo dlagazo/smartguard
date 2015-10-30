@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Country>
+
+@{
+    ViewBag.Title = "Index";
+    //int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > Countries</b>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CountryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminRole)
+        </th>
+       
+        
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+             @item.CountryId
+        </td>
+        <td>
+             @item.CountryName
+        </td>
+        <td>
+             @item.AdminRole
+        </td>
+        
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CountryId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CountryId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CountryId })
+        </td>
+    </tr>
+}
+
+</table>

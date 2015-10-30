@@ -29,21 +29,33 @@ namespace SmartGuardPortalv1.Migrations
                 Roles.CreateRole("User");
             if (!Roles.RoleExists("Contact"))
                 Roles.CreateRole("Contact");
-            if (!Roles.RoleExists("DE-Administrator"))
-                Roles.CreateRole("DE-Administrator");
-            if (!Roles.RoleExists("AT-Administrator"))
-                Roles.CreateRole("AT-Administrator");
+            if (!Roles.RoleExists("LocalAdministrator"))
+                Roles.CreateRole("LocalAdministrator");
+            if (!Roles.RoleExists("ContentAdministrator"))
+                Roles.CreateRole("ContentAdministrator");
 
-            if (!WebSecurity.UserExists("Smartguardadmin"))
+            if (!WebSecurity.UserExists("administrator"))
             {
 
-                WebSecurity.CreateUserAndAccount("Smartguardadmin", "password");
+                WebSecurity.CreateUserAndAccount("administrator", "password");
             }
 
-            if (!Roles.GetRolesForUser("Smartguardadmin").Contains("Administrator"))
+            if (!Roles.GetRolesForUser("administrator").Contains("Administrator"))
             {
-                Roles.AddUsersToRoles(new[] { "Smartguardadmin" }, new[] { "Administrator" });
+                Roles.AddUsersToRoles(new[] { "administrator" }, new[] { "Administrator" });
             }
+
+            if (!WebSecurity.UserExists("content-admin"))
+            {
+
+                WebSecurity.CreateUserAndAccount("content-admin", "password");
+            }
+
+            if (!Roles.GetRolesForUser("content-admin").Contains("ContentAdministrator"))
+            {
+                Roles.AddUsersToRoles(new[] { "content-admin" }, new[] { "ContentAdministrator" });
+            }
+
            
         }
     }

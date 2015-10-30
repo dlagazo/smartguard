@@ -14,7 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FeatureName)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.FeatureFxns)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -23,8 +25,11 @@
             @Html.DisplayFor(modelItem => item.FeatureName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.FeatureFxns)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.FeatureId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FeatureId }) |
+            @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
             @Html.ActionLink("Delete", "Delete", new { id=item.FeatureId })
         </td>
     </tr>
