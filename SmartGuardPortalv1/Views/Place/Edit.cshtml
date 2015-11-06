@@ -44,7 +44,7 @@
 </script>
 
 
-<b> @Html.ActionLink("Dashboard", "Welcome", "Home") > @Html.ActionLink("My Places", "Index", "Place") > Edit Place</b>
+<b> @Html.ActionLink("Dashboard", "AllModules", "Home") > @Html.ActionLink("Navigation", "Index", "Place") > Edit Navigation</b>
 <br />
 <br />
 
@@ -84,7 +84,16 @@
                         @Html.LabelFor(model => model.PlaceName)
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.PlaceName)
+                        @{
+                            if (Model.PlaceName != "Home")
+                            {
+                                @Html.EditorFor(model => model.PlaceName)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.PlaceName)
+                            }
+                        }
                         @Html.ValidationMessageFor(model => model.PlaceName)
                     </div>
         

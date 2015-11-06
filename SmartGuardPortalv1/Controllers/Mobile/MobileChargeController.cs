@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Data.Entity;
 using System.Web.Http;
 using SmartGuardPortalv1.Filters;
 using SmartGuardPortalv1.Models;
 using System.Text;
-using WebMatrix.WebData;
+using System.Threading;
 
 namespace SmartGuardPortalv1.Controllers
 {
-    public class MobileContactController : ApiController
+    public class MobileChargeController : ApiController
     {
-        
-
-        
+        private UsersContext db = new UsersContext();
         [BasicAuthorizeAttribute(1, Operations.Read, "User")]
         //public IQueryable<item> Get(string user)
         //public string Get(string user)
         public HttpResponseMessage Get()
         {
-            if (!WebMatrix.WebData.WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-
-            }
-            UsersContext db = new UsersContext();
-            string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
+            
+            //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
             //string json_data = JsonConvert.SerializeObject(arr);
-            List<Response> responses = new List<Response>();
-            responses.Add(new Response("Result", "Success"));
+            //List<Response> responses = new List<Response>();
+            //responses.Add(new Response("Result", "Success"));
              
             
             int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
@@ -52,25 +46,48 @@ namespace SmartGuardPortalv1.Controllers
             else
                 salute = " ";
              * */
-            responses.Add(new Response("Name", firstname + " " + lastname));
+            //responses.Add(new Response("Name", firstname + " " + lastname));
             
             //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
             //string json_data = JsonConvert.SerializeObject(arr);
-            List<Contact> contacts = new List<Contact>();
-            contacts = db.Contacts.Where(i => i.fkUserId == userId).ToList();
+            GeoLocation geo = db.GeoLocations.First(i=> i.fkUserId == userId);
+            //contacts = db.Contacts.Where(i => i.fkUserId == userId).ToList();
             
-            List<Place> places = new List<Place>();
-            places = db.Places.Where(i => i.fkUserId == userId).ToList();
-
-            List<Memory> memories = new List<Memory>();
-            memories = db.Memories.Where(i => i.fkUserId == userId).ToList();
-
-            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, responses);
+           
 
 
 
-            return Request.CreateResponse(HttpStatusCode.OK, sd);
+            return Request.CreateResponse(HttpStatusCode.OK, geo);
 
+        }
+
+        [HttpPost]
+        //public HttpResponseMessage Set(GeoLocation geo)
+        public HttpResponseMessage Set(ChargeData charge)
+        {
+            
+            int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
+            
+
+            if (ModelState.IsValid)
+            {
+
+                
+                   
+                //db..Add(temp);
+
+
+                db.Entry(charge).State = EntityState.Modified;
+                db.SaveChanges();
+                
+                
+                return Request.CreateResponse(HttpStatusCode.OK, charge);
+                    
+                
+            }
+            
+            
+            return Request.CreateResponse(HttpStatusCode.OK, charge);
         }
 
         public string getUserCredential(string auth)

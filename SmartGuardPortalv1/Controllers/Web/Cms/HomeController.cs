@@ -23,7 +23,7 @@ namespace SmartGuardPortalv1.Controllers
                 if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Administrator"))
                     return RedirectToAction("Administrator", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
-                    return RedirectToAction("Welcome", "Home", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
                 if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
                     return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
             }
@@ -33,6 +33,20 @@ namespace SmartGuardPortalv1.Controllers
         }
 
         public ActionResult Landing()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult AllModules()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Emergency()
         {
             ViewBag.Message = "Your app description page.";
 

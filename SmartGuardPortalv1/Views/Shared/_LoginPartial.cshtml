@@ -1,6 +1,34 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@{
+    string user = "administrator";
+    if (Request.IsAuthenticated && Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
+    {
+        SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+        int userId = (int)WebSecurity.CurrentUserId;
+        SmartGuardPortalv1.Models.UserProfile profile = context.UserProfiles.Find(userId);
+        SmartGuardPortalv1.Models.UserInformation info = context.UserInfos.FirstOrDefault(m => m.fkUserId == userId);
+        string title = "";
+        if (info.FkTitle == 0)
+        {
+            title = "Mr.";
+        }
+        else if (info.FkTitle == 1)
+        {
+            title = "Mrs.";
+        }
+        else if (info.FkTitle == 2)
+        {
+            title = "Ms.";
+        }
+        user = title + " " + profile.FirstName + " " + profile.LastName + "!"; 
+    }
+    
+}
+<br /><br />
+
+
+@if (Request.IsAuthenticated) {
     <text>
-        Hello @User.Identity.Name! @Html.ActionLink("change password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+        Hello @Html.ActionLink(@user, "Profile", "Account")
         @*Html.ActionLink("profile", "Profile", "Account") *@
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()

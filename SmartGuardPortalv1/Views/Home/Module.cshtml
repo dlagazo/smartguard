@@ -1,35 +1,58 @@
 ﻿@{
-    ViewBag.Title = "My Modules";
+    
 }
 <br /><br />
-<b>@Html.ActionLink("Home","Welcome","Home") > My Modules</b>
-<div align="center">
+@*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
+
+<div>
 
     
     <br />
     <br />
-    <table>
+    <table width="100%">
         <tr>
-            <td>
-                @Html.ActionLink("Fall Alarm","FallModule","Home") <br />
-         
-                EMERGENCY ALARM <br />
-                DAY RHYTHM CONTROL <br />
-                FINDING LOST SMARTGUARD <br />
-                WEARING AND CHARGING CONTROL <br />
-                COMMUNICATION <br />
-                DAY RHYTHM CONTROL <br />
+            <td align="left">
+                
+                
             </td>
-            <td>
-                HOME AREA ALARM <br />
-                DOOR MANAGEMENT <br />
-                MEMORY AND REMINDER <br />
-                NAVIGATION <br />
-                MEDICAL DATA MANAGEMENT <br />
-                PERSONAL HEALTH RECORD <br />
-                SERVICE AND UPDATES <br />
+            <td align="right">
+                <b>My Smartguard</b>
+                <br />
+                % Battery
+                <br />
+                _ hrs Activity
+                <br />
+                Last full charge:
+                <br />
+
             </td>
             
+        </tr>
+        <tr>
+            <td align="left">
+                <a href='@Url.Action("AllModules", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_MyModules.png")' width="200px"/>
+                </a>
+                <br />
+                <a href='@Url.Action("Index", "Contact")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_MyContact.png")' width="200px"/>
+                </a>
+                <br />
+                <a href='@Url.Action("Index", "Contact")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_Manual.png")' width="200px"/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_Support.png")' width="200px"/>
+                </a>
+                
+                
+                
+               
+            </td>
+            <td>
+
+            </td>
         </tr>
         
     </table>

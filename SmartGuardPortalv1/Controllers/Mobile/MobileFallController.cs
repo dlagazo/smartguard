@@ -14,13 +14,13 @@ namespace SmartGuardPortalv1.Controllers
 {
     public class MobileFallController : ApiController
     {
-        private UsersContext db = new UsersContext();
+        
         [BasicAuthorizeAttribute(1, Operations.Read, "User")]
         //public IQueryable<item> Get(string user)
         //public string Get(string user)
         public HttpResponseMessage Get()
         {
-            
+            UsersContext db = new UsersContext();
             //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
             //string json_data = JsonConvert.SerializeObject(arr);
             //List<Response> responses = new List<Response>();
@@ -65,25 +65,28 @@ namespace SmartGuardPortalv1.Controllers
         //public HttpResponseMessage Set(GeoLocation geo)
         public HttpResponseMessage Set(List<Fall> falls)
         {
-            /*
+            UsersContext db = new UsersContext();
             int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
             
 
             if (ModelState.IsValid)
             {
 
+                foreach (Fall fall in falls)
+                {
+                    fall.fkUserId = userId;
+                    db.Falls.Add(fall);
+                }
 
-
-                geo.fkUserId = userId;
-                db.GeoLocations.Add(geo);
+                
                     
                 
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.OK, geo);
+                return Request.CreateResponse(HttpStatusCode.OK, falls);
                     
                 
             }
-            */
+            
             
             return Request.CreateResponse(HttpStatusCode.OK, falls);
         }

@@ -1,0 +1,95 @@
+﻿@{
+    
+}
+<b> @Html.ActionLink("Main Menu", "Module", "Home") > Modules </b>
+<br /><br />
+@*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
+
+<div>
+
+    
+    <br />
+    <br />
+    <table width="100%">
+        
+        <tr>
+            <td align="right">
+                <a href='@Url.Action("Index", "Fall")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleFall.png")' width="200px" 
+                        title="The Smartguard recognises when you fall down and sends an emergency signal to your contact persons immediately."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Emergency", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleEmergency.png")' width="200px" 
+                        title="If you feel bad and need help use the emergency button for instant connection with one of your contact persons." />
+                </a>
+                <br />
+                <a href='@Url.Action("Index", "Memory")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleActivity.png")' width="200px"
+                        title="Your Smartguard detects movement which helps to guarantee your safety if something irregular occurs." />
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleLost.png")' width="200px"
+                        title="If you lost your Smartguard use this button to locate it."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleWearing.png")' width="200px"
+                        title="Your Smartguard looks out for itself and reminds you to care for and use it properly."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleCom.png")' width="200px"
+                        title="Whenever you want to communicate with someone, use the communication button to start a call with your Smartguard."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleDay.png")' width="200px"
+                        title="Your Smartguard can help you to remember your medication doses and daily rituals with its coaching function."/>
+                </a>
+                
+                
+               
+            </td>
+            <td align="left">
+                <a href='@Url.Action("FallModule", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleHome.png")' width="200px"
+                        title="If you end up somewhere you don’t know your way around, the Smartguard helps you to find back."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Index", "Place")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleNav.png")' width="200px"
+                        title="If you want to go somewhere the Smartguard can help you to find your way."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Index", "Contact")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleMem.png")' width="200px"
+                        title="If you want to keep everything organised, your Smartguard helps you with its reminder function."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleDoor.png")' width="200px"
+                        title="If you cannot open the door in an emergency, the Smartguard can do this for you to assist the emergency services."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleMedical.png")' width="200px"
+                        title="The Smartguard helps you to remember your medical measurements and keeps the data organised in this portal."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModulePersonal.png")' width="200px"
+                        title="If you need your personal health record in an emergency, Smartguard helps you to give it to the right people at the right time."/>
+                </a>
+                <br />
+                <a href='@Url.Action("Support", "Home")'>
+                    <img src='@Url.Content("~/Content/images/buttons/btn_ModuleService.png")' width="200px"
+                        title="To keep your Smartguard functional with todays technologies, it is updated regularly."/>
+                </a>
+            </td>
+        </tr>
+        
+    </table>
+
+</div>

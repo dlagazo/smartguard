@@ -25,6 +25,7 @@ namespace SmartGuardPortalv1.Models
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<GeoLocation> GeoLocations { get; set; }
         public DbSet<Fall> Falls { get; set; }
+        public DbSet<ChargeData> Charges { get; set; }
     }
 
     [Table("UserInformation")]
@@ -165,6 +166,16 @@ namespace SmartGuardPortalv1.Models
         public int MemoryFreq { get; set; }
         [Display(Name = "Instruction")]
         public string MemoryInstructions { get; set; }
+        public string MemoryDates { get; set; }
+    }
+
+    [Table("ChargeTable")]
+    public class ChargeData
+    {
+        public int ChargeDataId { get; set; }
+        public DateTime ChargeTimeStamp { get; set; }
+        public int fkUserId { get; set; }
+        public int ChargePct { get; set; }
     }
 
     [Table("ContactTable")]

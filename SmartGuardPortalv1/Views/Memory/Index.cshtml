@@ -5,38 +5,32 @@
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Memories</b>
+<b>@Html.ActionLink("Dashboard", "AllModules", "Home") > Activity Check </b>
+<br />
+<br />
+<p>
+    If you want to use this module you need to define the time windows when you normally are active during your day. Therefore please enter your 
+waking up and going to bed times for every day of the week into the form down below.
+When the Smartguard is not taken out of its charging station/doesn’t move within your active times, it will ask you if everything is okay. When you 
+don’t answer or call for “Help” it will call the next available contact person to inform about your situation. This helps to generate a fast emergency 
+response if something happened to you which is the reason for your inactivity.
+</p>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <b>@Html.ActionLink("Create New", "Create")</b>
 </p>
 <table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MemoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MemoryDate)
-        </th>
-        <th>
-            Remind
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MemoryInstructions)
-        </th>
-        
-        
-    </tr>
 
 @foreach (var item in Model.Where(i => i.fkUserId == userId)) {
-    <tr>
-        <td>
-             @item.MemoryName
-        </td>
-        <td>
-             @item.MemoryDate
-        </td>
-        <td>
+
+    <tr style="padding-bottom:3px">
+        <td width="70%">
+             <b>Activity: </b>@item.MemoryName
+             <br />
+             <b>Schedule: </b>@item.MemoryDates
+             <br />
+
+             <b>Remind: </b> 
              @{
                  if(@item.MemoryFreq==1)
                  {
@@ -55,16 +49,23 @@
                      <text>Monthly</text>
                  }
               }
+            <br />
+            <b>Instructions: </b> @item.MemoryInstructions
+            <br />
                 
         </td>
-        <td>
-             @item.MemoryInstructions
-        </td>
         
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MemoryId }) |
+        <td width="30%">
+            @Html.ActionLink("Edit", "Edit", new { id=item.MemoryId }) 
+            @Html.ActionLink("Set Alarm", "Details", new { id=item.MemoryId }) 
             @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
-            @Html.ActionLink("Delete", "Delete", new { id=item.MemoryId })
+            @{
+                if(!(item.MemoryName == "Wake" || item.MemoryName == "Sleep") )
+                {
+                    
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MemoryId });
+                }
+            }
         </td>
     </tr>
 }

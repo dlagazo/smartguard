@@ -36,6 +36,21 @@ namespace SmartGuardPortalv1.Controllers
             return View(memory);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(Memory memory)
+        {
+            if (ModelState.IsValid)
+            {
+                //memory.MemoryDates = "Edited";
+                db.Entry(memory).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(memory);
+        }
+
         //
         // GET: /Feature/Create
 
@@ -55,7 +70,8 @@ namespace SmartGuardPortalv1.Controllers
             {
                 db.Memories.Add(memory);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Details/" + memory.MemoryId);
             }
 
             return View(memory);

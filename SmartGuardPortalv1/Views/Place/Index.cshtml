@@ -6,7 +6,7 @@
     
 }
 
-<b>@Html.ActionLink("Dashboard", "Welcome", "Home") > My Places</b>
+<b>@Html.ActionLink("Dashboard", "AllModules", "Home") > My Places</b>
 
 <p>
     @Html.ActionLink("Create a new place", "Create")
@@ -21,7 +21,12 @@
             <b>@item.PlaceName</b> 
             @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) |
             @* Html.ActionLink("Details", "Details", new { id=item.PlaceId }) | *@
-            @Html.ActionLink("Delete", "Delete", new { id=item.PlaceId })
+            @{
+                if(item.PlaceName != "Home")
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id=item.PlaceId })
+                }
+            }
             <br />
             <img src="https://maps.googleapis.com/maps/api/staticmap?center=@item.PlaceLat,@item.PlaceLong&zoom=16&size=600x300&maptype=roadmap
 &markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />

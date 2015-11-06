@@ -1,64 +1,62 @@
-﻿@model SmartGuardPortalv1.Models.Contact
+﻿@model SmartGuardPortalv1.Models.Memory
 
 @{
     ViewBag.Title = "Edit";
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<h2>Edit</h2>
-
+<b>Dashboard > Activity Check > Edit</b>
+<br />
+<br />
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Contact</legend>
+        <legend>Memory</legend>
 
-        @Html.HiddenFor(model => model.ContactId)
+        @Html.HiddenFor(model => model.MemoryId)
         <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
         <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
+            @Html.LabelFor(model => model.MemoryName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
+            @{
+                if (Model.MemoryName == "Wake" || Model.MemoryName == "Sleep")
+                {
+                    @Html.DisplayFor(model => model.MemoryName);
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.MemoryName, new {@class ="form-control", @readonly="true"})
+                }
+            }
+            
+            @Html.ValidationMessageFor(model => model.MemoryName)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
+            @Html.LabelFor(model => model.MemoryDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
+            @Html.EditorFor(model => model.MemoryDate)
+            @Html.ValidationMessageFor(model => model.MemoryDate)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
+            @Html.LabelFor(model => model.MemoryFreq)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
+            @Html.EditorFor(model => model.MemoryFreq)
+            @Html.ValidationMessageFor(model => model.MemoryFreq)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Relationship)
+            @Html.LabelFor(model => model.MemoryInstructions)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Relationship)
-            @Html.ValidationMessageFor(model => model.Relationship)
+            @Html.EditorFor(model => model.MemoryInstructions)
+            @Html.ValidationMessageFor(model => model.MemoryInstructions)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Mobile)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Mobile)
-            @Html.ValidationMessageFor(model => model.Mobile)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Rank)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Rank)
-            @Html.ValidationMessageFor(model => model.Rank)
-        </div>
+        
 
         <p>
             <input type="submit" value="Save" />

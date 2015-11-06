@@ -1,52 +1,158 @@
-﻿@model SmartGuardPortalv1.Models.Contact
+﻿@model SmartGuardPortalv1.Models.Memory
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<h2>Details</h2>
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/js/moment.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.filthypillow.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/jquery.filthypillow.css")">
+   
+<b> Memory > Set Alarm Date & Time</b>
 
-<fieldset>
-    <legend>Feature</legend>
+<table height="300px">
+    <tr>
+        
+        <td valign="top" width="30%">
+            
+                    <div class="editor-label">
+                        <b>Activity:</b> @Html.DisplayFor(model => model.MemoryName)
+                    </div>
+                    
+                   
+                    
+                    <div class="editor-label">
+                        <b>Frequency:</b> @Html.DisplayFor(model => model.MemoryFreq)
+                    </div>
+                    
+                    <div class="editor-label">
+                        <b>Instructions:</b> @Html.DisplayFor(model => model.MemoryInstructions)
+                    </div>
+                    <div class="editor-label">
+                        <b>Schedule:</b> @Html.DisplayFor(model => model.MemoryDates)
+                    </div>
+                    
+                    
+                    
+                    
+               
+            
+        </td>
+        <td valign="top" width="40%">
+            
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FirstName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FirstName)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LastName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LastName)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Mobile)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Mobile)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Email)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Rank)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Rank)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Relationship)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Relationship)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ContactId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            
+            <div class="filthypillow" class="editor-field"></div>
+        
+            <script type="text/javascript">
+                var timeCount = 0;
+                var dateArrayString = [];
+                var dateString = "";
+                var now = moment().subtract("seconds", 1),
+                    later = moment().add("days", 7);
+                $(".filthypillow").filthypillow({
+                    exitOnBackgroundClick: false,
+                    minDateTime: function () {
+                        return now;
+                    }
+                });
+
+                $(".filthypillow").on("fp:save", function (e, dateObj) {
+
+                    //document.getElementById("MemoryDates").value = dateObj;
+                    var element = document.createElement("input");
+                    //Assign different attributes to the element. 
+                    element.type = "button";
+                    element.value = dateObj; // Really? You want the default value to be the type string?
+                    //element.name = type;  // And the name too?
+                    element.id = dateObj;
+                    var AllDates = document.getElementById("Dates");
+                    element.onclick = function () { // Note this is a function
+                        //alert("Delete?");
+                        var x;
+                        var tempDateObj = dateObj
+                        if (confirm("Do you want to delete?") == true) {
+
+                            document.getElementById(dateObj).remove();
+                            dateArrayString.splice(dateArrayString.indexOf(this.id, 1));
+
+                            dateString = dateArrayString;
+                            document.getElementById("MemoryDates").value = dateString;
+                        } else {
+
+                        }
+                    };
+
+                    timeCount++;
+
+                    //Append the element in page (in span).  
+                    dateArrayString.push(dateObj);
+
+                    dateString = dateArrayString;
+                    document.getElementById("MemoryDates").value = dateString;
+                    AllDates.appendChild(element);
+                    var rawDates = document.getElementById("rawDates");
+
+                    //console.info( dateObj );
+                });
+                $(".filthypillow").filthypillow("show");
+
+                window.onload = function () {
+                    document.getElementById("btnClear").onclick = function clear() {
+                        alert("All alarm details deleted");
+                        var dates = document.getElementById("Dates");
+                        while (dates.hasChildNodes()) {
+                            dates.removeChild(dates.lastChild);
+                        }
+                        dateArrayString = [];
+                        dateString = dateArrayString;
+                        document.getElementById("MemoryDates").value = dateString;
+                        //validation code to see State field is mandatory.  
+                    }
+                    document.getElementById("btnShowPicker").onclick = function save() {
+                        alert("Alarm details saved.");
+                        $(".filthypillow").hide();
+                    }
+                }
+
+            </script>
+            
+        </td>
+        <td valign="top" width="30%">
+            Alarm date and time:
+            <br />
+            @using (Html.BeginForm()) 
+             {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <input type="hidden" value="@Model.MemoryId" id="MemoryId" name="MemoryId"/>
+                    <input type="hidden" value="@Model.MemoryName" id="MemoryName" name="MemoryName"/>
+                    <input type="hidden" value="@Model.MemoryFreq" id="MemoryFreq" name="MemoryFreq"/>
+                    <input type="hidden" value="@Model.MemoryInstructions" id="MemoryInstructions" name="MemoryInstructions"/>
+                    <input type="hidden" value="@Model.MemoryDate" id="MemoryDate" name="MemoryDate"/>
+                  
+                    <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
+                    <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+                <input type="button" id="btnClear" value="Clear"/>
+                <input type="submit" id="btnSaveDate" value="Save alarm date and time" />
+             }
+            
+            <div id="Dates"></div>
+            
+            <div id="rawDates"></div>
+            
+        </td>
+        
+    </tr>
+</table>
+
+        
+   
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

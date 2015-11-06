@@ -232,6 +232,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
     <Compile Include="Controllers\Web\Features\FallController.cs" />
@@ -360,14 +361,44 @@
     <Compile Include="Migrations\201510300648054_Initial25.Designer.cs">
       <DependentUpon>201510300648054_Initial25.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510301650106_Initial26.cs" />
+    <Compile Include="Migrations\201510301650106_Initial26.Designer.cs">
+      <DependentUpon>201510301650106_Initial26.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511060842060_Initial27.cs" />
+    <Compile Include="Migrations\201511060842060_Initial27.Designer.cs">
+      <DependentUpon>201511060842060_Initial27.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\SyncData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\js\jquery.filthypillow.css" />
     <Content Include="Content\images\Austria-icon.png" />
+    <Content Include="Content\images\buttons\btn_ModuleActivity.png" />
+    <Content Include="Content\images\buttons\btn_ModuleCom.png" />
+    <Content Include="Content\images\buttons\btn_ModuleDay.png" />
+    <Content Include="Content\images\buttons\btn_ModuleDoor.png" />
+    <Content Include="Content\images\buttons\btn_ModuleEmergency.png" />
+    <Content Include="Content\images\buttons\btn_Manual.png" />
+    <Content Include="Content\images\buttons\btn_ModuleFall.png" />
+    <Content Include="Content\images\buttons\btn_ModuleHome.png" />
+    <Content Include="Content\images\buttons\btn_ModuleLost.png" />
+    <Content Include="Content\images\buttons\btn_ModuleMedical.png" />
+    <Content Include="Content\images\buttons\btn_ModuleMem.png" />
+    <Content Include="Content\images\buttons\btn_ModuleNav.png" />
+    <Content Include="Content\images\buttons\btn_ModulePersonal.png" />
+    <Content Include="Content\images\buttons\btn_ModuleService.png" />
+    <Content Include="Content\images\buttons\btn_ModuleWearing.png" />
+    <Content Include="Content\images\buttons\btn_MyContact.png" />
+    <Content Include="Content\images\buttons\btn_MyModules.png" />
+    <Content Include="Content\images\buttons\btn_Support.png" />
     <Content Include="Content\images\Germany-icon.png" />
+    <Content Include="Content\js\jquery.filthypillow.js" />
+    <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\moment.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -518,9 +549,12 @@
     <Content Include="Views\Fall\Details.cshtml" />
     <Content Include="Views\Fall\Edit.cshtml" />
     <Content Include="Views\Fall\Index.cshtml" />
+    <Content Include="Views\Home\AllModules.cshtml" />
+    <Content Include="Views\Home\Emergency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -603,6 +637,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510300648054_Initial25.resx">
       <DependentUpon>201510300648054_Initial25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510301650106_Initial26.resx">
+      <DependentUpon>201510301650106_Initial26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511060842060_Initial27.resx">
+      <DependentUpon>201511060842060_Initial27.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

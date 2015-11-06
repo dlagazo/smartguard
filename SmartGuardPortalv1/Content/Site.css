@@ -19,7 +19,7 @@ a {
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
     a:link, a:visited,
@@ -108,7 +108,7 @@ h5, h6 {
     .main-content {
         background: url("../Images/accent") no-repeat;
         padding-left: 10px;
-        padding-top: 30px;
+        padding-top: 5px;
     }
 
     .featured + .main-content {
@@ -168,7 +168,7 @@ footer {
         background: none;
         margin: 0;
         padding: 0;
-        text-decoration: underline;
+        /*text-decoration: underline;*/
     }
 
     #login ul {

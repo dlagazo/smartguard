@@ -58,7 +58,13 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
             @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+            @{
+                if (item.Rank != 1)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+                }
+             }
+            
         </td>
     </tr>
 }

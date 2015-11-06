@@ -1,26 +1,74 @@
 ﻿@model SmartGuardPortalv1.Models.UserProfile
 
 @{
-    
+    string user = ""; 
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UserProfile profile = context.UserProfiles.Find(userId);
+    SmartGuardPortalv1.Models.UserInformation info = context.UserInfos.FirstOrDefault(m => m.fkUserId == userId);
+    string title = "";
+    if (info.FkTitle == 0)
+    {
+        title = "Mr.";
+    }
+    else if (info.FkTitle == 1)
+    {
+        title = "Mrs.";
+    }
+    else if (info.FkTitle == 2)
+    {
+        title = "Ms.";
+    }
+    user = title + " " + profile.FirstName + " " + profile.LastName + "!"; 
 }
 
-<h2>@ViewBag.Title</h2>
-
+<b>Dashboard > User Information</b>
+<br />
+<br />
 <fieldset>
     <legend>Feature</legend>
 
     <div class="display-label">
-         @Html.DisplayFor(model => model.FkTitle) @Html.DisplayFor(model => model.FirstName)
+        <b>First Name:</b> @Html.DisplayFor(model => model.FirstName) 
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.LastName)
+        <b>Last Name:</b> @Html.DisplayFor(model => model.LastName)
     </div>
     <div class="display-label">
-         @Html.DisplayFor(model => model.Phone)
+        <b>User Name:</b> @Html.DisplayFor(model => model.UserName)
     </div>
+    <div class="display-label">
+        <b>Birth Date:</b> @info.BirthDate
+    </div>
+    <div class="display-label">
+        <b>Gender:</b> @info.Gender
+    </div>
+    <div class="display-label">
+        <b>Hand:</b> @info.Hand
+    </div>
+    <div class="display-label">
+        <b>Email:</b> @Html.DisplayFor(model => model.Email)
+    </div>
+    <div class="display-label">
+        <b>Country:</b> @Html.DisplayFor(model => model.Country)
+    </div>
+    <div class="display-label">
+        <b>Address:</b> @info.Address
+    </div>
+    <div class="display-label">
+        <b>City:</b> @info.City
+    </div>
+    <div class="display-label">
+        <b>Zip Code:</b> @info.Zip
+    </div>
+    <div class="display-label">
+        <b>Phone number:</b> @info.Phone
+    </div>
+    
     
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("edit", "Edit", new { id=Model.UserId }) |
+    @Html.ActionLink("change password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+        
 </p>

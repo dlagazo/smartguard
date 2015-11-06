@@ -52,7 +52,7 @@ namespace SmartGuardPortalv1.Controllers
             {
                 //return RedirectToLocal(returnUrl);
                 if(Roles.GetRolesForUser(model.UserName).Contains("User"))
-                    return RedirectToAction("Welcome", "Home", new  { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Module", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
                     return RedirectToAction("ContactMain", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
@@ -245,6 +245,49 @@ namespace SmartGuardPortalv1.Controllers
                         ui.Phone = model.Phone;
                         ui.Zip = model.Zip;
                         db.UserInfos.Add(ui);
+
+                        //db.SaveChanges();
+
+                        ChargeData charge = new ChargeData();
+                        charge.ChargePct = 100;
+                        charge.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        charge.ChargeTimeStamp = System.DateTime.Now;
+
+                        Place place = new Place();
+                        place.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        place.PlaceName = "Home";
+                        place.PlaceLat = "48.4620863";
+                        place.PlaceLong = "13.8696551";
+
+                        Contact contact = new Contact();
+                        contact.Email = "primary@smartguard.com";
+                        contact.FirstName = "Primary";
+                        contact.LastName = "Contact";
+                        contact.Rank = 1;
+                        contact.Relationship = "Relationship";
+                        contact.Mobile = "+123456789";
+                        contact.fkUserId = WebSecurity.GetUserId(model.UserName);
+
+                        Memory wake = new Memory();
+                        wake.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        wake.MemoryDate = System.DateTime.Now;
+                        wake.MemoryFreq = 0;
+                        wake.MemoryInstructions = "Please input your wake up settings";
+                        wake.MemoryName = "Wake";
+
+                        Memory sleep = new Memory();
+                        sleep.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        sleep.MemoryDate = System.DateTime.Now;
+                        sleep.MemoryFreq = 0;
+                        sleep.MemoryInstructions = "Please input your sleep settings";
+                        sleep.MemoryName = "Sleep";
+                        
+
+                        db.Charges.Add(charge);
+                        db.Contacts.Add(contact);
+                        db.Memories.Add(wake);
+                        db.Memories.Add(sleep);
+                        db.Places.Add(place);
                         db.SaveChanges();
                     }
                     else if (model.UserType == 1)
