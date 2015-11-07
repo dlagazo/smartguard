@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Video>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<b>Training Videos</b>
+
+<p>
+    @{
+        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator")))
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    }
+</p>
+<table>
+    
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <b>@Html.DisplayFor(modelItem => item.VideoTitle):</b> @Html.DisplayFor(modelItem => item.VideoCaption)
+            <br />
+            <iframe width="560" height="315" src="@Html.DisplayFor(modelItem => item.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+            <br />
+            <br />
+            @Html.DisplayFor(modelItem => item.VideoDescription)
+
+        </td>
+        
+        
+        
+        <td>
+            @{
+                if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator"))){
+                    @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) 
+                    @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
+                    @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
+                
+                }
+            }
+            
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,19 @@
+﻿@model SmartGuardPortalv1.Models.Medical
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<b>Dashboard > @Html.ActionLink("Health Records", "Index")</b>
+<br />
+<br />
+
+<b>Are you sure you want to delete @Model.description created on @Model.TimeStamp from your health records?</b>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> 
+        
+    </p>
+}

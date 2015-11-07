@@ -1,5 +1,9 @@
 ﻿@{
-    
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+
+    int charge = db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargePct;
+    string timeStamp = db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargeTimeStamp.ToShortDateString() +
+        " " + db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargeTimeStamp.ToShortTimeString();
 }
 <br /><br />
 @*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
@@ -18,12 +22,15 @@
             <td align="right">
                 <b>My Smartguard</b>
                 <br />
-                % Battery
+                @charge% Battery
                 <br />
                 _ hrs Activity
                 <br />
-                Last full charge:
+                Last charge & sync:
                 <br />
+                @timeStamp
+                
+
 
             </td>
             

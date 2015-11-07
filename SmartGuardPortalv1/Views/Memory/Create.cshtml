@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Create";
     int userId = (int)WebSecurity.CurrentUserId;
+
+    var listFreq = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Once", Value = "0" }, 
+              new SelectListItem { Text = "Daily", Value = "1" },
+              new SelectListItem { Text = "Weekly", Value = "2" }
+            
+    };
 }
 
    
@@ -26,18 +34,12 @@
                         @Html.EditorFor(model => model.MemoryName)
                         @Html.ValidationMessageFor(model => model.MemoryName)
                     </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.MemoryDate)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.MemoryDate, new { @Value = DateTime.Now, id = "datepicker" })
-                        @Html.ValidationMessageFor(model => model.MemoryDate)
-                    </div>
+                    
                     <div class="editor-label">
                         @Html.LabelFor(model => model.MemoryFreq)
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.MemoryFreq)
+                        @Html.DropDownList("MemoryFreq",  new SelectList(listFreq , "Value" , "Text"))
                         @Html.ValidationMessageFor(model => model.MemoryFreq)
                     </div>
                     <div class="editor-label">

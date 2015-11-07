@@ -270,14 +270,14 @@ namespace SmartGuardPortalv1.Controllers
 
                         Memory wake = new Memory();
                         wake.fkUserId = WebSecurity.GetUserId(model.UserName);
-                        wake.MemoryDate = System.DateTime.Now;
+                        wake.MemoryDates = System.DateTime.Now.ToString();
                         wake.MemoryFreq = 0;
                         wake.MemoryInstructions = "Please input your wake up settings";
                         wake.MemoryName = "Wake";
 
                         Memory sleep = new Memory();
                         sleep.fkUserId = WebSecurity.GetUserId(model.UserName);
-                        sleep.MemoryDate = System.DateTime.Now;
+                        sleep.MemoryDates = System.DateTime.Now.ToString();
                         sleep.MemoryFreq = 0;
                         sleep.MemoryInstructions = "Please input your sleep settings";
                         sleep.MemoryName = "Sleep";

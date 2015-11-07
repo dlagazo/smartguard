@@ -234,7 +234,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
+    <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
+    <Compile Include="Controllers\Web\Features\MedicalController.cs" />
     <Compile Include="Controllers\Web\Features\FallController.cs" />
     <Compile Include="Controllers\Web\Features\GeoLocationController.cs" />
     <Compile Include="Controllers\Mobile\MobileFallController.cs" />
@@ -368,6 +370,26 @@
     <Compile Include="Migrations\201511060842060_Initial27.cs" />
     <Compile Include="Migrations\201511060842060_Initial27.Designer.cs">
       <DependentUpon>201511060842060_Initial27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070410222_Initial28.cs" />
+    <Compile Include="Migrations\201511070410222_Initial28.Designer.cs">
+      <DependentUpon>201511070410222_Initial28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070432145_Initial29.cs" />
+    <Compile Include="Migrations\201511070432145_Initial29.Designer.cs">
+      <DependentUpon>201511070432145_Initial29.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070436206_Initial30.cs" />
+    <Compile Include="Migrations\201511070436206_Initial30.Designer.cs">
+      <DependentUpon>201511070436206_Initial30.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070445069_Initial31.cs" />
+    <Compile Include="Migrations\201511070445069_Initial31.Designer.cs">
+      <DependentUpon>201511070445069_Initial31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070448264_Initial32.cs" />
+    <Compile Include="Migrations\201511070448264_Initial32.Designer.cs">
+      <DependentUpon>201511070448264_Initial32.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -551,6 +573,17 @@
     <Content Include="Views\Fall\Index.cshtml" />
     <Content Include="Views\Home\AllModules.cshtml" />
     <Content Include="Views\Home\Emergency.cshtml" />
+    <Content Include="Views\Medical\Create.cshtml" />
+    <Content Include="Views\Medical\Delete.cshtml" />
+    <Content Include="Views\Medical\Details.cshtml" />
+    <Content Include="Views\Medical\Edit.cshtml" />
+    <Content Include="Views\Medical\Index.cshtml" />
+    <Content Include="Views\Home\Videos.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Video\Delete.cshtml" />
+    <Content Include="Views\Video\Details.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -643,6 +676,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511060842060_Initial27.resx">
       <DependentUpon>201511060842060_Initial27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070410222_Initial28.resx">
+      <DependentUpon>201511070410222_Initial28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070432145_Initial29.resx">
+      <DependentUpon>201511070432145_Initial29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070436206_Initial30.resx">
+      <DependentUpon>201511070436206_Initial30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070445069_Initial31.resx">
+      <DependentUpon>201511070445069_Initial31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070448264_Initial32.resx">
+      <DependentUpon>201511070448264_Initial32.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

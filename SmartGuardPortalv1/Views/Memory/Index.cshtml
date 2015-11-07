@@ -32,19 +32,19 @@ response if something happened to you which is the reason for your inactivity.
 
              <b>Remind: </b> 
              @{
-                 if(@item.MemoryFreq==1)
+                 if(@item.MemoryFreq==0)
                  {
                      <text>Once</text>
                  }
-                 else if (@item.MemoryFreq == 2)
+                 else if (@item.MemoryFreq == 1)
                  {
                      <text>Daily</text>
                  }
-                 else if (@item.MemoryFreq == 3)
+                 else if (@item.MemoryFreq == 2)
                  {
                      <text>Weekly</text>
                  }
-                 else if (@item.MemoryFreq == 4)
+                 else if (@item.MemoryFreq == 3)
                  {
                      <text>Monthly</text>
                  }

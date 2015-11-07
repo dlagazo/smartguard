@@ -71,13 +71,15 @@ namespace SmartGuardPortalv1.Controllers
 
             if (ModelState.IsValid)
             {
-
                 
-                   
+                ChargeData temp = db.Charges.Where(i => i.fkUserId == userId).First();
+                temp.ChargePct = charge.ChargePct;
+                temp.ChargeTimeStamp = charge.ChargeTimeStamp;
+                //charge.fkUserId = userId;
                 //db..Add(temp);
 
 
-                db.Entry(charge).State = EntityState.Modified;
+                db.Entry(temp).State = EntityState.Modified;
                 db.SaveChanges();
                 
                 

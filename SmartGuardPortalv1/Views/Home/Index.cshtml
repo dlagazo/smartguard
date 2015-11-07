@@ -1,30 +1,135 @@
-﻿@{
+﻿@model SmartGuardPortalv1.Models.LoginModel
+@{
     ViewBag.Title = "Home Page";
-    if (Request.IsAuthenticated) {}
+     
 }
 
 <div align="center">
-    <b>SMART GUARD</b>
+    
     <br />
     <br />
-    <table>
-        <tr>
-            <td>
-                <a href="@Url.Action("Login","Account",new { login_type  = 0 })">
-                    <img  src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="256" width="256">
-                </a>
+    <table width="100%">
+        <tr width="100%">
+            <td width="67%" align="center">
+                <b>Existing SMARTGUARD Users</b>
             </td>
-            <td>
-                <a href="@Url.Action("Login","Account",new { login_type  = 1 })">
-                    <img  src="http://cdn.flaticon.com/png/256/21519.png" height="256" width="256">
+            <td width="33%" align="center">
+                I am new here!
+            </td>
+        </tr>
+
+    </table>
+    <table width="100%">
+        <tr align="center" valign="top">
+
+            <td width="33%">
+                <a href="@Url.Action("Login","Account",new { login_type  = 0 })">
+                    <img  src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="128" width="128">
                 </a>
+                <br />
+                <b>USER</b>
+                <br />
+                You are wearing a Smartguard product
+                <br />
+                
+                
+
+                @using (Html.BeginForm("Login","Account")) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        <legend>Log in Form</legend>
+                        <ol>
+                            <li>
+                                
+                                @Html.TextBoxFor(m => m.UserName)
+               
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </li>
+                            <li>
+                                
+                                @Html.PasswordFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </li>
+                            <li>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                            </li>
+                            </ol>
+                            <input type="submit" value="Log in"  style="width:100%"/>
+                        </fieldset>
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 })
+                            <br />
+                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 0 })
+                        </p>
+                    }
+                    
+                
+            </td>
+            <td width="33%">
+                
+                <img  src="http://cdn.flaticon.com/png/256/21519.png" height="128" width="128">
+                
+                <br />
+                <b>CONTACT PERSON</b>
+                <br />
+                You will be contacted in case of emergency
+                <br />
+                
+                
+
+                @using (Html.BeginForm("Login","Account")) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        <legend>Log in Form</legend>
+                        <ol>
+                            <li>
+                             
+                                @Html.TextBoxFor(m => m.UserName)
+               
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </li>
+                            <li>
+                            
+                                @Html.PasswordFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </li>
+                            <li>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                            </li>
+                            </ol>
+                            <input type="submit" value="Log in" style="width:100%"/>
+                        </fieldset>
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 }) 
+                            <br />
+                            @Html.ActionLink("Register here if you don't have an account", "Register", new { login_type  = 0 })
+                        </p>
+                    }
+                   
+            </td>
+            <td width="34%">
+                <form action="http://google.com">
+                    <input type="submit" value="Overview" style="width:100%">
+                </form>
+                <form action="http://smartguardwatch.azurewebsites.net/Video">
+                    <input type="submit" value="Training Videos" style="width:100%">
+                </form>
+                <form action="http://google.com">
+                    <input type="submit" value="Shop" style="width:100%">
+                </form>
+                <form action="http://google.com">
+                    <input type="submit" value="Contact" style="width:100%">
+                </form>
             </td>
             
         </tr>
-        <tr align="center">
-            <td>USER</td>
-            <td>CONTACT PERSON</td>
-        </tr>
+        
     </table>
 
 </div>

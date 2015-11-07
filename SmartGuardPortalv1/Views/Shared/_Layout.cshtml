@@ -10,30 +10,46 @@
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
+           
+                <div>
                     @* <p class="site-title">@Html.ActionLink("SMART GUARD", "Index", "Home")</p> *@
-                    @Html.Partial("_LoginPartial")
                     
-                </div>
-                <div class="float-right">
-                    <section id="login">
+                    <table width="100%">
+                        <tr>
+                            <td width="20%" />
+                            <td width="60%">
+                                @Html.Partial("_LoginPartial")
+                            </td>
+                            <td width="20%">
+                                <section id="login">
                          
-                        <img src="@Url.Content("~/Content/images/Germany-icon.png")" width="50px" onclick="" />
-                        <img src="@Url.Content("~/Content/images/Austria-icon.png")" width="50px" />
-                        @*Request.Headers["Host"]*@
+                                    <img src="@Url.Content("~/Content/images/Germany-icon.png")" width="50px" onclick="" />
+                                    <img src="@Url.Content("~/Content/images/Austria-icon.png")" width="50px" />
+                                    @*Request.Headers["Host"]*@
                         
-                    </section>
-                    
+                                </section>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
+                
+           
         </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
+        <table width="100%">
+            <tr>
+                <td></td>
+                <td width="100%" align="left">
+                    <div id="body">
+                        @RenderSection("featured", required: false)
+                        <section class="content-wrapper main-content clear-fix">
+                            @RenderBody()
+                        </section>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        
         <footer>
             <div class="content-wrapper">
                 <div align="center">

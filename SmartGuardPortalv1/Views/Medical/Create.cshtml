@@ -1,0 +1,69 @@
+﻿@model SmartGuardPortalv1.Models.Medical
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+    int count = db.Contacts.Count(i => i.fkUserId == userId);
+    count++;
+
+    var listAccess = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Only Me", Value = "0" }, 
+              new SelectListItem { Text = "Primary Contacts", Value = "1" },
+              new SelectListItem { Text = "All Contacts", Value = "2" }, 
+            
+    };
+}
+
+<b> @Html.ActionLink("Dashboard", "Welcome", "Home") > @Html.ActionLink("Health Records", "Index", "Medical") > Create a new health record</b>
+<br />
+<br />
+
+@using ((Html.BeginForm("Create", "Medical", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MedicalFile)
+        </div>
+        <div class="editor-field">
+            <input type="file" id="file" name="MedicalFile" />
+            @Html.ValidationMessageFor(model => model.MedicalFile)
+        </div> 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.accessLevel)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("accessLevel",  new SelectList(listAccess , "Value" , "Text"))
+            @Html.ValidationMessageFor(model => model.accessLevel)
+        </div>
+        
+
+        
+        
+        <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Edit";
     int userId = (int)WebSecurity.CurrentUserId;
+
+    var listFreq = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Once", Value = "0" }, 
+              new SelectListItem { Text = "Daily", Value = "1" },
+              new SelectListItem { Text = "Weekly", Value = "2" }
+            
+    };
 }
 
 <b>Dashboard > Activity Check > Edit</b>
@@ -17,35 +25,32 @@
 
         @Html.HiddenFor(model => model.MemoryId)
         <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MemoryName)
-        </div>
+        <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
         <div class="editor-field">
             @{
                 if (Model.MemoryName == "Wake" || Model.MemoryName == "Sleep")
                 {
+                    @Html.LabelFor(model => model.MemoryName)
                     @Html.DisplayFor(model => model.MemoryName);
+                    <input type="hidden" value="@Model.MemoryName" id="MemoryName" name="MemoryName"/>
                 }
                 else
                 {
+                    @Html.LabelFor(model => model.MemoryName)
+                    <br />
                     @Html.EditorFor(model => model.MemoryName, new {@class ="form-control", @readonly="true"})
+                    @Html.ValidationMessageFor(model => model.MemoryName)
                 }
             }
             
-            @Html.ValidationMessageFor(model => model.MemoryName)
+            
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MemoryDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MemoryDate)
-            @Html.ValidationMessageFor(model => model.MemoryDate)
-        </div>
+        
         <div class="editor-label">
             @Html.LabelFor(model => model.MemoryFreq)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MemoryFreq)
+            @Html.DropDownList("MemoryFreq",  new SelectList(listFreq , "Value" , "Text"))
             @Html.ValidationMessageFor(model => model.MemoryFreq)
         </div>
         <div class="editor-label">

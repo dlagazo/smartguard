@@ -26,16 +26,31 @@
 <br /><br />
 
 
-@if (Request.IsAuthenticated) {
-    <text>
-        Hello @Html.ActionLink(@user, "Profile", "Account")
-        @*Html.ActionLink("profile", "Profile", "Account") *@
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
-        }
-    </text>
-} 
+@{
+    if (Request.IsAuthenticated) 
+    {
+        <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account")
+                @*Html.ActionLink("profile", "Profile", "Account") *@
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
+                }
+            
+        </div>
+        
+    }
+    else if( Request.Url.AbsoluteUri =="http://smartguardwatch.azurewebsites.net/")
+    {
+        <div align="center">
+            
+            <text>If you are an existing Smartguard user, you can log in below.</text>
+            <br />
+            <text>If you are interested in our Smartguard products and services and</text>
+            <br />
+            <text>want to get more information, then choose from the menu on the right.</text>
+        </div>
+    }
+}
 
 @*
 else {

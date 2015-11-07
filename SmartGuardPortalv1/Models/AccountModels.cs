@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
 using System.Web.Security;
+using System.Web;
 
 namespace SmartGuardPortalv1.Models
 {
@@ -26,7 +27,36 @@ namespace SmartGuardPortalv1.Models
         public DbSet<GeoLocation> GeoLocations { get; set; }
         public DbSet<Fall> Falls { get; set; }
         public DbSet<ChargeData> Charges { get; set; }
+        public DbSet<Medical> MedicalRecords { get; set; }
+        public DbSet<Video> Videos { get; set; }
     }
+
+    [Table("VideosTable")]
+    public class Video
+    {
+        [Key]
+        public int VideoId { get; set; }
+        public string VideoTitle { get; set; }
+        public string VideoUrl { get; set; }
+        public string VideoCaption { get; set; }
+        public string VideoDescription { get; set; }
+        
+    }
+    
+    [Table("MedicalTable")]
+    public class Medical
+    {
+        [Key]
+        public int MedicalId { get; set; }
+        public int fkUserId { get; set; }
+        public string description { get; set; }
+        public int accessLevel { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public byte[] MedicalFile { get; set; }
+        public string FileType { get; set; }
+        //public HttpPostedFile File { get; set; }
+    }
+    
 
     [Table("UserInformation")]
     public class UserInformation
@@ -160,8 +190,7 @@ namespace SmartGuardPortalv1.Models
         [Display(Name = "Title")]
         public string MemoryName { get; set; }
         public int fkUserId { get; set; }
-        [Display(Name = "Date")]
-        public DateTime MemoryDate { get; set; }
+        
         [Display(Name = "Frequency")]
         public int MemoryFreq { get; set; }
         [Display(Name = "Instruction")]
