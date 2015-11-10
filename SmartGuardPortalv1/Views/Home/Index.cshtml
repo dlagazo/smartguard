@@ -62,7 +62,7 @@
                         <p>
                             @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 })
                             <br />
-                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 0 })
+                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 0 }, null)
                         </p>
                     }
                     
@@ -108,7 +108,7 @@
                         <p>
                             @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 }) 
                             <br />
-                            @Html.ActionLink("Register here if you don't have an account", "Register", new { login_type  = 0 })
+                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 1 }, null)
                         </p>
                     }
                    
@@ -120,11 +120,11 @@
                 <form action="http://smartguardwatch.azurewebsites.net/Video">
                     <input type="submit" value="Training Videos" style="width:100%">
                 </form>
-                <form action="http://google.com">
+                <form action="http://smartguardwatch.azurewebsites.net/Product">
                     <input type="submit" value="Shop" style="width:100%">
                 </form>
-                <form action="http://google.com">
-                    <input type="submit" value="Contact" style="width:100%">
+                <form action="http://smartguardwatch.azurewebsites.net/ContactUs/Create">
+                    <input type="submit" value="Contact Us" style="width:100%">
                 </form>
             </td>
             

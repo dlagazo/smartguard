@@ -54,7 +54,7 @@ namespace SmartGuardPortalv1.Controllers
                 if(Roles.GetRolesForUser(model.UserName).Contains("User"))
                     return RedirectToAction("Module", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
-                    return RedirectToAction("ContactMain", "Home", new { userName = WebSecurity.CurrentUserName });
+                    return RedirectToAction("Contact", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
                     return RedirectToAction("Administrator", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("ContentAdministrator"))
@@ -312,7 +312,7 @@ namespace SmartGuardPortalv1.Controllers
 
 
 
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {

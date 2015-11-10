@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<b>Training Videos</b>
+<b>@Html.ActionLink("Back", "Index", "Home") > Training Videos</b>
 
 <p>
     @{
@@ -17,32 +17,90 @@
 <table>
     
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <b>@Html.DisplayFor(modelItem => item.VideoTitle):</b> @Html.DisplayFor(modelItem => item.VideoCaption)
-            <br />
-            <iframe width="560" height="315" src="@Html.DisplayFor(modelItem => item.VideoUrl)" frameborder="0" allowfullscreen></iframe>
-            <br />
-            <br />
-            @Html.DisplayFor(modelItem => item.VideoDescription)
-
-        </td>
+@foreach (var item in Model) 
+{
+    
+        if(item.VideoId%2 == 0)
+        {
+            <tr style="width:100%">
         
-        
-        
-        <td>
-            @{
-                if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator"))){
-                    @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) 
-                    @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
-                    @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
                 
-                }
-            }
+        
+                <td style="background-color:#d3dce0; font-size:1.2em; font-weight:600; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px; width:50%">
+                    <b>@Html.DisplayFor(modelItem => item.VideoTitle):</b> @Html.DisplayFor(modelItem => item.VideoCaption)
+                    <br />
+                    <iframe width="300" height="180" src="@Html.DisplayFor(modelItem => item.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+                    <br />
+                    <br />
+                    @Html.DisplayFor(modelItem => item.VideoDescription)
+                    <br />
+                    @{
+                        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator")))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) 
+                            @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
+                            @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
+                
+                        }
+                    }
+                </td>
+                <td valign="center" align="center">
+                    SMART GUARD
+                    <br />
+                    <br />
+                    LOGO HERE
+
+                </td>
+        
+        
+        
+                
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+    }
+    
+    else
+    {
+        <tr style="width:100%">
+        
+                
+        
+                <td valign="center" align="center">
+                    SMART GUARD
+                    <br />
+                    <br />
+                    LOGO HERE
+
+                </td>
+        
+        
+        
+                <td style="background-color:#d3dce0; font-size:1.2em; font-weight:600; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px; width:50%">
+                    <b>@Html.DisplayFor(modelItem => item.VideoTitle):</b> @Html.DisplayFor(modelItem => item.VideoCaption)
+                    <br />
+                    <iframe width="300" height="180" src="@Html.DisplayFor(modelItem => item.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+                    <br />
+                    <br />
+                    @Html.DisplayFor(modelItem => item.VideoDescription)
+                    <br />
+                    @{
+                        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator"))){
+                            @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) 
+                            @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
+                            @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
+                
+                        }
+                    }
             
-        </td>
-    </tr>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>    
+    }
+
 }
 
 </table>

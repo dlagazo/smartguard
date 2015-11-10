@@ -11,16 +11,16 @@ namespace SmartGuardPortalv1.Controllers
 {
     
     
-    public class VideoController : Controller
+    public class ContactUsController : Controller
     {
         private UsersContext db = new UsersContext();
 
         //
         // GET: /Feature/
-        
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
-            return View(db.Videos.ToList());
+            return View(db.ContactUs.ToList());
         }
 
         //
@@ -28,17 +28,17 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            ContactUs contactUs = db.ContactUs.Find(id);
+            if (contactUs == null)
             {
                 return HttpNotFound();
             }
-            return View(country);
+            return View(contactUs);
         }
 
         //
         // GET: /Feature/Create
-        [Authorize(Roles = "Administrator")]
+        
         public ActionResult Create()
         {
             return View();
@@ -49,17 +49,17 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Create(Video video)
+        public ActionResult Create(ContactUs contactus)
         {
             if (ModelState.IsValid)
             {
-                db.Videos.Add(video);
+                contactus.TimeStamp = DateTime.Now;
+                db.ContactUs.Add(contactus);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
 
-            return View(video);
+            return View(contactus);
         }
 
         //
@@ -67,12 +67,12 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id = 0)
         {
-            Video video = db.Videos.Find(id);
-            if (video == null)
+            ContactUs contactus = db.ContactUs.Find(id);
+            if (contactus == null)
             {
                 return HttpNotFound();
             }
-            return View(video);
+            return View(contactus);
         }
 
         //
@@ -81,15 +81,15 @@ namespace SmartGuardPortalv1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(Video video)
+        public ActionResult Edit(ContactUs contactus)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(video).State = EntityState.Modified;
+                db.Entry(contactus).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(video);
+            return View(contactus);
         }
 
         //
@@ -97,12 +97,12 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id = 0)
         {
-            Video video = db.Videos.Find(id);
-            if (video == null)
+            ContactUs contactus = db.ContactUs.Find(id);
+            if (contactus == null)
             {
                 return HttpNotFound();
             }
-            return View(video);
+            return View(contactus);
         }
 
         //
@@ -113,8 +113,8 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video video = db.Videos.Find(id);
-            db.Videos.Remove(video);
+            ContactUs contactus = db.ContactUs.Find(id);
+            db.ContactUs.Remove(contactus);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

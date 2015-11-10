@@ -17,13 +17,15 @@
     <tr>
         <td>
              @{
-                if (item.Rank < 6)
+                if (@item.type == false)
                 {
                     <text><b>Primary Contact:</b> @item.FirstName @item.LastName</text>
                     <br />
                     <text><b>Relationship:</b> @item.Relationship</text>
                     <br />
                     <text>@item.Mobile @item.Email</text>
+                    
+                   
                 }
                 else
                 {
@@ -32,6 +34,7 @@
                     <text><b>Relationship:</b> @item.Relationship</text>
                     <br />
                     <text>@item.Mobile @item.Email</text>
+                    
                 }
               }
         </td>

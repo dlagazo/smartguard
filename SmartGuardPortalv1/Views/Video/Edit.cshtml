@@ -1,4 +1,4 @@
-﻿@model SmartGuardPortalv1.Models.Feature
+﻿@model SmartGuardPortalv1.Models.Video
 
 @{
     ViewBag.Title = "Edit";
@@ -13,14 +13,35 @@
     <fieldset>
         <legend>Feature</legend>
 
-        @Html.HiddenFor(model => model.FeatureId)
+        @Html.HiddenFor(model => model.VideoId)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FeatureName)
+            @Html.LabelFor(model => model.VideoTitle)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FeatureName)
-            @Html.ValidationMessageFor(model => model.FeatureName)
+            @Html.EditorFor(model => model.VideoTitle)
+            @Html.ValidationMessageFor(model => model.VideoTitle)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VideoUrl)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VideoUrl)
+            @Html.ValidationMessageFor(model => model.VideoUrl)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VideoCaption)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VideoCaption)
+            @Html.ValidationMessageFor(model => model.VideoCaption)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VideoDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VideoDescription)
+            @Html.ValidationMessageFor(model => model.VideoDescription)
         </div>
 
         <p>

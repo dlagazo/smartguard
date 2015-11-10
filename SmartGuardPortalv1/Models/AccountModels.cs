@@ -29,6 +29,8 @@ namespace SmartGuardPortalv1.Models
         public DbSet<ChargeData> Charges { get; set; }
         public DbSet<Medical> MedicalRecords { get; set; }
         public DbSet<Video> Videos { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ContactUs> ContactUs { get; set; }
     }
 
     [Table("VideosTable")]
@@ -198,6 +200,31 @@ namespace SmartGuardPortalv1.Models
         public string MemoryDates { get; set; }
     }
 
+    [Table("ContactUsTable")]
+    public class ContactUs
+    {
+        [Key]
+        public int ContactUsId { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Body { get; set; }
+        public DateTime TimeStamp { get; set; }
+    }
+
+    [Table("ProductTable")]
+    public class Product
+    {
+        [Key]
+        public int ProductId { get; set; }
+        public string ProductTitle { get; set; }
+        public string ProductImage { get; set; }
+        public string ProductCaption { get; set; }
+        public string ProductPrice { get; set; }
+        public string ProductDescription { get; set; }
+        public bool ProductVisible { get; set; } 
+    }
+
     [Table("ChargeTable")]
     public class ChargeData
     {
@@ -221,6 +248,8 @@ namespace SmartGuardPortalv1.Models
         public string Relationship { get; set; }
         public short Rank { get; set; }
         public int fkUserId { get; set; }
+        //0-false, 1-true
+        public bool type { get; set; }
 
     }
 

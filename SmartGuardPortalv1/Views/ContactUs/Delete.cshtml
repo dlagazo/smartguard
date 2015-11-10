@@ -1,0 +1,19 @@
+﻿@model SmartGuardPortalv1.Models.Contact
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<b>Dashboard > @Html.ActionLink("My Contacts", "Index")</b>
+<br />
+<br />
+
+<b>Are you sure you want to delete @Model.FirstName @Model.LastName from your contacts list?</b>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> 
+        
+    </p>
+}

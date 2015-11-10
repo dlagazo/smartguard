@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.ContactUs>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b> @Html.ActionLink("Back", "Index", "Home") > Contact Us Inquiries </b>
+<br />
+<br />
+
+<table>
+
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <b>Date: </b> @item.TimeStamp
+            <br />
+            <b>Name: </b> @item.Name
+            <br />
+            <b>Body: </b> @item.Body
+            <br />
+            <b>Email: </b> @item.Email
+            <br />
+            <b>Phone: </b> @item.Phone
+            <br />
+             
+              
+        </td>
+        
+        
+        <td>
+
+            @Html.ActionLink("Reply", "Reply", new { id=item.ContactUsId })
+            @Html.ActionLink("Details", "Details", new { id=item.ContactUsId }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContactUsId })
+            
+            
+        </td>
+    </tr>
+}
+
+</table>

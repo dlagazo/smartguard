@@ -1,0 +1,59 @@
+﻿@model SmartGuardPortalv1.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+
+        @Html.HiddenFor(model => model.ProductId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductTitle)
+            @Html.ValidationMessageFor(model => model.ProductTitle)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductImage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductImage)
+            @Html.ValidationMessageFor(model => model.ProductImage)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductCaption)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductCaption)
+            @Html.ValidationMessageFor(model => model.ProductCaption)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductDescription)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductDescription)
+            @Html.ValidationMessageFor(model => model.ProductDescription)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
