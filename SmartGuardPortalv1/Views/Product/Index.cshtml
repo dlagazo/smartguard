@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<b>@Html.ActionLink("Back", "Index", "Home") > Shop</b>
+
+<p>
+    @{
+        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator")))
+        {
+            @Html.ActionLink("Create New", "Create")
+        }
+    }
+</p>
+<table>
+    
+
+@foreach (var item in Model) 
+{
+    
+        if(item.ProductId %2 == 0)
+        {
+            <tr style="width:100%">
+        
+                
+        
+                <td style="background-color:#d3dce0; font-size:1.2em; font-weight:600; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px; width:50%">
+                    <b>@Html.DisplayFor(modelItem => item.ProductTitle) </b> @Html.DisplayFor(modelItem => item.ProductCaption)
+                    <br />
+                    
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                    <br />
+                    <img src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="128" width="128">
+                    <br />
+                    <br />
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                    <br />
+                    @{
+                        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator")))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) 
+                            @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
+                            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+                
+                        }
+                    }
+                </td>
+                <td valign="center" align="center">
+                    SMART GUARD
+                    <br />
+                    <br />
+                    LOGO HERE
+
+                </td>
+        
+        
+        
+                
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+    }
+    
+    else
+    {
+        <tr style="width:100%">
+        
+                
+        
+                <td valign="center" align="center">
+                    SMART GUARD
+                    <br />
+                    <br />
+                    LOGO HERE
+
+                </td>
+        
+        
+        
+                <td style="background-color:#d3dce0; font-size:1.2em; font-weight:600; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px; width:50%">
+                    <b>@Html.DisplayFor(modelItem => item.ProductTitle) </b> @Html.DisplayFor(modelItem => item.ProductCaption)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                    <br />
+                    <img src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="128" width="128">
+                    <br />
+                    <br />
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                    <br />
+                    @{
+                        if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Content-administrator")))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) 
+                            @* Html.ActionLink("Details", "Details", new { id=item.FeatureId }) | *@
+                            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+                
+                        }
+                    }
+            
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>    
+    }
+
+}
+
+</table>

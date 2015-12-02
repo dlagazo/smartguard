@@ -1,6 +1,7 @@
 ﻿@model SmartGuardPortalv1.Models.UserProfile
 
 @{
+    
     string user = ""; 
     SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
     int userId = (int)WebSecurity.CurrentUserId;
@@ -22,7 +23,7 @@
     user = title + " " + profile.FirstName + " " + profile.LastName + "!"; 
 }
 
-<b>Dashboard > User Information</b>
+<b>@Html.ActionLink("Dashboard", "Contact", "Home") > User Information</b>
 <br />
 <br />
 <fieldset>
@@ -68,7 +69,125 @@
     
 </fieldset>
 <p>
-    @Html.ActionLink("edit", "Edit", new { id=Model.UserId }) |
-    @Html.ActionLink("change password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+    
+    @{
+        <text>My Contact Schedule:</text>
+        <br />
+        if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
+        {
+            string sched = context.ContactSchedules.Where(i => i.fkUserId == userId).First().ContactSchedules;
+            try
+            {
+                string[] parsedSched = sched.Split(',');
+            
+                <table>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>Monday</td>
+                        <td>Tuesday</td>
+                        <td>Wednesday</td>
+                        <td>Thursday</td>
+                        <td>Friday</td>
+                        <td>Saturday</td>
+                    </tr>
+                    <tr valign="top">
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "SUN")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "MON")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "TUE")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "WED")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "THU")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "FRI")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @foreach (string str in parsedSched)
+                            {
+                                if (str.Split(' ')[0] == "SAT")
+                                {
+                                    <text>@str.Split(' ')[1]</text>
+                                    <br />
+                                }
+                            }
+                        </td>
+                    
+                    </tr>
+                </table>
+            }
+            catch(Exception ex)
+            {
+            }
+            <br />
+            
+            
+                bool contactOutside = context.ContactSchedules.Where(i => i.fkUserId == userId).First().canContactOutsideSched;
+                if(contactOutside) 
+                {
+                    <text>Can contact outside schedule: Yes </text>
+                }
+                else
+                {
+                    <text>Can contact outside schedule: No </text>
+                }
+            
+            <br />
+            <br />
+            @Html.ActionLink("Edit schedule", "Edit", "ContactSchedule", new { id=Model.UserId }, null) <text>|</text>
+        }
+    }
+    @Html.ActionLink("Edit profile", "Edit", new { id=Model.UserId }) |
+    
+    @Html.ActionLink("Change password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
         
 </p>

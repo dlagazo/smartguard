@@ -54,7 +54,13 @@ namespace SmartGuardPortalv1.Controllers
                 if(Roles.GetRolesForUser(model.UserName).Contains("User"))
                     return RedirectToAction("Module", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Contact"))
-                    return RedirectToAction("Contact", "Home", new { userName = WebSecurity.CurrentUserName });
+                {
+                    //int userId = WebSecurity.GetUserId(model.UserName);
+                    //tring mySched = db.ContactSchedules.Where(i => i.fkUserId == userId).First().ContactSchedules;
+                    
+                        return RedirectToAction("Contact", "Home", new { userName = WebSecurity.CurrentUserName });
+                    
+                }
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
                     return RedirectToAction("Administrator", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("ContentAdministrator"))
@@ -274,6 +280,7 @@ namespace SmartGuardPortalv1.Controllers
                         wake.MemoryFreq = 0;
                         wake.MemoryInstructions = "Please input your wake up settings";
                         wake.MemoryName = "Wake";
+                        wake.MemoryDates = "Sun Dec 06 2015 08:00:54 GMT+0800,Mon Dec 07 2015 08:00:54 GMT+0800,Tue Dec 08 2015 08:00:54 GMT+0800,Wed Dec 09 2015 08:00:54 GMT+0800,Thu Dec 10 2015 08:00:54 GMT+0800,Fri Dec 11 2015 08:00:54 GMT+0800,Sat Dec 12 2015 08:00:54 GMT+0800,";
 
                         Memory sleep = new Memory();
                         sleep.fkUserId = WebSecurity.GetUserId(model.UserName);
@@ -281,7 +288,7 @@ namespace SmartGuardPortalv1.Controllers
                         sleep.MemoryFreq = 0;
                         sleep.MemoryInstructions = "Please input your sleep settings";
                         sleep.MemoryName = "Sleep";
-                        
+                        sleep.MemoryDates = "Sun Dec 06 2015 20:00:01 GMT+0800,Mon Dec 07 2015 20:00:01 GMT+0800,Tue Dec 08 2015 20:00:01 GMT+0800,Wed Dec 09 2015 20:00:01 GMT+0800,Thu Dec 10 2015 20:00:01 GMT+0800,Fri Dec 11 2015 20:00:01 GMT+0800,Sat Dec 12 2015 20:00:01 GMT+0800,";
 
                         db.Charges.Add(charge);
                         db.Contacts.Add(contact);
@@ -306,6 +313,11 @@ namespace SmartGuardPortalv1.Controllers
                         //ui.Hand = model.Hand;
                         ui.Phone = model.Phone;
                         ui.Zip = model.Zip;
+
+                        ContactSchedule cs = new ContactSchedule();
+                        cs.fkUserId = WebSecurity.GetUserId(model.UserName);
+
+                        db.ContactSchedules.Add(cs);
                         db.UserInfos.Add(ui);
                         db.SaveChanges();
                     }

@@ -232,12 +232,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Mobile\MobileImageUploadController.cs" />
     <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
     <Compile Include="Controllers\Web\Cms\ContactUsController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
+    <Compile Include="Controllers\Web\Features\ContactScheduleController.cs" />
+    <Compile Include="Controllers\Web\Features\ReminderController.cs" />
     <Compile Include="Controllers\Web\Features\MedicalController.cs" />
     <Compile Include="Controllers\Web\Features\FallController.cs" />
     <Compile Include="Controllers\Web\Features\GeoLocationController.cs" />
@@ -596,9 +599,20 @@
     <Content Include="Views\ContactUs\Details.cshtml" />
     <Content Include="Views\ContactUs\Edit.cshtml" />
     <Content Include="Views\ContactUs\Index.cshtml" />
+    <Content Include="Views\Reminder\Create.cshtml" />
+    <Content Include="Views\Reminder\Delete.cshtml" />
+    <Content Include="Views\Reminder\Details.cshtml" />
+    <Content Include="Views\Reminder\Edit.cshtml" />
+    <Content Include="Views\Reminder\Index.cshtml" />
+    <Content Include="Views\ContactSchedule\Create.cshtml" />
+    <Content Include="Views\ContactSchedule\Delete.cshtml" />
+    <Content Include="Views\ContactSchedule\Details.cshtml" />
+    <Content Include="Views\ContactSchedule\Edit.cshtml" />
+    <Content Include="Views\ContactSchedule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\camera\" />
     <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>

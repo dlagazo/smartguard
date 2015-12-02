@@ -3,14 +3,6 @@
 @{
     ViewBag.Title = "Edit";
     int userId = (int)WebSecurity.CurrentUserId;
-
-    var listType = new List<SelectListItem> 
-    { 
-              new SelectListItem { Text = "primary", Value = "false" }, 
-              new SelectListItem { Text = "secondary", Value = "true" }
-              //new SelectListItem { Text = "", Value = "2" }, 
-            
-    };
 }
 
 <h2>Edit</h2>
@@ -24,7 +16,6 @@
 
         @Html.HiddenFor(model => model.ContactId)
         <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
-        <input type="hidden" value="@Model.Rank" id="Rank" name="Rank"/>
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
         </div>
@@ -61,21 +52,12 @@
             @Html.EditorFor(model => model.Mobile)
             @Html.ValidationMessageFor(model => model.Mobile)
         </div>
-        
-        
         <div class="editor-label">
-            @Html.LabelFor(model => model.type)
+            @Html.LabelFor(model => model.Rank)
         </div>
         <div class="editor-field">
-            @Html.DropDownList("type",  new SelectList(listType , "Value" , "Text"))
-            @Html.ValidationMessageFor(model => model.type)
-        </div>
-
-        <div>
-            Can be called outside of schedule?
-            <br />
-            @Html.CheckBoxFor(m => m.canContactOutsideSched)
-
+            @Html.EditorFor(model => model.Rank)
+            @Html.ValidationMessageFor(model => model.Rank)
         </div>
 
         <p>

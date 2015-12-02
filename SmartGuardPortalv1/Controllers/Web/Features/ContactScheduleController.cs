@@ -10,8 +10,8 @@ using SmartGuardPortalv1.Models;
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="User, Contact")]
-    public class FallController : Controller
+    [Authorize(Roles="Contact")]
+    public class ContactScheduleController : Controller
     {
         private UsersContext db = new UsersContext();
 
@@ -20,7 +20,7 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Falls.ToList());
+            return View(db.ContactSchedules.ToList());
         }
 
         //
@@ -28,12 +28,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
-            if (memory == null)
+            ContactSchedule contactSchedule = db.ContactSchedules.Find(id);
+            if (contactSchedule == null)
             {
                 return HttpNotFound();
             }
-            return View(memory);
+            return View(contactSchedule);
         }
 
         //
@@ -49,16 +49,16 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Memory memory)
+        public ActionResult Create(ContactSchedule contactSchedule)
         {
             if (ModelState.IsValid)
             {
-                db.Memories.Add(memory);
+                db.ContactSchedules.Add(contactSchedule);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(memory);
+            return View(contactSchedule);
         }
 
         //
@@ -66,12 +66,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            ContactSchedule contactSchedule = db.ContactSchedules.Where(i => i.fkUserId == id).First();
+            if (contactSchedule == null)
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return View(contactSchedule);
         }
 
         //
@@ -79,16 +79,15 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Memory memory)
+        public ActionResult Edit(ContactSchedule contactSchedule)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(memory).State = EntityState.Modified;
+                db.Entry(contactSchedule).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Profile","Account");
             }
-
-            return View(memory);
+            return View(contactSchedule);
         }
 
         //
@@ -96,12 +95,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            ContactSchedule contactSchedule = db.ContactSchedules.Find(id);
+            if (contactSchedule == null)
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return View(contactSchedule);
         }
 
         //
@@ -111,8 +110,8 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Memory memory = db.Memories.Find(id);
-            db.Memories.Remove(memory);
+            ContactSchedule contactSchedule = db.ContactSchedules.Find(id);
+            db.ContactSchedules.Remove(contactSchedule);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

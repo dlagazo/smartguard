@@ -10,8 +10,8 @@ using SmartGuardPortalv1.Models;
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="User, Contact")]
-    public class FallController : Controller
+    [Authorize(Roles="User")]
+    public class ReminderController : Controller
     {
         private UsersContext db = new UsersContext();
 
@@ -20,7 +20,7 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Falls.ToList());
+            return View(db.Reminders.ToList());
         }
 
         //
@@ -28,12 +28,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
-            if (memory == null)
+            Reminder reminder = db.Reminders.Find(id);
+            if (reminder == null)
             {
                 return HttpNotFound();
             }
-            return View(memory);
+            return View(reminder);
         }
 
         //
@@ -49,16 +49,17 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Memory memory)
+        public ActionResult Create(Reminder reminder)
         {
             if (ModelState.IsValid)
             {
-                db.Memories.Add(memory);
+                reminder.TimeStamp = DateTime.Now;
+                db.Reminders.Add(reminder);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(memory);
+            return View(reminder);
         }
 
         //
@@ -66,12 +67,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            Reminder reminder = db.Reminders.Find(id);
+            if (reminder == null)
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return View(reminder);
         }
 
         //
@@ -79,16 +80,15 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Memory memory)
+        public ActionResult Edit(Reminder reminder)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(memory).State = EntityState.Modified;
+                db.Entry(reminder).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(memory);
+            return View(reminder);
         }
 
         //
@@ -96,12 +96,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            Reminder reminder = db.Reminders.Find(id);
+            if (reminder == null)
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return View(reminder);
         }
 
         //
@@ -111,8 +111,8 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Memory memory = db.Memories.Find(id);
-            db.Memories.Remove(memory);
+            Reminder reminder = db.Reminders.Find(id);
+            db.Reminders.Remove(reminder);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,0 +1,36 @@
+﻿@model SmartGuardPortalv1.Models.ContactSchedule
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+   
+    
+}
+
+<b> @Html.ActionLink("Dashboard", "Contact", "Home") > @Html.ActionLink("Schedule", "Index", "ContactSchedule") > Create a new schedule</b>
+<br />
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+
+        
+        <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,6 +1,7 @@
 ﻿@{
     string user = "administrator";
-    if (Request.IsAuthenticated && Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
+    if (Request.IsAuthenticated && (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User") || 
+        Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact")))
     {
         SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
         int userId = (int)WebSecurity.CurrentUserId;
@@ -29,7 +30,7 @@
 @{
     if (Request.IsAuthenticated) 
     {
-        <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account")
+        <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account", null, new {Class = "action add", title="View account settings" })
                 @*Html.ActionLink("profile", "Profile", "Account") *@
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
                     @Html.AntiForgeryToken()
@@ -37,7 +38,7 @@
                 }
             
         </div>
-        
+         
     }
     else if( Request.Url.AbsoluteUri =="http://smartguardwatch.azurewebsites.net/")
     {

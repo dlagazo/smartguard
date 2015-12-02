@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Create";
     int userId = (int)WebSecurity.CurrentUserId;
+    string[] dates = null;
+    if(Model.MemoryDates != null)
+    {
+        dates = Model.MemoryDates.Split(',');
+    }
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.js")"></script>
@@ -10,7 +15,7 @@
 <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.filthypillow.js")"></script>
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/jquery.filthypillow.css")">
    
-<b> Memory > Set Alarm Date & Time</b>
+<b> Dashboard > Activity Check > Set Alarm</b>
 
 <table height="300px">
     <tr>
@@ -24,7 +29,25 @@
                    
                     
                     <div class="editor-label">
-                        <b>Frequency:</b> @Html.DisplayFor(model => model.MemoryFreq)
+                        <b>Remind:</b>
+                        @{
+                            if(Model.MemoryFreq==0)
+                            {
+                                <text>Once</text>
+                            }
+                            else if (Model.MemoryFreq == 1)
+                            {
+                                <text>Daily</text>
+                            }
+                            else if (Model.MemoryFreq == 2)
+                            {
+                                <text>Weekly</text>
+                            }
+                            else if (Model.MemoryFreq == 3)
+                            {
+                                <text>Monthly</text>
+                            }
+                        }
                     </div>
                     
                     <div class="editor-label">
@@ -59,6 +82,35 @@
                     }
                 });
 
+                function removeDate(btn) {
+                    var txt;
+                    var r = confirm("Do you want to delete?");
+                    if (r == true) {
+                        btn.parentNode.removeChild(btn);
+                    } else {
+                        
+                    }
+
+                    
+                }
+
+                function sendForm() {
+                    var allDates = "";
+                    var elem = document.getElementById('Dates');
+                    var childDate;
+                    for (i = 0; i < elem.childNodes.length; i++) {
+                        childDate = elem.childNodes[i];
+                        //allDates.concat(childDate.id, ",");
+                        if (childDate.value != null) {
+                            allDates += childDate.id + ',';
+                        }
+                        //allDates = childDate.id;
+                    }
+                    document.getElementById("MemoryDates").value = allDates;
+                    document.getElementById("alarmSchedules").submit();
+
+                }
+
                 $(".filthypillow").on("fp:save", function (e, dateObj) {
 
                     //document.getElementById("MemoryDates").value = dateObj;
@@ -92,6 +144,7 @@
 
                     dateString = dateArrayString;
                     document.getElementById("MemoryDates").value = dateString;
+                    document.getElementById("allDates").value = dateString;
                     AllDates.appendChild(element);
                     var rawDates = document.getElementById("rawDates");
 
@@ -100,6 +153,7 @@
                 $(".filthypillow").filthypillow("show");
 
                 window.onload = function () {
+                    
                     document.getElementById("btnClear").onclick = function clear() {
                         alert("All alarm details deleted");
                         var dates = document.getElementById("Dates");
@@ -123,8 +177,26 @@
         <td valign="top" width="25%">
             Alarm date and time:
             <br />
-            @using (Html.BeginForm()) 
-             {
+            <div id="Dates">
+                @{
+                    if (dates != null)
+                    {
+                        foreach (string date in dates)
+                        {
+                            if (date.Length > 10)
+                            {
+                                <input type="button" id="@date" value="@date" onclick="removeDate(this)"/>
+                                <br />
+                            }
+                        }
+                    }
+                    
+                }
+
+            </div>
+            <br />
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "alarmSchedules" }))
+            {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
@@ -136,13 +208,17 @@
                   
                     <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
                     <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
-                <input type="button" id="btnClear" value="Clear"/>
-                <input type="submit" id="btnSaveDate" value="Save alarm date and time" />
-             }
+                <input type="button" id="btnClear" value="Clear All"/>
+                <br />
+                <input type="button" id="btnSaveDate" value="Save alarm date and time" onclick="sendForm()" />
+            }
             
-            <div id="Dates"></div>
             
-            <div id="rawDates"></div>
+            
+            <div id="rawDates">
+                <input type="hidden" id="allDates" value="@Model.MemoryDates"/>
+
+            </div>
             
         </td>
         

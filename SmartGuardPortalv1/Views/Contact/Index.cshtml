@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "Index";
     int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+    String SUN = "", MON = "", TUE = "", WED = "", THU = "", FRI = "", SAT = "";
+    Dictionary<Int32, Boolean> timeSlots = new Dictionary<int,bool>();
+    int maxRank = db.Contacts.OrderByDescending(i => i.Rank).FirstOrDefault().Rank;
 }
 
 <b> @Html.ActionLink("Dashboard", "Module", "Home") > My Contacts </b>
@@ -10,20 +14,24 @@
 <br />
 @Html.ActionLink("Create a new contact", "Create")
 
-<table>
+<table width="100%">
 
 
-@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
-    <tr>
-        <td>
+@foreach (var item in Model.Where(i => i.fkUserId == userId).OrderBy(i => i.Rank)) {
+    <tr valign="top" bgcolor="#d9d9d9">
+        <td width="30%">
              @{
+    
                 if (@item.type == false)
                 {
                     <text><b>Primary Contact:</b> @item.FirstName @item.LastName</text>
                     <br />
                     <text><b>Relationship:</b> @item.Relationship</text>
                     <br />
-                    <text>@item.Mobile @item.Email</text>
+                    <text><b>Contact:</b> @item.Mobile</text>
+                    <br />
+                    <text><b>Email:</b> @item.Email</text>
+                    
                     
                    
                 }
@@ -33,32 +41,139 @@
                     <br />
                     <text><b>Relationship:</b> @item.Relationship</text>
                     <br />
-                    <text>@item.Mobile @item.Email</text>
+                    <text><b>Contact:</b> @item.Mobile</text>
+                    <br />
+                    <text><b>Email:</b> @item.Email</text>
+                    
                     
                 }
               }
         </td>
         
         
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) 
-            @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
+        <td width="50%">
             @{
-                if (item.Rank != 1)
+                try
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
-                    @Html.ActionLink("Move up", "")
-                    @Html.ActionLink("Move down", "")
+                    int contactId = db.UserProfiles.Where(i => i.Email == item.Email).FirstOrDefault().UserId;
+                    if (contactId != null)
+                    {
+                        SmartGuardPortalv1.Models.ContactSchedule cs = db.ContactSchedules.Where(i => i.fkUserId == contactId).FirstOrDefault();
+                        if (cs != null)
+                        {
+                                        <b>Schedule:</b> 
+                                        @cs.ContactSchedules
+                                        <br />
+                                        <b>Can be called outside schedule?</b>
+                                        if (item.canContactOutsideSched == true)
+                                        {
+                                            <text>Yes</text>
+                                        }
+                                        else
+                                        {
+                                            <text>No</text>
+                                        }
+                                        <br />
+                                        String[] parsedSched = cs.ContactSchedules.Split(',');
+                                        foreach (String sched in parsedSched)
+                                        {
+                                            String[] tempDate = sched.Split(' ');
+                                            if (tempDate[0] == "SUN")
+                                            {
+                                                SUN += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "MON")
+                                            {
+                                                MON += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "TUE")
+                                            {
+                                                TUE += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "WED")
+                                            {
+                                                WED += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "THU")
+                                            {
+                                                THU += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "FRI")
+                                            {
+                                                FRI += tempDate[1] + ", ";
+                                            }
+                                            else if (tempDate[0] == "SAT")
+                                            {
+                                                SAT += tempDate[1] + ", ";
+                                            }
+                                        }
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    @Html.ActionLink("Move down", "")
                 }
-             }
+            }
+            
             
             
         </td>
+        <td width="20%">
+            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) 
+            <br />
+            @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
+            @{
+                if (item.Rank != 1 && item.Rank != maxRank )
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+                    <br />
+                    @Html.ActionLink("Move up", "MoveUp", new { id = item.ContactId })
+                    <br />
+                    @Html.ActionLink("Move down", "MoveDown", new { id = item.ContactId });
+                }
+                else if(item.Rank == 1)
+                {
+                    @Html.ActionLink("Move down", "MoveDown", new { id = item.ContactId });
+                }
+                else
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+                    <br />
+                    @Html.ActionLink("Move up", "MoveUp", new { id = item.ContactId });
+                }
+             }
+        </td>
     </tr>
+    <tr>
+        <td></td>
+    </tr>
+    
 }
 
+</table>
+<br />
+<div align="center">
+    <b>Contact Schedule Summary</b>
+</div>
+<table>
+    <tr>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+    <tr>
+        <td>
+            @SUN
+        </td>
+        <td>@MON</td>
+        <td>@TUE</td>
+        <td>@WED</td>
+        <td>@THU</td>
+        <td>@FRI</td>
+        <td>@SAT</td>
+    </tr>
 </table>

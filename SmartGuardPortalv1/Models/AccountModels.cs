@@ -31,6 +31,8 @@ namespace SmartGuardPortalv1.Models
         public DbSet<Video> Videos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
+        public DbSet<ContactSchedule> ContactSchedules { get; set; }
     }
 
     [Table("VideosTable")]
@@ -57,6 +59,29 @@ namespace SmartGuardPortalv1.Models
         public byte[] MedicalFile { get; set; }
         public string FileType { get; set; }
         //public HttpPostedFile File { get; set; }
+    }
+
+    [Table("ReminderTable")]
+    public class Reminder
+    {
+        [Key]
+        public int ReminderId { get; set; }
+        public int fkUserId { get; set; }
+        public string description { get; set; }
+        public DateTime TimeStamp { get; set; }
+        
+    }
+
+    [Table("ContactScheduleTable")]
+    public class ContactSchedule
+    {
+        [Key]
+        public int ContactScheduleId { get; set; }
+        public int fkUserId { get; set; }
+        //0-Sunday, 1-Monday
+        public string ContactSchedules { get; set; }
+        public bool canContactOutsideSched { get; set; }
+
     }
     
 
@@ -250,6 +275,7 @@ namespace SmartGuardPortalv1.Models
         public int fkUserId { get; set; }
         //0-false, 1-true
         public bool type { get; set; }
+        //public bool canContactOutsideSched { get; set; }
 
     }
 

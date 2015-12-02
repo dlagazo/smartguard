@@ -7,23 +7,77 @@ namespace SmartGuardPortalv1.Models
 {
     public class SyncData
     {
-        public List<Contact> contacts { get; set; }
+        public List<MyContact> contacts { get; set; }
         public List<Place> places { get; set; }
         public List<string> roles { get; set; }
         public List<Memory> memories {get; set;}
         public List<Subscription> subscriptions { get; set; }
         public List<Response> responses { get; set; }
+        public List<Reminder> reminders { get; set; }
+
+        private UsersContext db = new UsersContext();
 
         public SyncData(List<Contact> _contacts, List<Place> _places, List<string> _roles, 
-            List<Memory> _memories, List<Response> _responses)
+            List<Memory> _memories, List<Reminder> _reminders, List<Response> _responses)
         {
-            contacts = _contacts;
+            contacts = new List<MyContact>();
+            int userId;
+            String sched = "";
+            bool canContact = false;
+            foreach (Contact cont in _contacts)
+            {
+                try
+                {
+                    userId = db.UserProfiles.Where(i => i.Email == cont.Email).FirstOrDefault().UserId;
+                    sched = db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().ContactSchedules;
+                    canContact = db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().canContactOutsideSched;
+                }
+                catch (Exception ex)
+                {
+                }
+                MyContact myCont = new MyContact(cont, sched, canContact);
+                contacts.Add(myCont);
+                sched = "";
+            }
             places = _places;
             roles = _roles;
             memories = _memories;
+            reminders = _reminders;
             responses = _responses;
         }
 
+    }
+
+    public class MyContact
+    {
+        public int ContactId;
+        public string FirstName, LastName, Email, Mobile, Relationship;
+        public int Rank;
+        public String schedule;
+        public int fkUserId;
+        public int type;
+        public int canContactOutside;
+        
+
+        public MyContact(Contact _contact, String _sched, bool _canContact)
+        {
+            ContactId = _contact.ContactId;
+            FirstName = _contact.FirstName;
+            LastName = _contact.LastName;
+            Email = _contact.Email;
+            Relationship = _contact.Relationship;
+            if (_contact.type)
+                type = 1;
+            else
+                type = 0;
+            if (_canContact)
+                canContactOutside = 1;
+            else
+                canContactOutside = 0;
+            Rank = _contact.Rank;
+            schedule = _sched;
+            fkUserId = _contact.fkUserId;
+        }
     }
 
     public class Response
