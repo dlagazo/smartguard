@@ -46,7 +46,17 @@ namespace SmartGuardPortalv1.Models
         public string VideoDescription { get; set; }
         
     }
-    
+
+    [Table("UpdateTable")]
+    public class Update
+    {
+        [Key]
+        public string UpdateId { get; set; }
+        public string changes { get; set; }
+        public byte[] UpdateFile { get; set; }
+        public DateTime timeStamp { get; set; }
+    }
+
     [Table("MedicalTable")]
     public class Medical
     {
@@ -54,6 +64,7 @@ namespace SmartGuardPortalv1.Models
         public int MedicalId { get; set; }
         public int fkUserId { get; set; }
         public string description { get; set; }
+        //0-me only, 1-primary 2-secondary
         public int accessLevel { get; set; }
         public DateTime TimeStamp { get; set; }
         public byte[] MedicalFile { get; set; }

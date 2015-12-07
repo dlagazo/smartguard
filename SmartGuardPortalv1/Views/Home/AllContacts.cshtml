@@ -1,0 +1,63 @@
+﻿@{
+    
+}
+<b> @Html.ActionLink("Main Menu", "Contact", "Home") > My Contact Persons </b>
+<br /><br />
+@*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
+
+<div>
+
+   
+    <table width="100%">
+    @{
+        
+        if(Roles.IsUserInRole("Contact"))
+        {
+            SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+        
+            String contactEmail = db.UserProfiles.Find(WebSecurity.CurrentUserId).Email;
+        
+            foreach(SmartGuardPortalv1.Models.Contact contact in db.Contacts.Where(i => i.Email == contactEmail))
+            {
+                SmartGuardPortalv1.Models.UserProfile user = db.UserProfiles.Find(contact.fkUserId);
+                SmartGuardPortalv1.Models.UserInformation info = db.UserInfos.Find(contact.fkUserId);
+                <tr bgcolor="#d9d9d9">
+                    <td>
+                        <div align="center">
+                            <b> @user.FirstName @user.LastName 's Contact Information </b>
+                        </div>
+                        <br />
+                        <b>Birthdate: </b> @info.BirthDate
+                        <br />
+                        <b>Email: </b> @user.Email
+                        <br />
+                        <b>Mobile: </b> @info.Phone
+                        <br />
+                        <b>Address: </b> @info.Address
+                        <br />
+                        <b>City: </b> @info.City
+                        
+                        
+                        
+
+                    </td>
+                    <td>
+                        <b>Last known location: </b>
+                        <br />
+                        <b>Battery: </b>
+                        <br />
+                        <b>Last sync & update:</b>
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                
+            }
+        
+        }
+    }
+    </table>
+
+</div>

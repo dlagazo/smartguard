@@ -609,6 +609,14 @@
     <Content Include="Views\ContactSchedule\Details.cshtml" />
     <Content Include="Views\ContactSchedule\Edit.cshtml" />
     <Content Include="Views\ContactSchedule\Index.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Home\Email.cshtml" />
+    <Content Include="Views\Home\AllContacts.cshtml" />
+    <Content Include="Views\Home\AllNavigation.cshtml" />
+    <Content Include="Views\Home\AllMemory.cshtml" />
+    <Content Include="Views\Memory\ContactCreate.cshtml" />
+    <Content Include="Views\Home\Modules.cshtml" />
+    <Content Include="Views\Home\Communication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

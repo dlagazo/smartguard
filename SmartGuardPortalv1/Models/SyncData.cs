@@ -64,6 +64,7 @@ namespace SmartGuardPortalv1.Models
             ContactId = _contact.ContactId;
             FirstName = _contact.FirstName;
             LastName = _contact.LastName;
+            Mobile = _contact.Mobile;
             Email = _contact.Email;
             Relationship = _contact.Relationship;
             if (_contact.type)

@@ -1,7 +1,7 @@
 ﻿@{
     
 }
-<b> @Html.ActionLink("Main Menu", "Contact", "Home") > Modules </b>
+<b> @Html.ActionLink("Main Menu", "Module", "Home") > Modules </b>
 <br /><br />
 @*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
 
@@ -24,7 +24,7 @@
                         title="If you feel bad and need help use the emergency button for instant connection with one of your contact persons." />
                 </a>
                 <br />
-                <a href='@Url.Action("AllMemory", "Home")'>
+                <a href='@Url.Action("Index", "Memory")'>
                     <img src='@Url.Content("~/Content/images/buttons/btn_ModuleActivity.png")' width="200px"
                         title="Your Smartguard detects movement which helps to guarantee your safety if something irregular occurs." />
                 </a>
@@ -58,7 +58,7 @@
                         title="If you end up somewhere you don’t know your way around, the Smartguard helps you to find back."/>
                 </a>
                 <br />
-                <a href='@Url.Action("AllNavigation", "Home")'>
+                <a href='@Url.Action("Index", "Place")'>
                     <img src='@Url.Content("~/Content/images/buttons/btn_ModuleNav.png")' width="200px"
                         title="If you want to go somewhere the Smartguard can help you to find your way."/>
                 </a>

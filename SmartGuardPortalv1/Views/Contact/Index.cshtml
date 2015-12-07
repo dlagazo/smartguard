@@ -64,16 +64,7 @@
                                         <b>Schedule:</b> 
                                         @cs.ContactSchedules
                                         <br />
-                                        <b>Can be called outside schedule?</b>
-                                        if (item.canContactOutsideSched == true)
-                                        {
-                                            <text>Yes</text>
-                                        }
-                                        else
-                                        {
-                                            <text>No</text>
-                                        }
-                                        <br />
+                                        
                                         String[] parsedSched = cs.ContactSchedules.Split(',');
                                         foreach (String sched in parsedSched)
                                         {

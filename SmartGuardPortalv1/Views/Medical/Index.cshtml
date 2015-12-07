@@ -3,12 +3,25 @@
 @{
     ViewBag.Title = "Index";
     int userId = (int)WebSecurity.CurrentUserId;
+    
 }
 
-<b> @Html.ActionLink("Dashboard", "Module", "Home") > Personal Health Records </b>
-<br />
-<br />
-@Html.ActionLink("Create a new health record", "Create")
+
+
+@{ 
+    if(Roles.IsUserInRole("User"))
+    {
+        <b> @Html.ActionLink("Dashboard", "Modules", "Home") > Personal Health Records </b>
+        <br />
+        <br />
+        @Html.ActionLink("Create a new health record", "Create")
+    }
+    else{
+        <b> @Html.ActionLink("Dashboard", "AllModules", "Home") > Personal Health Records </b>
+        <br />
+        <br />
+    }
+}
 
 <table>
     <tr>
@@ -31,47 +44,91 @@
     </tr>
 </table>
 <table>
-@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
-    <tr>
-        <td>
-            @using ((Html.BeginForm("Download/" + item.MedicalId, "Medical", FormMethod.Get)))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-                <input type="submit" value="Download" />
-            }
-            <b>Description: </b>@item.description
-            <br />
-            <b>Upload date: </b>@item.TimeStamp
-            <br />
-            <b>Access level: </b>
-            @{
-                if (item.accessLevel == 0)
-                {
-                    <text>Only Me</text>
-                }
-                else if (item.accessLevel == 1)
-                {
-                    <text>My Primary Contacts</text>
-                }
-                else if (item.accessLevel == 2)
-                {
-                    <text>All My Contacts</text>
-                }
-             }
+
+
+@{ 
+    if(Roles.IsUserInRole("User"))
+    {
+        foreach (var item in Model.Where(i => i.fkUserId == userId)) 
+        {
+            <tr>
+                <td>
+                    @using ((Html.BeginForm("Download/" + item.MedicalId, "Medical", FormMethod.Get)))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <input type="submit" value="Download" />
+                    }
+                    <b>Description: </b>@item.description
+                    <br />
+                    <b>Upload date: </b>@item.TimeStamp
+                    <br />
+                    <b>Access level: </b>
+                    @{
+                        if (item.accessLevel == 0)
+                        {
+                            <text>Only Me</text>
+                        }
+                        else if (item.accessLevel == 1)
+                        {
+                            <text>My Primary Contacts</text>
+                        }
+                        else if (item.accessLevel == 2)
+                        {
+                            <text>All My Contacts</text>
+                        }
+                     }
             
                  
         
-        </td>
+                </td>
         
-        <td>
-            @*Html.ActionLink("Edit", "Edit", new { id=item.MedicalId }) *@
-            @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
-            @Html.ActionLink("Delete", "Delete", new { id=item.MedicalId })
+                <td>
+                    @*Html.ActionLink("Edit", "Edit", new { id=item.MedicalId }) *@
+                    @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
+                    @Html.ActionLink("Delete", "Delete", new { id=item.MedicalId })
             
             
-        </td>
-    </tr>
+                </td>
+            </tr>
+        }
+    
+    }
+    
+    else
+    {
+        SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+        
+        String contactEmail = db.UserProfiles.Find(WebSecurity.CurrentUserId).Email;
+        
+        foreach(SmartGuardPortalv1.Models.Contact contact in db.Contacts.Where(i => i.Email == contactEmail))
+        {
+            SmartGuardPortalv1.Models.UserProfile user = db.UserProfiles.Find(contact.fkUserId);
+            <tr align="center">
+                <td>Medical Data Record of <b>@user.FirstName @user.LastName </b></td>
+            </tr>
+            foreach(SmartGuardPortalv1.Models.Medical medical in db.MedicalRecords.Where(i => i.fkUserId == contact.fkUserId))
+            {
+                <tr>
+                    <td>
+                        @using ((Html.BeginForm("Download/" + medical.MedicalId, "Medical", FormMethod.Get)))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <input type="submit" value="Download" />
+                        }
+                        <b>Description: </b>@medical.description
+                        <br />
+                        <b>Upload date: </b>@medical.TimeStamp
+                        <br />
+
+                    </td>
+                </tr>
+            }
+            
+        }
+        
+    }
 }
 
 </table>

@@ -57,7 +57,7 @@ namespace SmartGuardPortalv1.Controllers
             //string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(user);
             //string json_data = JsonConvert.SerializeObject(arr);
             List<Contact> contacts = new List<Contact>();
-            contacts = db.Contacts.Where(i => i.fkUserId == userId).ToList();
+            contacts = db.Contacts.Where(i => i.fkUserId == userId).OrderBy(i => i.Rank).ToList();
             
             List<Place> places = new List<Place>();
             places = db.Places.Where(i => i.fkUserId == userId).ToList();

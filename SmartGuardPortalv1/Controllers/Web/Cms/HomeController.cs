@@ -14,7 +14,12 @@ namespace SmartGuardPortalv1.Controllers
     public class HomeController : Controller
     {
         private UsersContext db = new UsersContext();
-        
+
+        public ActionResult Email()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             
@@ -32,6 +37,14 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        [Authorize(Roles = "User")]
+        public ActionResult Modules()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
         public ActionResult Landing()
         {
             ViewBag.Message = "Your app description page.";
@@ -39,7 +52,40 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Contact")]
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
         public ActionResult AllModules()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllMemory()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllNavigation()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllContacts()
         {
             ViewBag.Message = "Your app description page.";
 
@@ -60,9 +106,10 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize(Roles = "User,Contact")]
+        public ActionResult Communication()
         {
-            ViewBag.Message = "Your contact page.";
+            
 
             return View();
         }
@@ -81,6 +128,25 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles="User")]
         public ActionResult Module()
         {
+            try{
+
+                ChargeData charge = db.Charges.Where(i => i.fkUserId == WebSecurity.CurrentUserId).FirstOrDefault();
+                if (charge == null)
+                {
+                    ChargeData temp = new ChargeData();
+                    temp.fkUserId = WebSecurity.CurrentUserId;
+                    temp.ChargeTimeStamp = DateTime.Now;
+                    temp.ChargePct = 100;
+
+                    db.Charges.Add(temp);
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
             ViewBag.Message = "Your contact page.";
 
             return View();

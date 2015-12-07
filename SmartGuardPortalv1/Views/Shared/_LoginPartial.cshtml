@@ -30,14 +30,29 @@
 @{
     if (Request.IsAuthenticated) 
     {
-        <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account", null, new {Class = "action add", title="View account settings" })
-                @*Html.ActionLink("profile", "Profile", "Account") *@
-                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-                    @Html.AntiForgeryToken()
-                    <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
-                }
+        
+        if(Roles.IsUserInRole("User") || Roles.IsUserInRole("Contact"))
+        {
+            <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account", null, new {Class = "action add", title="View account settings" })
+                    @*Html.ActionLink("profile", "Profile", "Account") *@
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
+                    }
             
-        </div>
+            </div>
+        }
+        else
+        {
+            <div align="left">Hello @Html.ActionLink(@user, "Manage", "Account", null, new {Class = "action add", title="View account settings" })
+                    @*Html.ActionLink("profile", "Profile", "Account") *@
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
+                    }
+            
+            </div>
+        }
          
     }
     else if( Request.Url.AbsoluteUri =="http://smartguardwatch.azurewebsites.net/")

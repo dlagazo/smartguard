@@ -10,14 +10,14 @@ using SmartGuardPortalv1.Models;
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="User")]
+    
     public class MedicalController : Controller
     {
         private UsersContext db = new UsersContext();
 
         //
         // GET: /Feature/
-        
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Index()
         {
             return View(db.MedicalRecords.ToList());
@@ -25,7 +25,7 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Details/5
-
+        [Authorize(Roles = "User")]
         public ActionResult Details(int id = 0)
         {
             Contact contact = db.Contacts.Find(id);
@@ -38,13 +38,13 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Create
-
+        [Authorize(Roles = "User")]
         public ActionResult Create()
         {
             return View();
         }
 
-
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Download(int id = 0)
         {
             byte[] file = db.MedicalRecords.Where(i => i.MedicalId == id).First().MedicalFile;
@@ -56,6 +56,7 @@ namespace SmartGuardPortalv1.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public ActionResult Create([Bind(Exclude = "MedicalFile")]Medical medical, HttpPostedFileBase MedicalFile)
         {
             if (ModelState.IsValid)

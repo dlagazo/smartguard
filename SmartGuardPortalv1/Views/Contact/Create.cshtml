@@ -73,12 +73,7 @@
             @Html.ValidationMessageFor(model => model.type)
         </div>
 
-        <div>
-            Can be called outside of schedule?
-            <br />
-            @Html.CheckBoxFor(m => m.canContactOutsideSched)
-
-        </div>
+       
 
         <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
         <input type="hidden" value="@maxRank" id="Rank" name="Rank"/>

@@ -42,11 +42,17 @@
         <b>Birth Date:</b> @info.BirthDate
     </div>
     <div class="display-label">
-        <b>Gender:</b> @info.Gender
+        <b>Gender:</b> @{ if (info.Gender == true) { <text>Female</text> } else {<text>Male</text> }}
     </div>
-    <div class="display-label">
-        <b>Hand:</b> @info.Hand
-    </div>
+    @{
+        if(Roles.IsUserInRole("User"))
+        {
+            <div class="display-label">
+                <b>Hand:</b> @{ if (info.Hand == true) { <text>Left</text> } else {<text>Right</text> }}
+            </div>
+        }
+    }
+    
     <div class="display-label">
         <b>Email:</b> @Html.DisplayFor(model => model.Email)
     </div>
@@ -71,10 +77,11 @@
 <p>
     
     @{
-        <text>My Contact Schedule:</text>
+        
         <br />
         if(Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
         {
+            <text>My Contact Schedule:</text>
             string sched = context.ContactSchedules.Where(i => i.fkUserId == userId).First().ContactSchedules;
             try
             {

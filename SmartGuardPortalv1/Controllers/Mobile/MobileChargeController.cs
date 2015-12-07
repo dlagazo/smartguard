@@ -75,7 +75,7 @@ namespace SmartGuardPortalv1.Controllers
                 ChargeData temp = db.Charges.Where(i => i.fkUserId == userId).First();
                 temp.ChargePct = charge.ChargePct;
                 temp.ChargeTimeStamp = charge.ChargeTimeStamp;
-                //charge.fkUserId = userId;
+                //temp.fkUserId = userId;
                 //db..Add(temp);
 
 
@@ -83,7 +83,7 @@ namespace SmartGuardPortalv1.Controllers
                 db.SaveChanges();
                 
                 
-                return Request.CreateResponse(HttpStatusCode.OK, charge);
+                return Request.CreateResponse(HttpStatusCode.OK, temp);
                     
                 
             }

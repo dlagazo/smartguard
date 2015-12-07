@@ -9,7 +9,7 @@
               new SelectListItem { Text = "Mrs.", Value = "2" }, 
               new SelectListItem { Text = "Dr.", Value = "3" },
     };
-
+    
     var listGender = new List<SelectListItem> 
     { 
               new SelectListItem { Text = "Male", Value = "false" }, 
@@ -23,7 +23,7 @@
               new SelectListItem { Text = "Left", Value = "true" },
               
     };
-    
+
     var listCountries = new List<SelectListItem>();
 
     SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
@@ -34,23 +34,10 @@
     
 }
 
-<b>@ViewBag.Title</b>
+<b>Dashboard > Edit Profile</b>
 
 @{
-    if(loginType == 0)
-    {
-        <p>Welcome to the Smartguard Web Portal!</p>
-        <p>Congratulations on your new Smartguard!</p>
-        <p>Please enter your personal information and pick your new username and password.</p>
-        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
-    }
-    else if(loginType == 1)
-    {
-        <p>Welcome to the Smartguard Web Portal!</p>
-        <p>Thank you for registering as a contact person for our Smartguard users!</p>
-        <p>Please enter your personal information and pick your new username and password.</p>
-        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
-    }
+    
 
 }
 
@@ -63,12 +50,13 @@
            <table>
                <tr>
                    <td>
-                        @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
-                        @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
+                        
+                        Username: @Model.UserName
                 <br />
             
                         
-                        @Html.LabelFor(m => m.Email) @Html.TextBoxFor(m => m.Email)
+                        Email: @Model.Email
+                       @Html.HiddenFor(m => m.Email)
                         @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
                         @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
         
@@ -88,7 +76,7 @@
                                 <td>Title: @Html.DropDownList("FkTitle",  new SelectList(listItems , "Value" , "Text"))</td>
                                 <td>Gender: @Html.DropDownList("Gender",  new SelectList(listGender , "Value" , "Text"))</td>
                                 @{
-                                    if(loginType == 0)
+                                    if(Roles.IsUserInRole("User"))
                                     {
                                         <td>Hand @Html.DropDownList("Hand",  new SelectList(listHand , "Value" , "Text"))</td>
                                     }
@@ -102,8 +90,9 @@
                         @Html.LabelFor(m => m.Country) @Html.DropDownList("Country",  new SelectList(listCountries , "Value" , "Text"))
                         @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
                         @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
+                       
                         <br />
-                        <input type="submit" value="Register" />
+                        <input type="submit" value="Edit" />
                    </td>
                </tr>
 

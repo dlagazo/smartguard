@@ -12,6 +12,7 @@ using SmartGuardPortalv1.Filters;
 using SmartGuardPortalv1.Models;
 using System.Net.Mail;
 using System.Net;
+using System.Data.Entity;
 
 
 namespace SmartGuardPortalv1.Controllers
@@ -171,6 +172,69 @@ namespace SmartGuardPortalv1.Controllers
             return View(model);
         }
 
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit(int id = 0)
+        {
+            int userId = WebSecurity.CurrentUserId;
+            UserProfile profile = db.UserProfiles.Find(userId);
+            UserInformation info = db.UserInfos.Where(i => i.fkUserId == userId).FirstOrDefault();
+            RegisterModel reg = new RegisterModel();
+            reg.Address = info.Address;
+            reg.BirthDate = info.BirthDate;
+            reg.City = info.City;
+            reg.Country = profile.Country;
+            reg.Email = profile.Email;
+            reg.FirstName = profile.FirstName;
+            reg.LastName = profile.LastName;
+            reg.Phone = info.Phone;
+            reg.UserName = profile.UserName;
+            reg.Zip = info.Zip;
+            reg.FkTitle = info.FkTitle;
+            reg.Gender = info.Gender;
+            reg.Hand = info.Hand;
+            return View(reg);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(RegisterModel model)
+        {
+            UserProfile profile = new UserProfile();
+            UserInformation info = db.UserInfos.Where(i => i.fkUserId == WebSecurity.CurrentUserId).FirstOrDefault();
+
+            db.UserInfos.Remove(info);
+            
+
+            profile.Country = model.Country;
+            profile.FirstName = model.FirstName;
+            profile.LastName = model.LastName;
+            profile.UserName = WebSecurity.CurrentUserName;
+            profile.UserId = WebSecurity.CurrentUserId;
+            profile.Email = model.Email;
+
+            info = new UserInformation();
+            info.Address = model.Address;
+            info.BirthDate = model.BirthDate;
+            info.City = model.City;
+            info.FkTitle = model.FkTitle;
+            info.fkUserId = WebSecurity.CurrentUserId;
+            info.Gender = model.Gender;
+            info.Hand = model.Hand;
+            info.Phone = model.Phone;
+            info.Zip = model.Zip;
+
+
+
+                db.UserInfos.Add(info);
+                //db.Entry(info).State = EntityState.Modified;
+                db.Entry(profile).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profile", "Account", null);
+            
+            
+            return RedirectToAction("Profile", "Account");
+        }
+
         //
         // GET: /Account/Register
 
@@ -324,7 +388,7 @@ namespace SmartGuardPortalv1.Controllers
 
 
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Email", "Home");
                 }
                 catch (MembershipCreateUserException e)
                 {

@@ -1,0 +1,54 @@
+﻿@{
+    
+}
+<b> @Html.ActionLink("Main Menu", "Contact", "Home") > Navigation </b>
+<br /><br />
+@*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
+
+<div>
+
+   
+    <table width="100%">
+    @{
+        
+        if(Roles.IsUserInRole("Contact"))
+        {
+            SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+        
+            String contactEmail = db.UserProfiles.Find(WebSecurity.CurrentUserId).Email;
+        
+            foreach(SmartGuardPortalv1.Models.Contact contact in db.Contacts.Where(i => i.Email == contactEmail))
+            {
+                SmartGuardPortalv1.Models.UserProfile user = db.UserProfiles.Find(contact.fkUserId);
+                
+                <tr>
+                    <td>
+                        <div align="center">
+                            <b> @user.FirstName @user.LastName 's Navigation </b>
+                        </div>
+                        
+                        @foreach(SmartGuardPortalv1.Models.Place place in db.Places.Where(i => i.fkUserId == contact.fkUserId))
+                        {
+                            string marker = place.PlaceLat + "," + place.PlaceLong;
+                            <b>Place: </b> @place.PlaceName
+
+                            <br />
+                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=@place.PlaceLat,@place.PlaceLong&zoom=16&size=600x200&maptype=roadmap&markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
+                            <br />
+                            <br />
+                        }
+                        
+                        
+                        
+
+                    </td>
+                    
+                </tr>
+                
+            }
+        
+        }
+    }
+    </table>
+
+</div>

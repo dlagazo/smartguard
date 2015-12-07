@@ -6,18 +6,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SmartGuardPortalv1.Models;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="User")]
+    
     public class MemoryController : Controller
     {
         private UsersContext db = new UsersContext();
 
         //
         // GET: /Feature/
-
+        [Authorize(Roles = "User")]
         public ActionResult Index()
         {
             return View(db.Memories.ToList());
@@ -25,27 +27,66 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Details/5
-
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Details(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
-            if (memory == null)
+
+            if (isAllowed(id))
             {
-                return HttpNotFound();
+                Memory memory = db.Memories.Find(id);
+                if (memory == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(memory);
             }
-            return View(memory);
+            
+           
+                   
+                
+            
+            return RedirectToAction("AllMemory","Home");
+            
+        }
+
+        public Boolean isAllowed(int id = 0)
+        {
+            if(Roles.IsUserInRole("Contact"))
+            {
+                UserProfile profile = db.UserProfiles.Find(WebSecurity.CurrentUserId);
+                Memory memory = db.Memories.Find(id);
+                int ownerId = memory.fkUserId;
+                
+                foreach(Contact contact in db.Contacts.Where(i => i.fkUserId == ownerId))
+                {
+                    if (contact.Email == profile.Email)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Details(Memory memory)
         {
+
+
             if (ModelState.IsValid)
             {
+
+
                 //memory.MemoryDates = "Edited";
                 db.Entry(memory).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
 
             return View(memory);
@@ -53,8 +94,14 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Create
-
+        [Authorize(Roles = "User")]
         public ActionResult Create()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult ContactCreate(int id = 0)
         {
             return View();
         }
@@ -64,6 +111,7 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User")]
         public ActionResult Create(Memory memory)
         {
             if (ModelState.IsValid)
@@ -77,17 +125,41 @@ namespace SmartGuardPortalv1.Controllers
             return View(memory);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Contact")]
+        public ActionResult ContactCreate(Memory memory)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Memories.Add(memory);
+                db.SaveChanges();
+
+                return RedirectToAction("Details/" + memory.MemoryId);
+            }
+
+            return RedirectToAction("AllMemory","Home");
+        }
+
         //
         // GET: /Feature/Edit/5
-
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Edit(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            Memory memory = db.Memories.Find(id);
+            if (isAllowed(id))
             {
-                return HttpNotFound();
+                
+                if (memory == null)
+                {
+                    return HttpNotFound();
+                }
+                
+                return View(memory);
+                
+                    
             }
-            return View(Memory);
+            return HttpNotFound();
         }
 
         //
@@ -95,13 +167,17 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Edit(Memory memory)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(memory).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if(Roles.IsUserInRole("User"))
+                    return RedirectToAction("Index");
+                else
+                    return RedirectToAction("AllMemory", "Home");
             }
 
             return View(memory);
@@ -109,20 +185,32 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Delete/5
-
+        [Authorize(Roles = "User,Contact")]
         public ActionResult Delete(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            Memory memory = db.Memories.Find(id);
+            if (isAllowed(id))
+            {
+
+                if (memory == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(memory);
+
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return HttpNotFound();
+            
         }
 
         //
         // POST: /Feature/Delete/5
-
+        [Authorize(Roles = "User,Contact")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
