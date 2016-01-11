@@ -15,7 +15,7 @@
 <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.filthypillow.js")"></script>
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/jquery.filthypillow.css")">
    
-<b> Dashboard > Activity Check > Set Alarm</b>
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Activity Check", "Index", "Memory")  >  Set Alarm</b>
 
 <table height="300px">
     <tr>
@@ -205,7 +205,7 @@
                     <input type="hidden" value="@Model.MemoryFreq" id="MemoryFreq" name="MemoryFreq"/>
                     <input type="hidden" value="@Model.MemoryInstructions" id="MemoryInstructions" name="MemoryInstructions"/>
             
-                  
+                    <input type="hidden" value="@Model.MemoryType" id="MemoryType" name="MemoryType"/>
                     <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
                     <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
                 <input type="button" id="btnClear" value="Clear All"/>

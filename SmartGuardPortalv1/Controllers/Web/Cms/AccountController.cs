@@ -171,6 +171,57 @@ namespace SmartGuardPortalv1.Controllers
             }
             return View(model);
         }
+        
+        [AllowAnonymous]
+        public ActionResult Forgot()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Reset(RegisterModel model)
+        {
+            
+
+            if (model.Email != null)
+            {
+                UserProfile profile = db.UserProfiles.Where(i => i.Email == model.Email).FirstOrDefault();
+                //string username = Membership.GetUserNameByEmail(model.Email);
+                
+                if(profile != null)
+                {
+                    var token = WebSecurity.GeneratePasswordResetToken(profile.UserName);
+                    // create a link with this token and send email
+                    string password = Membership.GeneratePassword(12, 0);
+                    // link directed to an action with form to capture password
+                    WebSecurity.ResetPassword(token, password);
+
+                    var emailMessage = new SendGrid.SendGridMessage();
+                    emailMessage.From = new MailAddress("mailer-no-reply@smartguard");
+                    emailMessage.AddTo(model.Email);
+
+                    
+
+                    emailMessage.Subject = "Smart Guard temporary password";
+                    emailMessage.Html =  
+                        "<p>You have successfully reset your password. Your temporary password is: </p> <br/><br/>" +
+                        
+                        "<p>" + password + "</p><br/><br/>" +
+
+                        "<p>Please log in using your temporary password and change it immediately.</p>" +
+                        "<p>If you did not reset your password, please report it to us immediately.</p>" +
+
+                        "<br/><br/>Regards, <br/> Smart Guard Team";
+
+                    sendEmail(emailMessage);
+                }
+                
+                
+            }
+
+
+            return RedirectToAction("Index", "Home");
+        }
 
         //[ValidateAntiForgeryToken]
         public ActionResult Edit(int id = 0)
@@ -331,34 +382,64 @@ namespace SmartGuardPortalv1.Controllers
 
                         Contact contact = new Contact();
                         contact.Email = "primary@smartguard.com";
-                        contact.FirstName = "Primary";
-                        contact.LastName = "Contact";
+                        contact.FirstName = "Fallback";
+                        contact.LastName = "";
                         contact.Rank = 1;
-                        contact.Relationship = "Relationship";
-                        contact.Mobile = "+123456789";
+                        contact.Relationship = "Emergency";
+                        contact.Mobile = "911";
                         contact.fkUserId = WebSecurity.GetUserId(model.UserName);
 
                         Memory wake = new Memory();
                         wake.fkUserId = WebSecurity.GetUserId(model.UserName);
-                        wake.MemoryDates = System.DateTime.Now.ToString();
+                        
                         wake.MemoryFreq = 0;
                         wake.MemoryInstructions = "Please input your wake up settings";
                         wake.MemoryName = "Wake";
                         wake.MemoryDates = "Sun Dec 06 2015 08:00:54 GMT+0800,Mon Dec 07 2015 08:00:54 GMT+0800,Tue Dec 08 2015 08:00:54 GMT+0800,Wed Dec 09 2015 08:00:54 GMT+0800,Thu Dec 10 2015 08:00:54 GMT+0800,Fri Dec 11 2015 08:00:54 GMT+0800,Sat Dec 12 2015 08:00:54 GMT+0800,";
+                        wake.MemoryType = 0;
 
                         Memory sleep = new Memory();
                         sleep.fkUserId = WebSecurity.GetUserId(model.UserName);
-                        sleep.MemoryDates = System.DateTime.Now.ToString();
+                        sleep.MemoryType = 0;
                         sleep.MemoryFreq = 0;
                         sleep.MemoryInstructions = "Please input your sleep settings";
                         sleep.MemoryName = "Sleep";
                         sleep.MemoryDates = "Sun Dec 06 2015 20:00:01 GMT+0800,Mon Dec 07 2015 20:00:01 GMT+0800,Tue Dec 08 2015 20:00:01 GMT+0800,Wed Dec 09 2015 20:00:01 GMT+0800,Thu Dec 10 2015 20:00:01 GMT+0800,Fri Dec 11 2015 20:00:01 GMT+0800,Sat Dec 12 2015 20:00:01 GMT+0800,";
 
+                        Memory fitminutes = new Memory();
+                        fitminutes.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        
+                        fitminutes.MemoryFreq = 0;
+                        fitminutes.MemoryInstructions = "Please input your sleep settings";
+                        fitminutes.MemoryName = "Sleep";
+                        fitminutes.MemoryDates = "Sun Dec 06 2015 10:00:00 GMT+0800,Mon Dec 07 2015 10:00:01 GMT+0800,Tue Dec 08 2015 10:00:01 GMT+0800,Wed Dec 09 2015 10:00:01 GMT+0800,Thu Dec 10 2015 10:00:01 GMT+0800,Fri Dec 11 2015 10:00:01 GMT+0800,Sat Dec 12 2015 10:00:01 GMT+0800,";
+
+                        VitalInfo name = new VitalInfo();
+                        name.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        name.Title = "Name";
+                        name.Value = model.FirstName + " " + model.LastName;
+
+                        VitalInfo address = new VitalInfo();
+                        address.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        address.Title = "Address";
+                        address.Value = ui.Address;
+
+                        VitalInfo birth = new VitalInfo();
+                        birth.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        birth.Title = "Birthdate";
+                        birth.Value = ui.BirthDate.ToShortDateString();
+
+                        
+
                         db.Charges.Add(charge);
                         db.Contacts.Add(contact);
                         db.Memories.Add(wake);
                         db.Memories.Add(sleep);
+                        db.Memories.Add(fitminutes);
                         db.Places.Add(place);
+                        db.VitalInfos.Add(name);
+                        db.VitalInfos.Add(address);
+                        db.VitalInfos.Add(birth);
                         db.SaveChanges();
                     }
                     else if (model.UserType == 1)

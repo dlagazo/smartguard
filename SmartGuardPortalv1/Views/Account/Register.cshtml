@@ -1,4 +1,6 @@
-﻿@model SmartGuardPortalv1.Models.RegisterModel
+﻿<script src="pikaday.js"></script>
+
+@model SmartGuardPortalv1.Models.RegisterModel
 @{
     
     int loginType = Request.Params["login_type"].AsInt();
@@ -34,7 +36,7 @@
     
 }
 
-<b>@ViewBag.Title</b>
+<b>@Html.ActionLink("Back", "Index", "Home") > New user registration</b>
 
 @{
     if(loginType == 0)
@@ -73,7 +75,7 @@
                         @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
         
                         @Html.LabelFor(m => m.BirthDate) 
-                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = DateTime.Now, id = "datepicker" })
+                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = "MM/DD/YYYY", id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.BirthDate)
                         
                         

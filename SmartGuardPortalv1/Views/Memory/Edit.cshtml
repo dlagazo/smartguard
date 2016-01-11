@@ -11,9 +11,17 @@
               new SelectListItem { Text = "Weekly", Value = "2" }
             
     };
+    var memType = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Normal", Value = "0" }, 
+              new SelectListItem { Text = "Coaching", Value = "1" },
+              new SelectListItem { Text = "Fitminutes", Value = "2" },
+              new SelectListItem { Text = "Reminder", Value = "3" }
+            
+    };
 }
 
-<b>Dashboard > Activity Check > Edit</b>
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Activity Check", "Index", "Memory")  > Edit Activity</b>
 <br />
 <br />
 @using (Html.BeginForm()) {
@@ -28,7 +36,7 @@
         <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
         <div class="editor-field">
             @{
-                if (Model.MemoryName == "Wake" || Model.MemoryName == "Sleep")
+                if (Model.MemoryName == "Wake" || Model.MemoryName == "Sleep" || Model.MemoryName == "Fitminutes")
                 {
                     @Html.LabelFor(model => model.MemoryName)
                     @Html.DisplayFor(model => model.MemoryName);
@@ -60,7 +68,13 @@
             @Html.EditorFor(model => model.MemoryInstructions)
             @Html.ValidationMessageFor(model => model.MemoryInstructions)
         </div>
-
+        <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryType)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("MemoryType",  new SelectList(memType , "Value" , "Text"))
+                        @Html.ValidationMessageFor(model => model.MemoryType)
+                    </div>
         
 
         <p>

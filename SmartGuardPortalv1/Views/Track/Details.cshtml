@@ -1,0 +1,17 @@
+﻿@model SmartGuardPortalv1.Models.Place
+
+@{
+    ViewBag.Title = "Details";
+    string marker = Model.PlaceLat + "," + Model.PlaceLong;
+}
+
+<b> Dashboard > My Places > @Model.PlaceName</b>
+<br />
+<br />
+<img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.PlaceLat,@Model.PlaceLong&zoom=7&size=600x300&maptype=roadmap
+&markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PlaceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

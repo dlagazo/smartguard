@@ -28,12 +28,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
-            if (memory == null)
+            Fall fall = db.Falls.Find(id);
+            if (fall == null)
             {
                 return HttpNotFound();
             }
-            return View(memory);
+            return View(fall);
         }
 
         //
@@ -96,12 +96,12 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
+            Fall fall = db.Falls.Find(id);
+            if (fall == null)
             {
                 return HttpNotFound();
             }
-            return View(Memory);
+            return View(fall);
         }
 
         //
@@ -111,8 +111,8 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Memory memory = db.Memories.Find(id);
-            db.Memories.Remove(memory);
+            Fall fall = db.Falls.Find(id);
+            db.Falls.Remove(fall);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

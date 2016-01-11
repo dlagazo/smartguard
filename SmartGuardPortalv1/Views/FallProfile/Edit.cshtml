@@ -1,0 +1,128 @@
+﻿@model SmartGuardPortalv1.Models.FallProfile
+
+@{
+    ViewBag.Title = "Edit";
+    int userId = (int)WebSecurity.CurrentUserId;
+    var listOptions = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "YES", Value = "true" }, 
+              new SelectListItem { Text = "NO", Value = "false" },
+              
+    };
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Contact</legend>
+        @Html.HiddenFor(model => model.FallProfileId)
+        <div class="editor-label">
+            FALL UPPER THRESHOLD(m/s^2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fallUpperThreshold)
+            @Html.ValidationMessageFor(model => model.fallUpperThreshold)
+        </div>
+        
+        <div class="editor-label">
+            FALL LOWER THRESHOLD(m/s^2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fallLowerThreshold)
+            @Html.ValidationMessageFor(model => model.fallLowerThreshold)
+        </div>
+        <div class="editor-label">
+            FALL PEAK COUNT UPPER THRESHOLD
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fallPeakUpperThreshold)
+            @Html.ValidationMessageFor(model => model.fallPeakUpperThreshold)
+        </div>
+        
+        <div class="editor-label">
+            FALL PEAK COUNT LOWER THRESHOLD
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fallPeakLowerThreshold)
+            @Html.ValidationMessageFor(model => model.fallPeakLowerThreshold)
+        </div>
+        <div class="editor-label">
+            FALL WINDOW DURATION(seconds)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fallWindowDuration)
+            @Html.ValidationMessageFor(model => model.fallWindowDuration)
+        </div>
+        <div class="editor-label">
+            RESIDUAL MOVEMENT THRESHOLD(m/s^2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.residualMovementThreshold)
+            @Html.ValidationMessageFor(model => model.residualMovementThreshold)
+        </div>
+        <div class="editor-label">
+            RESIDUAL WINDOW DURATION(seconds)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.residualWindowDuration)
+            @Html.ValidationMessageFor(model => model.residualWindowDuration)
+        </div>
+        <div class="editor-label">
+            INACTIVITY ALARM DURATION(minutes)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.inactivityDuration)
+            @Html.ValidationMessageFor(model => model.inactivityDuration)
+        </div>
+        <div class="editor-label">
+            FITMINUTE DURATION(minutes)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fitminuteDuration)
+            @Html.ValidationMessageFor(model => model.fitminuteDuration)
+        </div>
+        <div class="editor-label">
+            ACTIVE MOVEMENT THRESHOLD(in G's)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.activeThreshold)
+            @Html.ValidationMessageFor(model => model.activeThreshold)
+        </div>
+        <div class="editor-label">
+            FITMINUTES THRESHOLD(in G's)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fitminuteThreshold)
+            @Html.ValidationMessageFor(model => model.fitminuteThreshold)
+        </div>
+        <div class="editor-label">
+            ACTIVATE
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("isActive",  new SelectList(listOptions , "Value" , "Text"))
+        </div>
+        <div class="editor-label">
+            DESCRIPTION
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

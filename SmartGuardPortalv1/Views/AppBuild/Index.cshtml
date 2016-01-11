@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.AppBuild>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+    
+}
+
+
+
+
+    
+<b> @Html.ActionLink("Dashboard", "Administrator", "Home") > App Version </b>
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+      
+
+
+
+
+<table>
+
+
+@{ 
+    
+        foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    <b>Version: </b>@item.AppVersion
+                    <br />
+
+                    @using ((Html.BeginForm("Download/" + item.AppBuildId, "AppBuild", FormMethod.Get)))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <input type="submit" value="Download App" />
+                    }
+
+                    @using ((Html.BeginForm("Documentation/" + item.AppBuildId, "AppBuild", FormMethod.Get)))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <input type="submit" value="Documentation" />
+                    }
+                    
+                    
+                    <b>Upload date: </b>@item.timeStamp
+                    <br />
+                    <b>Activated: </b> @if (item.isActive) { <text>Yes</text> } else { <text>No</text> }
+                    
+            
+                 
+        
+                </td>
+        
+                <td>
+                    @*Html.ActionLink("Edit", "Edit", new { id=item.MedicalId }) *@
+                    @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
+                    @Html.ActionLink("Delete", "Delete", new { id=item.AppBuildId })
+            
+            
+                </td>
+            </tr>
+        }
+    
+    }
+    
+    
+
+
+</table>

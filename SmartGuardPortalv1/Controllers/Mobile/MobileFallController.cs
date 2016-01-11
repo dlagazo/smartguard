@@ -63,7 +63,7 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         //public HttpResponseMessage Set(GeoLocation geo)
-        public HttpResponseMessage Set(List<Fall> falls)
+        public HttpResponseMessage Set(Fall fall)
         {
             UsersContext db = new UsersContext();
             int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
@@ -72,23 +72,23 @@ namespace SmartGuardPortalv1.Controllers
             if (ModelState.IsValid)
             {
 
-                foreach (Fall fall in falls)
-                {
-                    fall.fkUserId = userId;
-                    db.Falls.Add(fall);
-                }
+                
+                fall.fkUserId = userId;
+               
+                db.Falls.Add(fall);
+                
 
                 
                     
                 
                 db.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.OK, falls);
+                return Request.CreateResponse(HttpStatusCode.OK, fall);
                     
                 
             }
             
             
-            return Request.CreateResponse(HttpStatusCode.OK, falls);
+            return Request.CreateResponse(HttpStatusCode.OK, fall);
         }
 
         public string getUserCredential(string auth)

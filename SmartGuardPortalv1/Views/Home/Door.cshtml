@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Door Management </b>
+<br />
+<br />
+<p>
+    
+    This module is part of our future developments. You can be messaged if it is available.
+
+With this module it is important that the Door Management Kit is installed on your home door. (Manual or we offer installation help?)
+
+Afterwards it is possible for you and your contact persons to open the door through the web portal in an emergency situation. This will only be 
+
+possible after an emergency was triggered by the Smartguard! 
+
+    </p>
+
+<p>
+
+This helps your contact persons and emergency services to enter your home when you cannot stand up to do so. 
+
+When an emergency situation occurs it is also possible for you to open your door directly through a special door button that will appear on the 
+
+Smartguard`s display. (Picture of the Door Button in Emergency Situation on SG`s Display)
+
+You can set the Contact Persons in the Menu who will be able to open your door in an emergency situation.</p>
+
+
+
+
+

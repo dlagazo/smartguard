@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Service and Updates </b>
+<br />
+<br />
+<p>
+    
+    For every technology it is important to be updated from time to time to adapt to technology changes and keep the system running on top of its 
+
+performance. Therefore we offer a free and simple update service which will always take place during night times when the Smartguard is connected 
+
+to its charging station.
+
+You can choose to make this happen automatically or to ask a contact person for approval every time an update is available:
+
+(Button to set “Automatic Update” or “Update after Approval” and if update after approval is chosen the possibility shall be displayed to choose one of 
+
+the contact persons to be the one who can approve updates).
+
+</p>
+
+<p>
+
+The Contact Person will be informed about the Update via Email/SMS and can then log into the web portal to approve the download.
+    </p>
+
+<p>
+
+This helps your contact persons and emergency services to enter your home when you cannot stand up to do so. 
+
+When an emergency situation occurs it is also possible for you to open your door directly through a special door button that will appear on the 
+
+Smartguard`s display. (Picture of the Door Button in Emergency Situation on SG`s Display)
+
+You can set the Contact Persons in the Menu who will be able to open your door in an emergency situation.</p>
+
+
+
+
+

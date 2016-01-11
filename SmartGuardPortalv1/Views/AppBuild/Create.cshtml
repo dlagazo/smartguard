@@ -1,0 +1,66 @@
+﻿@model SmartGuardPortalv1.Models.AppBuild
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+    int count = db.Contacts.Count(i => i.fkUserId == userId);
+    count++;
+
+    
+}
+
+<b> @Html.ActionLink("Dashboard", "Administrator", "Home") > @Html.ActionLink("App Versions", "Index", "AppBuild") > Upload a new app version</b>
+<br />
+<br />
+
+@using ((Html.BeginForm("Create", "AppBuild", FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Feature</legend>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AppVersion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AppVersion)
+            @Html.ValidationMessageFor(model => model.AppVersion)
+        </div>
+        <div class="editor-field">
+            APK:
+            <input type="file" id="file" name="files[0]" />
+           
+        </div> 
+        <div class="editor-field">
+            Documentation:
+            <input type="file" id="file" name="files[1]" />
+           
+        </div> 
+        <div class="editor-label">
+            Activated:
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.isActive)
+            @Html.ValidationMessageFor(model => model.isActive)
+        </div>
+        
+
+        
+        
+        
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

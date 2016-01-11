@@ -29,7 +29,7 @@ namespace SmartGuardPortalv1.Controllers
                     return RedirectToAction("Administrator", "Home", new  { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User"))
                     return RedirectToAction("Module", "Home", new { userName = WebSecurity.CurrentUserName });
-                if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
+                else if (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact"))
                     return RedirectToAction("FallModule", "Home", new { userName = WebSecurity.CurrentUserName });
             }
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -54,6 +54,20 @@ namespace SmartGuardPortalv1.Controllers
 
         [Authorize(Roles = "Contact")]
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Wearing()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Overview()
         {
             ViewBag.Message = "Your contact page.";
 
@@ -100,6 +114,27 @@ namespace SmartGuardPortalv1.Controllers
         }
 
         public ActionResult About()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Door()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Updates()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult HomeAreaAlarm()
         {
             ViewBag.Message = "Your app description page.";
 

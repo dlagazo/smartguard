@@ -1,0 +1,41 @@
+﻿@model SmartGuardPortalv1.Models.RegisterModel
+
+@{
+    
+    int login_type = Request.Params["login_type"].AsInt();
+}
+
+
+
+<section id="loginForm">
+<b>@Html.ActionLink("Back", "Index", "Home") > Reset password </b>
+
+    <p>Input your registered email and submit to reset your password. 
+        Please check your email for the temporary password.</p>
+
+@using (Html.BeginForm("Reset","Account")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Reset form</legend>
+        <ol>
+            
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </li>
+            
+        </ol>
+        <input type="submit" value="Reset password" />
+    </fieldset>
+    
+}
+</section>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

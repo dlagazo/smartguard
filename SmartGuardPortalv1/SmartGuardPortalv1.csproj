@@ -232,14 +232,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Mobile\MobileUpdateController.cs" />
+    <Compile Include="Controllers\Mobile\MobileActivityController.cs" />
     <Compile Include="Controllers\Mobile\MobileImageUploadController.cs" />
     <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
     <Compile Include="Controllers\Web\Cms\ContactUsController.cs" />
+    <Compile Include="Controllers\Web\Cms\FallProfileController.cs" />
+    <Compile Include="Controllers\Web\Cms\AppBuildController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
     <Compile Include="Controllers\Web\Features\ContactScheduleController.cs" />
+    <Compile Include="Controllers\Web\Features\CoachingController.cs" />
+    <Compile Include="Controllers\Web\Features\TrackController.cs" />
+    <Compile Include="Controllers\Web\Features\VitalInfoController.cs" />
     <Compile Include="Controllers\Web\Features\ReminderController.cs" />
     <Compile Include="Controllers\Web\Features\MedicalController.cs" />
     <Compile Include="Controllers\Web\Features\FallController.cs" />
@@ -396,12 +403,23 @@
     <Compile Include="Migrations\201511070448264_Initial32.Designer.cs">
       <DependentUpon>201511070448264_Initial32.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512240037378_Initial33.cs" />
+    <Compile Include="Migrations\201512240037378_Initial33.Designer.cs">
+      <DependentUpon>201512240037378_Initial33.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\SyncData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\pikaday.css" />
+    <Content Include="Content\images\fall_icon.png" />
+    <Content Include="Content\images\fall_window.png" />
+    <Content Include="Content\images\residual_window.png" />
+    <Content Include="Content\images\watch_overview.png" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
+    <Content Include="Content\js\jquery-ui.js" />
     <Content Include="Content\js\jquery.filthypillow.css" />
     <Content Include="Content\images\Austria-icon.png" />
     <Content Include="Content\images\buttons\btn_ModuleActivity.png" />
@@ -426,6 +444,12 @@
     <Content Include="Content\js\jquery.filthypillow.js" />
     <Content Include="Content\js\jquery.js" />
     <Content Include="Content\js\moment.js" />
+    <Content Include="Content\js\pikaday.js" />
+    <Content Include="Content\js\sortable\angular.min.js" />
+    <Content Include="Content\js\sortable\app.js" />
+    <Content Include="Content\js\sortable\ng-sortable.js" />
+    <Content Include="Content\js\sortable\Ply.min.js" />
+    <Content Include="Content\js\sortable\Sortable.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -463,7 +487,11 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\ateneoinnovation - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ateneoinnovation - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguard-test - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguard-test - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardportal - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardportal - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardwatch - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardwatch - Web Deploy.pubxml" />
@@ -617,11 +645,42 @@
     <Content Include="Views\Memory\ContactCreate.cshtml" />
     <Content Include="Views\Home\Modules.cshtml" />
     <Content Include="Views\Home\Communication.cshtml" />
+    <Content Include="Views\FallProfile\Create.cshtml" />
+    <Content Include="Views\FallProfile\Delete.cshtml" />
+    <Content Include="Views\FallProfile\Details.cshtml" />
+    <Content Include="Views\FallProfile\Edit.cshtml" />
+    <Content Include="Views\FallProfile\Index.cshtml" />
+    <Content Include="Views\VitalInfo\Create.cshtml" />
+    <Content Include="Views\VitalInfo\Delete.cshtml" />
+    <Content Include="Views\VitalInfo\Details.cshtml" />
+    <Content Include="Views\VitalInfo\Edit.cshtml" />
+    <Content Include="Views\VitalInfo\Index.cshtml" />
+    <Content Include="Views\AppBuild\Create.cshtml" />
+    <Content Include="Views\AppBuild\Delete.cshtml" />
+    <Content Include="Views\AppBuild\Details.cshtml" />
+    <Content Include="Views\AppBuild\Edit.cshtml" />
+    <Content Include="Views\AppBuild\Index.cshtml" />
+    <Content Include="Views\Account\Forgot.cshtml" />
+    <Content Include="Views\Coaching\ContactCreate.cshtml" />
+    <Content Include="Views\Coaching\Create.cshtml" />
+    <Content Include="Views\Coaching\Delete.cshtml" />
+    <Content Include="Views\Coaching\Details.cshtml" />
+    <Content Include="Views\Coaching\Edit.cshtml" />
+    <Content Include="Views\Coaching\Index.cshtml" />
+    <Content Include="Views\Home\Wearing.cshtml" />
+    <Content Include="Views\Home\HomeAreaAlarm.cshtml" />
+    <Content Include="Views\Home\Door.cshtml" />
+    <Content Include="Views\Home\Updates.cshtml" />
+    <Content Include="Views\Home\Overview.cshtml" />
+    <Content Include="Views\Track\Create.cshtml" />
+    <Content Include="Views\Track\Delete.cshtml" />
+    <Content Include="Views\Track\Details.cshtml" />
+    <Content Include="Views\Track\Edit.cshtml" />
+    <Content Include="Views\Track\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\camera\" />
-    <Folder Include="Content\css\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -725,6 +784,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511070448264_Initial32.resx">
       <DependentUpon>201511070448264_Initial32.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512240037378_Initial33.resx">
+      <DependentUpon>201512240037378_Initial33.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

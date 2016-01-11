@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.VitalInfo>
+
+@{
+    ViewBag.Title = "Index";
+    //int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>Dashboard > Medical Data</b>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+             @item.Title: @item.Value
+        </td>
+       
+        
+        
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VitalInfoId }) 
+            
+            @Html.ActionLink("Delete", "Delete", new { id=item.VitalInfoId })
+        </td>
+    </tr>
+}
+
+</table>

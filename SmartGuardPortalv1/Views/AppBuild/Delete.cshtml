@@ -1,0 +1,19 @@
+﻿@model SmartGuardPortalv1.Models.AppBuild
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<b>Dashboard > @Html.ActionLink("App Builds", "Index")</b>
+<br />
+<br />
+
+<b>Are you sure you want to delete @Model.AppVersion created on @Model.timeStamp from your apps?</b>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> 
+        
+    </p>
+}

@@ -1,0 +1,92 @@
+﻿@model SmartGuardPortalv1.Models.Memory
+
+@{
+    ViewBag.Title = "Edit";
+    int userId = (int)WebSecurity.CurrentUserId;
+
+    var listFreq = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Once", Value = "0" }, 
+              new SelectListItem { Text = "Daily", Value = "1" },
+              new SelectListItem { Text = "Weekly", Value = "2" }
+            
+    };
+    var memType = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Normal", Value = "0" }, 
+              new SelectListItem { Text = "Coaching", Value = "1" },
+              new SelectListItem { Text = "Fitminutes", Value = "2" },
+              new SelectListItem { Text = "Reminder", Value = "3" }
+            
+    };
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Coaching activities", "Index", "Memory")  > Edit coaching activity</b>
+<br />
+<br />
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Memory</legend>
+
+        @Html.HiddenFor(model => model.MemoryId)
+        <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+        <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
+        <div class="editor-field">
+            @{
+                if (Model.MemoryName == "Wake" || Model.MemoryName == "Sleep" || Model.MemoryName == "Fitminutes")
+                {
+                    @Html.LabelFor(model => model.MemoryName)
+                    @Html.DisplayFor(model => model.MemoryName);
+                    <input type="hidden" value="@Model.MemoryName" id="MemoryName" name="MemoryName"/>
+                }
+                else
+                {
+                    @Html.LabelFor(model => model.MemoryName)
+                    <br />
+                    @Html.EditorFor(model => model.MemoryName, new {@class ="form-control", @readonly="true"})
+                    @Html.ValidationMessageFor(model => model.MemoryName)
+                }
+            }
+            
+            
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemoryFreq)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("MemoryFreq",  new SelectList(listFreq , "Value" , "Text"))
+            @Html.ValidationMessageFor(model => model.MemoryFreq)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemoryInstructions)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MemoryInstructions)
+            @Html.ValidationMessageFor(model => model.MemoryInstructions)
+        </div>
+        <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryType)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("MemoryType",  new SelectList(memType , "Value" , "Text"))
+                        @Html.ValidationMessageFor(model => model.MemoryType)
+                    </div>
+        
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

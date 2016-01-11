@@ -26,6 +26,7 @@ namespace SmartGuardPortalv1.Models
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<GeoLocation> GeoLocations { get; set; }
         public DbSet<Fall> Falls { get; set; }
+        public DbSet<FallProfile> FallProfiles { get; set; }
         public DbSet<ChargeData> Charges { get; set; }
         public DbSet<Medical> MedicalRecords { get; set; }
         public DbSet<Video> Videos { get; set; }
@@ -33,6 +34,10 @@ namespace SmartGuardPortalv1.Models
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<ContactSchedule> ContactSchedules { get; set; }
+        public DbSet<VitalInfo> VitalInfos { get; set; }
+        public DbSet<AppBuild> AppBuilds { get; set; }
+        public DbSet<Track> Tracks { get; set; }
+
     }
 
     [Table("VideosTable")]
@@ -54,6 +59,18 @@ namespace SmartGuardPortalv1.Models
         public string UpdateId { get; set; }
         public string changes { get; set; }
         public byte[] UpdateFile { get; set; }
+        public DateTime timeStamp { get; set; }
+    }
+
+    [Table("AppBuildTable")]
+    public class AppBuild
+    {
+        [Key]
+        public int AppBuildId { get; set; }
+        public string AppVersion { get; set; }
+        public byte[] AppDocumentation { get; set; }
+        public byte[] Apk { get; set; }
+        public bool isActive { get; set; }
         public DateTime timeStamp { get; set; }
     }
 
@@ -199,6 +216,16 @@ namespace SmartGuardPortalv1.Models
         public string PlaceLong { get; set; }
     }
 
+    [Table("TracksTable")]
+    public class Track
+    {
+        public int TrackId { get; set; }
+        public int fkUserId { get; set; }
+        public string TrackLat { get; set; }
+        public string TrackLong { get; set; }
+        public DateTime timestamp { get; set; }
+    }
+
     [Table("GeoLocationTable")]
     public class GeoLocation
     {
@@ -219,21 +246,57 @@ namespace SmartGuardPortalv1.Models
         public int fkUserId { get; set; }
         public string FallLat { get; set; }
         public string FallLong { get; set; }
+        public byte[] image { get; set; }
+       
     }
+
+    [Table("VitalInfo")]
+    public class VitalInfo
+    {
+        public int VitalInfoId { get; set; }
+        public string Title { get; set; }
+        public string Value { get; set; }
+        public int fkUserId { get; set; }
+    }
+
+    [Table("FallProfileTable")]
+    public class FallProfile
+    {
+        
+        public int FallProfileId { get; set; }
+        public double fallUpperThreshold { get; set; }
+        public double fallLowerThreshold { get; set; }
+        public long fallWindowDuration { get; set; }
+        public int fallPeakUpperThreshold { get; set; }
+        public int fallPeakLowerThreshold { get; set; }
+        public double residualMovementThreshold { get; set; }
+        public long residualWindowDuration { get; set; }
+        public bool isActive { get; set; }
+        public string description { get; set; }
+        public double activeThreshold { get; set; }
+        public double fitminuteThreshold { get; set; }
+        public int fitminuteDuration { get; set; }
+        public int inactivityDuration { get; set; }
+    }
+    
 
     [Table("MemoryTable")]
     public class Memory
     {
         public int MemoryId { get; set; }
         [Display(Name = "Title")]
+        [StringLength(30, ErrorMessage = "The title must be less than 30 characters.", MinimumLength = 0)]
         public string MemoryName { get; set; }
         public int fkUserId { get; set; }
         
         [Display(Name = "Frequency")]
         public int MemoryFreq { get; set; }
+        
         [Display(Name = "Instruction")]
+        [StringLength(120, ErrorMessage = "The instruction must be less than 120 characters.", MinimumLength = 0)]
         public string MemoryInstructions { get; set; }
         public string MemoryDates { get; set; }
+        public int MemoryType { get; set; }
     }
 
     [Table("ContactUsTable")]
@@ -268,6 +331,9 @@ namespace SmartGuardPortalv1.Models
         public DateTime ChargeTimeStamp { get; set; }
         public int fkUserId { get; set; }
         public int ChargePct { get; set; }
+        public String ActivePct { get; set; }
+        public String InactivePct { get; set; }
+        public int FallCount { get; set; }
     }
 
     [Table("ContactTable")]

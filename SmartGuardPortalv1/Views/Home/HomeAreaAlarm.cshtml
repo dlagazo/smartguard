@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Home area alarm</b>
+<br />
+<br />
+<p>Whenever you lose your way of your standard routes, one of your contact persons will be informed and you will be given the opportunity to being
+
+directed to your favourite destinations with the <b>@Html.ActionLink("Navigation module", "Index", "Navigation")</b>, if it is activated.
+
+The Smartguard will ask you if you need guidance to a choosable location like home, supermarket or whatever you enter in the 
+
+<b>@Html.ActionLink("Navigation module", "Index", "Navigation")</b>. You will then be directed with acoustic signals and information on the Smartguard's screen until you reach your destination.</p>
+
+
+
+
+

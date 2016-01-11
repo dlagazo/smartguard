@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Memory>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Coaching for taking drugs </b>
+<br />
+<br />
+<p>
+   This module helps you to organise your day while not forgetting all important aspects of it. You can enter daily reminders for drinking enough water,
+doing your daily fitness exercise or whatever you want and need to remember.
+Furthermore it helps you to take the right medication at the right time and shows you an overview of your medication activity in this web portal. 
+The Smartguard will ask you to take your dose when it is necessary and tells you the exact amount of pills you need to take. Then it starts filming the 
+process of you putting the medication into your mouth which is possible through the movement measurements of the G-sensor. 
+You can always tell when the Smartguard is filming this arm movement because the recording process is visualised on its display for your control.
+This confirmation of you taking the medication will be protocolled in your medication protocol in the web portal to give you an overview of your 
+medication use behaviour. This guarantees your medication adherence and therefore prevents from noncompliance and its aftermath.
+</p>
+
+<p>
+    <b>@Html.ActionLink("Create New", "Create")</b>
+</p>
+<table>
+
+@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+
+    <tr style="padding-bottom:3px">
+        <td width="70%">
+             <b>Activity: </b>@item.MemoryName
+             <br />
+             <b>Schedule: </b>@item.MemoryDates
+             <br />
+
+             <b>Remind: </b> 
+             @{
+                 if(@item.MemoryFreq==0)
+                 {
+                     <text>Once</text>
+                 }
+                 else if (@item.MemoryFreq == 1)
+                 {
+                     <text>Daily</text>
+                 }
+                 else if (@item.MemoryFreq == 2)
+                 {
+                     <text>Weekly</text>
+                 }
+                 else if (@item.MemoryFreq == 3)
+                 {
+                     <text>Monthly</text>
+                 }
+              }
+            <br />
+            <b>Instructions: </b> @item.MemoryInstructions
+            <br />
+            <b>Activity Type: </b> @if(item.MemoryType == 0) { <text>Normal</text>} 
+                else if(item.MemoryType == 1) { <text>Coaching</text> }
+                else if(item.MemoryType == 2) { <text>Fitminutes </text>}
+                else if(item.MemoryType == 3) { <text>Reminder</text> }
+                
+        </td>
+        
+        <td width="30%">
+            @Html.ActionLink("Edit", "Edit", new { id=item.MemoryId }) 
+            @Html.ActionLink("Set Alarm", "Details", new { id=item.MemoryId }) 
+            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
+            @{
+                if(!(item.MemoryName == "Wake" || item.MemoryName == "Sleep" || item.MemoryName == "Fitminutes") )
+                {
+                    
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MemoryId });
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

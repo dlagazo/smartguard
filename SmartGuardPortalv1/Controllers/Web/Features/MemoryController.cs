@@ -22,30 +22,29 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
-            return View(db.Memories.ToList());
+            return View(db.Memories.Where(i => i.MemoryType == 0).ToList());
         }
 
         //
         // GET: /Feature/Details/5
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         public ActionResult Details(int id = 0)
         {
 
-            if (isAllowed(id))
-            {
+            
                 Memory memory = db.Memories.Find(id);
                 if (memory == null)
                 {
                     return HttpNotFound();
                 }
                 return View(memory);
-            }
+           
             
            
                    
                 
             
-            return RedirectToAction("AllMemory","Home");
+            
             
         }
 
@@ -74,7 +73,7 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         public ActionResult Details(Memory memory)
         {
 
@@ -143,12 +142,11 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Edit/5
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         public ActionResult Edit(int id = 0)
         {
             Memory memory = db.Memories.Find(id);
-            if (isAllowed(id))
-            {
+            
                 
                 if (memory == null)
                 {
@@ -158,8 +156,7 @@ namespace SmartGuardPortalv1.Controllers
                 return View(memory);
                 
                     
-            }
-            return HttpNotFound();
+            
         }
 
         //
@@ -167,17 +164,16 @@ namespace SmartGuardPortalv1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         public ActionResult Edit(Memory memory)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(memory).State = EntityState.Modified;
                 db.SaveChanges();
-                if(Roles.IsUserInRole("User"))
+                
                     return RedirectToAction("Index");
-                else
-                    return RedirectToAction("AllMemory", "Home");
+                
             }
 
             return View(memory);
@@ -185,12 +181,11 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // GET: /Feature/Delete/5
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         public ActionResult Delete(int id = 0)
         {
             Memory memory = db.Memories.Find(id);
-            if (isAllowed(id))
-            {
+            
 
                 if (memory == null)
                 {
@@ -199,18 +194,13 @@ namespace SmartGuardPortalv1.Controllers
 
                 return View(memory);
 
-            }
-            else
-            {
-                return HttpNotFound();
-            }
-            return HttpNotFound();
+            
             
         }
 
         //
         // POST: /Feature/Delete/5
-        [Authorize(Roles = "User,Contact")]
+        [Authorize(Roles = "User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

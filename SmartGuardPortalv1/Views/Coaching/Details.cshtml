@@ -1,0 +1,234 @@
+﻿@model SmartGuardPortalv1.Models.Memory
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+    string[] dates = null;
+    if(Model.MemoryDates != null)
+    {
+        dates = Model.MemoryDates.Split(',');
+    }
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/js/moment.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.filthypillow.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/jquery.filthypillow.css")">
+   
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Coaching activities", "Index", "Coaching")  >  Set Alarm</b>
+
+<table height="300px">
+    <tr>
+        
+        <td valign="top" width="25%">
+            
+                    <div class="editor-label">
+                        <b>Activity:</b> @Html.DisplayFor(model => model.MemoryName)
+                    </div>
+                    
+                   
+                    
+                    <div class="editor-label">
+                        <b>Remind:</b>
+                        @{
+                            if(Model.MemoryFreq==0)
+                            {
+                                <text>Once</text>
+                            }
+                            else if (Model.MemoryFreq == 1)
+                            {
+                                <text>Daily</text>
+                            }
+                            else if (Model.MemoryFreq == 2)
+                            {
+                                <text>Weekly</text>
+                            }
+                            else if (Model.MemoryFreq == 3)
+                            {
+                                <text>Monthly</text>
+                            }
+                        }
+                    </div>
+                    
+                    <div class="editor-label">
+                        <b>Instructions:</b> @Html.DisplayFor(model => model.MemoryInstructions)
+                    </div>
+                    <div class="editor-label">
+                        <b>Schedule:</b> @Html.DisplayFor(model => model.MemoryDates)
+                    </div>
+                    
+                    
+                    
+                    
+               
+            
+        </td>
+        <td valign="top" width="50%">
+            
+
+            
+            <div class="filthypillow" class="editor-field"></div>
+        
+            <script type="text/javascript">
+                var timeCount = 0;
+                var dateArrayString = [];
+                var dateString = "";
+                var now = moment().subtract("seconds", 1),
+                    later = moment().add("days", 7);
+                $(".filthypillow").filthypillow({
+                    exitOnBackgroundClick: false,
+                    minDateTime: function () {
+                        return now;
+                    }
+                });
+
+                function removeDate(btn) {
+                    var txt;
+                    var r = confirm("Do you want to delete?");
+                    if (r == true) {
+                        btn.parentNode.removeChild(btn);
+                    } else {
+                        
+                    }
+
+                    
+                }
+
+                function sendForm() {
+                    var allDates = "";
+                    var elem = document.getElementById('Dates');
+                    var childDate;
+                    for (i = 0; i < elem.childNodes.length; i++) {
+                        childDate = elem.childNodes[i];
+                        //allDates.concat(childDate.id, ",");
+                        if (childDate.value != null) {
+                            allDates += childDate.id + ',';
+                        }
+                        //allDates = childDate.id;
+                    }
+                    document.getElementById("MemoryDates").value = allDates;
+                    document.getElementById("alarmSchedules").submit();
+
+                }
+
+                $(".filthypillow").on("fp:save", function (e, dateObj) {
+
+                    //document.getElementById("MemoryDates").value = dateObj;
+                    var element = document.createElement("input");
+                    //Assign different attributes to the element. 
+                    element.type = "button";
+                    element.value = dateObj; // Really? You want the default value to be the type string?
+                    //element.name = type;  // And the name too?
+                    element.id = dateObj;
+                    var AllDates = document.getElementById("Dates");
+                    element.onclick = function () { // Note this is a function
+                        //alert("Delete?");
+                        var x;
+                        var tempDateObj = dateObj
+                        if (confirm("Do you want to delete?") == true) {
+
+                            document.getElementById(dateObj).remove();
+                            dateArrayString.splice(dateArrayString.indexOf(this.id, 1));
+
+                            dateString = dateArrayString;
+                            document.getElementById("MemoryDates").value = dateString;
+                        } else {
+
+                        }
+                    };
+
+                    timeCount++;
+
+                    //Append the element in page (in span).  
+                    dateArrayString.push(dateObj);
+
+                    dateString = dateArrayString;
+                    document.getElementById("MemoryDates").value = dateString;
+                    document.getElementById("allDates").value = dateString;
+                    AllDates.appendChild(element);
+                    var rawDates = document.getElementById("rawDates");
+
+                    //console.info( dateObj );
+                });
+                $(".filthypillow").filthypillow("show");
+
+                window.onload = function () {
+                    
+                    document.getElementById("btnClear").onclick = function clear() {
+                        alert("All alarm details deleted");
+                        var dates = document.getElementById("Dates");
+                        while (dates.hasChildNodes()) {
+                            dates.removeChild(dates.lastChild);
+                        }
+                        dateArrayString = [];
+                        dateString = dateArrayString;
+                        document.getElementById("MemoryDates").value = dateString;
+                        //validation code to see State field is mandatory.  
+                    }
+                    document.getElementById("btnShowPicker").onclick = function save() {
+                        alert("Alarm details saved.");
+                        $(".filthypillow").hide();
+                    }
+                }
+
+            </script>
+            
+        </td>
+        <td valign="top" width="25%">
+            Alarm date and time:
+            <br />
+            <div id="Dates">
+                @{
+                    if (dates != null)
+                    {
+                        foreach (string date in dates)
+                        {
+                            if (date.Length > 10)
+                            {
+                                <input type="button" id="@date" value="@date" onclick="removeDate(this)"/>
+                                <br />
+                            }
+                        }
+                    }
+                    
+                }
+
+            </div>
+            <br />
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "alarmSchedules" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <input type="hidden" value="@Model.MemoryId" id="MemoryId" name="MemoryId"/>
+                    <input type="hidden" value="@Model.MemoryName" id="MemoryName" name="MemoryName"/>
+                    <input type="hidden" value="@Model.MemoryFreq" id="MemoryFreq" name="MemoryFreq"/>
+                    <input type="hidden" value="@Model.MemoryInstructions" id="MemoryInstructions" name="MemoryInstructions"/>
+            
+                    <input type="hidden" value="@Model.MemoryType" id="MemoryType" name="MemoryType"/>
+                    <input type="hidden" value="@Model.MemoryDates" id="MemoryDates" name="MemoryDates"/>
+                    <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
+                <input type="button" id="btnClear" value="Clear All"/>
+                <br />
+                <input type="button" id="btnSaveDate" value="Save alarm date and time" onclick="sendForm()" />
+            }
+            
+            
+            
+            <div id="rawDates">
+                <input type="hidden" id="allDates" value="@Model.MemoryDates"/>
+
+            </div>
+            
+        </td>
+        
+    </tr>
+</table>
+
+        
+   
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

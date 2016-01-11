@@ -1,4 +1,8 @@
-﻿@model SmartGuardPortalv1.Models.RegisterModel
+﻿
+<script type="text/javascript" src="@Url.Content("~/Content/js/pikaday.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/pikaday.css")" />
+
+@model SmartGuardPortalv1.Models.RegisterModel
 @{
     
     int loginType = Request.Params["login_type"].AsInt();
@@ -34,12 +38,11 @@
     
 }
 
+
+
 <b>Dashboard > Edit Profile</b>
 
-@{
-    
 
-}
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -61,7 +64,8 @@
                         @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
         
                         @Html.LabelFor(m => m.BirthDate) 
-                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = DateTime.Now, id = "datepicker" })
+                       
+                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = Model.BirthDate, id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.BirthDate)
                         
                         
@@ -104,3 +108,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date(2000, 0, 1),
+        maxDate: new Date(2020, 12, 31),
+        yearRange: [2000, 2020]
+    });
+
+    </script>

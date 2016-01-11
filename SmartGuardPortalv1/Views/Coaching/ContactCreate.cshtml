@@ -1,0 +1,74 @@
+﻿@model SmartGuardPortalv1.Models.Memory
+
+@{
+    ViewBag.Title = "Create";
+    int userId = (int)WebSecurity.CurrentUserId;
+
+    var listFreq = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Once", Value = "0" }, 
+              new SelectListItem { Text = "Daily", Value = "1" },
+              new SelectListItem { Text = "Weekly", Value = "2" }
+            
+    };
+}
+
+   
+<b>Create a Memory</b>
+
+<table>
+    <tr>
+        
+        <td>
+            @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+                <fieldset>
+                    <legend>Feature</legend>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MemoryName)
+                        @Html.ValidationMessageFor(model => model.MemoryName)
+                    </div>
+                    
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryFreq)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("MemoryFreq",  new SelectList(listFreq , "Value" , "Text"))
+                        @Html.ValidationMessageFor(model => model.MemoryFreq)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryInstructions)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MemoryInstructions)
+                        @Html.ValidationMessageFor(model => model.MemoryInstructions)
+                    </div>
+        
+
+                    <input type="hidden" value="" id="MemoryDates" />
+                    <input type="hidden" value="@ViewContext.RouteData.Values["id"]" id="fkUserId" name="fkUserId"/>
+                    <p>
+                        <input type="submit" value="Create" />
+                    </p>
+                </fieldset>
+            }
+        </td>
+        
+    </tr>
+</table>
+
+        
+   
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

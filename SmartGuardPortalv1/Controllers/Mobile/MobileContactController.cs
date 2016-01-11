@@ -68,7 +68,11 @@ namespace SmartGuardPortalv1.Controllers
             List<Reminder> reminders = new List<Reminder>();
             reminders = db.Reminders.Where(i => i.fkUserId == userId).ToList();
 
-            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, reminders, responses);
+            FallProfile fallProfile = db.FallProfiles.Where(i => i.isActive == true).FirstOrDefault();
+
+            List<VitalInfo> vitals = db.VitalInfos.Where(i => i.fkUserId == userId).ToList();
+
+            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, reminders, responses, fallProfile, vitals);
 
 
 

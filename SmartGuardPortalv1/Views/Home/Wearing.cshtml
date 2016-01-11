@@ -1,0 +1,25 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Wearing and Charging Control</b>
+<br />
+<br />
+<p>
+    To guarantee maximum safety it is important for you to wear the Smartguard every day and to charge it every night!
+Please put the Smartguard onto its charging pad, which should be installed next to your bed, and check if it is actually charging before going to sleep. 
+The Smartguard will remind you to do this before your night time and furthermore it will tell you if it has not enough battery during its use. If the battery
+is below 50% it will ask you to make no calls with it and if it is even less it will remind you to charge it soon. 
+Additionally the watch recognises if you don’t wear it and will remind you and your contact persons that it is obligatory for safety reasons to always
+wear it.
+</p>
+<p>
+For your personal information the current battery percentage is displayed in the upper right corner of the main menu (link) in this web portal.</p>
+
+
+
+
+

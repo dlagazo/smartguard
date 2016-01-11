@@ -11,10 +11,20 @@
               new SelectListItem { Text = "Weekly", Value = "2" }
             
     };
+
+    var memType = new List<SelectListItem> 
+    { 
+              new SelectListItem { Text = "Normal", Value = "0" }, 
+              new SelectListItem { Text = "Coaching", Value = "1" },
+              new SelectListItem { Text = "Fitminutes", Value = "2" },
+              new SelectListItem { Text = "Reminder", Value = "3" }
+            
+    };
 }
 
    
-<b>Create a Memory</b>
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Activity Check", "Index", "Memory")  > Create Activity </b>
+
 
 <table>
     <tr>
@@ -48,6 +58,13 @@
                     <div class="editor-field">
                         @Html.EditorFor(model => model.MemoryInstructions)
                         @Html.ValidationMessageFor(model => model.MemoryInstructions)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MemoryType)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("MemoryType",  new SelectList(memType , "Value" , "Text"))
+                        @Html.ValidationMessageFor(model => model.MemoryType)
                     </div>
         
 

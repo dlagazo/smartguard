@@ -14,11 +14,14 @@ namespace SmartGuardPortalv1.Models
         public List<Subscription> subscriptions { get; set; }
         public List<Response> responses { get; set; }
         public List<Reminder> reminders { get; set; }
+        public FallProfile fallProfile { get; set; }
+        public List<VitalInfo> vitals { get; set; }
 
         private UsersContext db = new UsersContext();
 
         public SyncData(List<Contact> _contacts, List<Place> _places, List<string> _roles, 
-            List<Memory> _memories, List<Reminder> _reminders, List<Response> _responses)
+            List<Memory> _memories, List<Reminder> _reminders, List<Response> _responses, FallProfile _fp, 
+            List<VitalInfo> _vitals)
         {
             contacts = new List<MyContact>();
             int userId;
@@ -44,6 +47,8 @@ namespace SmartGuardPortalv1.Models
             memories = _memories;
             reminders = _reminders;
             responses = _responses;
+            fallProfile = _fp;
+            vitals = _vitals;
         }
 
     }

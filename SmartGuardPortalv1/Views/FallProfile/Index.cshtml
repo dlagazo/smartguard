@@ -1,0 +1,85 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.FallProfile>
+
+@{
+    ViewBag.Title = "Index";
+    //int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Back", "Administrator", "Home") > Fall Profiles</b>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table>
+    <tr>
+        <td align="center">
+            FALL WINDOW PARAMETERS
+            <br />
+            <img src='@Url.Content("~/Content/images/fall_window.png")' title="Parameters for the fall Window"/>
+        </td>
+        <td align="center">
+            RESIDUAL PARAMETERS
+            <br />
+            <img src='@Url.Content("~/Content/images/residual_window.png")' 
+                        title="Parameters for the residual window"/>
+
+        </td>
+    </tr>
+</table>
+<br />
+
+
+<table>
+    
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            ID: @item.FallProfileId
+            <br />
+            Fall Upper Threshold: @item.fallUpperThreshold m/s^2
+            <br />
+            Fall Lower Threshold: @item.fallLowerThreshold m/s^2
+            <br />
+            Fall window duration: @item.fallWindowDuration secs
+            <br />
+            Peak count lower threshold: @item.fallPeakLowerThreshold instances
+            <br /> 
+            Peak count upper threshold: @item.fallPeakUpperThreshold instances
+            <br />
+            Residual movement threshold: @item.residualMovementThreshold m/s^2
+            <br />
+            Residual window duration: @item.residualWindowDuration secs
+            <br />
+            Inactivity duration: @item.inactivityDuration minutes
+            <br />
+            Fitminute duration: @item.fitminuteDuration minutes
+            <br />
+            Active movement threshold: @item.activeThreshold G's
+            <br />
+            Fitminute threshold: @item.fitminuteThreshold G's
+            <br />
+            Description: @item.description
+            <br />
+            Is activated: @if(item.isActive == true){ <text>Yes</text> } else { <text>No</text> }
+        </td>
+        <td>
+            
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FallProfileId }) 
+            @Html.ActionLink("Details", "Details", new { id=item.FallProfileId}) 
+            @if(item.isActive == false)
+            { 
+                @Html.ActionLink("Delete", "Delete", new { id=item.FallProfileId })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td align="center">---------------------------</td>
+    </tr>
+}
+
+</table>

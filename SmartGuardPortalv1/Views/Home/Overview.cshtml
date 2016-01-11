@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Fall>
+
+@{
+    ViewBag.Title = "Index";
+    int userId = (int)WebSecurity.CurrentUserId;
+}
+
+<b>@Html.ActionLink("Main Menu", "Module", "Home") > Function Overview </b>
+<br />
+<br />
+
+
+<img src='@Url.Content("~/Content/images/watch_overview.png")' width="800px" align="center" />
+
+
+
+
+

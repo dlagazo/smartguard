@@ -60,7 +60,7 @@
                             <input type="submit" value="Log in"  style="width:100%"/>
                         </fieldset>
                         <p>
-                            @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 })
+                            @Html.ActionLink("Forgot your password?", "Forgot", "Account")
                             <br />
                             @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 0 }, null)
                         </p>
@@ -106,7 +106,7 @@
                             <input type="submit" value="Log in" style="width:100%"/>
                         </fieldset>
                         <p>
-                            @Html.ActionLink("Forgot your password?", "Home", new { login_type  = 0 }) 
+                            @Html.ActionLink("Forgot your password?", "Forgot", "Account") 
                             <br />
                             @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 1 }, null)
                         </p>

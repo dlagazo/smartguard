@@ -14,7 +14,9 @@ direct connection to one of your available contact persons informing them about 
 directly communicate with them.</p>
 
 <p>
-Scenario(should be visualised with explanatory SG pictures/screen shots):
+<img src='@Url.Content("~/Content/images/fall_icon.png")' width="600px" align="center"
+                        title="The Smartguard recognises when you fall down and sends an emergency signal to your contact persons immediately."/>
+<br />
 Smartguard detects a Fall situation -> SG asks if everything is okay ->
 If it was a false alarm you can answer “All OK” or press the green All OK button |
 If you fell down and need help you can say “Help” or press the red emergency button
@@ -39,43 +41,29 @@ the fastest way possible.</p>
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FallTimeStamp)
+            DATE
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FallLat)
-        </th>
-      
-        <th>
-            @Html.DisplayNameFor(model => model.FallLong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FallResult)
-        </th>
+        
+        
+        
         
         
     </tr>
 
-@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+@foreach (var item in Model.Where(i => i.fkUserId == userId).OrderByDescending(i=>i.FallTimeStamp)) {
     <tr>
         <td>
              @item.FallTimeStamp
         </td>
-        <td>
-             @item.FallLat
-        </td>
         
-        <td>
-             @item.FallLong
-        </td>
-        <td>
-             @item.FallResult
-        </td>
+        
+        
         
         
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FallId }) |
-            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
+           
+            @Html.ActionLink("Details", "Details", new { id=item.FallId }) 
             @Html.ActionLink("Delete", "Delete", new { id=item.FallId })
         </td>
     </tr>
