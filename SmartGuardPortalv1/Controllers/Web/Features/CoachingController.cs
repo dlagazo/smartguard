@@ -22,7 +22,7 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
-            return View(db.Memories.Where(i => i.MemoryType == 1 || i.MemoryType == 2).ToList());
+            return View(db.Memories.Where(i => i.MemoryType == 1 || i.MemoryType == 3 || i.MemoryType == 4).ToList());
         }
 
         //

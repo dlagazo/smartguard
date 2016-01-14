@@ -13,15 +13,17 @@
     };
     var memType = new List<SelectListItem> 
     { 
-              new SelectListItem { Text = "Normal", Value = "0" }, 
-              new SelectListItem { Text = "Coaching", Value = "1" },
-              new SelectListItem { Text = "Fitminutes", Value = "2" },
-              new SelectListItem { Text = "Reminder", Value = "3" }
+              
+              new SelectListItem { Text = "Medication Protocol", Value = "1" },
+          
+              new SelectListItem { Text = "Daily Reminder", Value = "3" },
+              
+              new SelectListItem { Text = "Measure Weight", Value = "4" },
             
     };
 }
 
-<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Coaching activities", "Index", "Memory")  > Edit coaching activity</b>
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > @Html.ActionLink("Day Rhythm Coaching", "Index", "Memory")  > Edit activity</b>
 <br />
 <br />
 @using (Html.BeginForm()) {

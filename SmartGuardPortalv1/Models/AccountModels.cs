@@ -38,6 +38,8 @@ namespace SmartGuardPortalv1.Models
         public DbSet<AppBuild> AppBuilds { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
+        public DbSet<LocateStatus> LocateDevicesStatus { get; set; }
+
     }
 
     [Table("VideosTable")]
@@ -72,6 +74,15 @@ namespace SmartGuardPortalv1.Models
         public byte[] Apk { get; set; }
         public bool isActive { get; set; }
         public DateTime timeStamp { get; set; }
+    }
+
+    [Table("LocateStatusTable")]
+    public class LocateStatus
+    {
+        [Key]
+        public int LocateStatusId { get; set; }
+        public int fkUserId { get; set; }
+        public bool isMissing { get; set; }
     }
 
     [Table("MedicalTable")]

@@ -26,6 +26,48 @@ namespace SmartGuardPortalv1.Controllers
             return View(db.Tracks.Where(i => i.fkUserId == userId).ToList());
         }
 
+        public ActionResult LocateOn()
+        {
+            int userId = (int)WebSecurity.CurrentUserId;
+            LocateStatus status = db.LocateDevicesStatus.Where(i => i.fkUserId == userId).FirstOrDefault();
+            if(status == null)
+            {
+                LocateStatus temp = new LocateStatus();
+                temp.fkUserId = userId;
+                temp.isMissing = true;
+                db.LocateDevicesStatus.Add(temp);
+                db.SaveChanges();
+            }
+            else 
+            {
+                status.isMissing = true;
+                db.Entry(status).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LocateOff()
+        {
+            int userId = (int)WebSecurity.CurrentUserId;
+            LocateStatus status = db.LocateDevicesStatus.Where(i => i.fkUserId == userId).FirstOrDefault();
+            if (status == null)
+            {
+                LocateStatus temp = new LocateStatus();
+                temp.fkUserId = userId;
+                temp.isMissing = false;
+                db.LocateDevicesStatus.Add(temp);
+                db.SaveChanges();
+            }
+            else
+            {
+                status.isMissing = false;
+                db.Entry(status).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
         //
         // GET: /Feature/Details/5
 

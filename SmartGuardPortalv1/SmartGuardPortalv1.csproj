@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{29D518A1-CAAD-4311-9DD2-55ED93B47B0D}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartGuardPortalv1</RootNamespace>
@@ -232,6 +232,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Mobile\MobileTrackController.cs" />
     <Compile Include="Controllers\Mobile\MobileUpdateController.cs" />
     <Compile Include="Controllers\Mobile\MobileActivityController.cs" />
     <Compile Include="Controllers\Mobile\MobileImageUploadController.cs" />
@@ -493,7 +494,11 @@
     <None Include="Properties\PublishProfiles\smartguardportal - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardportal - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardwatch - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\smartguardwatch - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\smartguardwatch - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />

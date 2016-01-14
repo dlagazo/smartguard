@@ -29,11 +29,15 @@ If a stranger finds it in this situation he will be able to call one of your con
     <tr>
         
         <td>
+            
+            Last known location outside home as of:
             <b>@item.timestamp</b> 
             
+            <br />
+            <a href="/Track/LocateOn">Locate my smartguard</a>
+            <br />
+            <a href="/Track/LocateOff">Smartguard found</a>
             
-                    @Html.ActionLink("Delete", "Delete", new { id=item.TrackId })
-                
             <br />
             <img src="https://maps.googleapis.com/maps/api/staticmap?center=@item.TrackLat,@item.TrackLong&zoom=16&size=600x300&maptype=roadmap
 &markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />

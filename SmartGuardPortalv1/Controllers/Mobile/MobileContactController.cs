@@ -71,8 +71,10 @@ namespace SmartGuardPortalv1.Controllers
             FallProfile fallProfile = db.FallProfiles.Where(i => i.isActive == true).FirstOrDefault();
 
             List<VitalInfo> vitals = db.VitalInfos.Where(i => i.fkUserId == userId).ToList();
+            String version = db.AppBuilds.Where(i => i.isActive == true).OrderByDescending(i => i.timeStamp).FirstOrDefault().AppVersion;
 
-            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, reminders, responses, fallProfile, vitals);
+
+            SyncData sd = new SyncData(contacts, places, roles.ToList(), memories, reminders, responses, fallProfile, vitals, version);
 
 
 
