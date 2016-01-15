@@ -8,7 +8,7 @@
 <b> @Html.ActionLink("Dashboard", "Modules", "Home") > Memory and Reminder </b>
 <br />
 <br />
-@Html.ActionLink("Create a new reminder", "Create")
+@*Html.ActionLink("Create a new reminder", "Create")*@
 
 <table>
     <tr>
@@ -30,28 +30,4 @@
 
         </td>
     </tr>
-</table>
-<table>
-@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
-    <tr>
-        <td>
-            
-            <b>Description: </b>@item.description
-            <br />
-            <b>Date: </b>@item.TimeStamp
-            <br />
-            
-        
-        </td>
-        
-        <td>
-            @*Html.ActionLink("Edit", "Edit", new { id=item.MedicalId }) *@
-            @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReminderId })
-            
-            
-        </td>
-    </tr>
-}
-
 </table>

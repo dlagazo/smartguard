@@ -429,6 +429,15 @@ namespace SmartGuardPortalv1.Controllers
                         birth.Title = "Birthdate";
                         birth.Value = ui.BirthDate.ToShortDateString();
 
+                        VitalInfo weight = new VitalInfo();
+                        weight.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        weight.Title = "Weight";
+                        weight.Value = "0 lbs";
+
+                        VitalInfo height = new VitalInfo();
+                        height.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        height.Title = "Height";
+                        height.Value = "5'5''";
                         
 
                         db.Charges.Add(charge);
@@ -440,6 +449,8 @@ namespace SmartGuardPortalv1.Controllers
                         db.VitalInfos.Add(name);
                         db.VitalInfos.Add(address);
                         db.VitalInfos.Add(birth);
+                        db.VitalInfos.Add(weight);
+                        db.VitalInfos.Add(height);
                         db.SaveChanges();
                     }
                     else if (model.UserType == 1)
