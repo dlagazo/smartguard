@@ -40,7 +40,7 @@
 
 
 
-<b>Dashboard > Edit Profile</b>
+<b>@Html.ActionLink("Dashboard", "Index", "Home") > Edit Profile</b>
 
 
 
@@ -52,19 +52,32 @@
         <legend>Registration Form</legend>
            <table>
                <tr>
-                   <td>
-                        
-                        Username: @Model.UserName
-                <br />
+                   <td align="top">
+                       <table>
+                           <tr>
+                               <td><b>Title:</b> @Html.DropDownList("FkTitle", new SelectList(listItems, "Value", "Text"))</td>
+                           </tr>
+                           <tr>  
+                                 <td><b>Gender:</b> @Html.DropDownList("Gender", new SelectList(listGender, "Value", "Text"))</td>
+
+
+                           </tr>
+                           
+                       </table>
+
+                        <b>Username:</b> @Model.UserName
+                        <br />
             
                         
-                        Email: @Model.Email
-                       @Html.HiddenFor(m => m.Email)
-                        @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
-                        @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
-        
-                        @Html.LabelFor(m => m.BirthDate) 
-                       
+                        <b>Email:</b> @Model.Email
+                        @Html.HiddenFor(m => m.Email)
+                        <br />
+                        <b>Last Name:</b> @Html.TextBoxFor(m => m.LastName)
+                        <br />
+                        <b>First Name:</b> @Html.TextBoxFor(m => m.FirstName)
+                        <br />
+                        <b>Birthdate:</b>
+                        
                         @Html.TextBoxFor(model => model.BirthDate, new { @Value = Model.BirthDate, id = "datepicker" })
                         @Html.ValidationMessageFor(model => model.BirthDate)
                         
@@ -72,31 +85,29 @@
                         
                    </td>
                    <td valign="top">
-                        
-                        
-                       
-                        <table>
-                            <tr>
-                                <td>Title: @Html.DropDownList("FkTitle",  new SelectList(listItems , "Value" , "Text"))</td>
-                                <td>Gender: @Html.DropDownList("Gender",  new SelectList(listGender , "Value" , "Text"))</td>
-                                @{
-                                    if(Roles.IsUserInRole("User"))
-                                    {
-                                        <td>Hand @Html.DropDownList("Hand",  new SelectList(listHand , "Value" , "Text"))</td>
-                                    }
-                                }
-                            </tr>
-                        </table>
-                        
-                        
-                        @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
-                        @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
-                        @Html.LabelFor(m => m.Country) @Html.DropDownList("Country",  new SelectList(listCountries , "Value" , "Text"))
-                        @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
-                        @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
+
+
+
+
+
+
+                       <b>Address:</b> @Html.TextBoxFor(m => m.Address)<br />
+                       <b>City:</b> @Html.TextBoxFor(m => m.City)<br />
+                       <b>Country:</b> @Html.DropDownList("Country", new SelectList(listCountries, "Value", "Text"))
+                       <br />
+
+                       <b>Zip:</b> @Html.TextBoxFor(m => m.Zip)<br />
+                       <b>Mobile:</b> @Html.TextBoxFor(m => m.Phone)<br />
+                        @{
+                            if (Roles.IsUserInRole("User"))
+                            {
+                                       <b>Hand:</b> @Html.DropDownList("Hand", new SelectList(listHand, "Value", "Text"))
+                            
+                            }
+                        }
                        
                         <br />
-                        <input type="submit" value="Edit" />
+                        <input type="submit" value="Save Changes" />
                    </td>
                </tr>
 

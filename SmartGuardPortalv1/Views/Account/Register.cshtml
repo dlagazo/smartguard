@@ -62,54 +62,65 @@
 
     <fieldset>
         <legend>Registration Form</legend>
-           <table>
-               <tr>
-                   <td>
-                        @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
-                        @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
-                <br />
-            
-                        
-                        @Html.LabelFor(m => m.Email) @Html.TextBoxFor(m => m.Email)
-                        @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
-                        @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
-        
-                        @Html.LabelFor(m => m.BirthDate) 
-                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = "MM/DD/YYYY", id = "datepicker" })
-                        @Html.ValidationMessageFor(model => model.BirthDate)
-                        
-                        
-                        
-                   </td>
-                   <td valign="top">
-                        
-                        
-                       
-                        <table>
-                            <tr>
-                                <td>Title: @Html.DropDownList("FkTitle",  new SelectList(listItems , "Value" , "Text"))</td>
-                                <td>Gender: @Html.DropDownList("Gender",  new SelectList(listGender , "Value" , "Text"))</td>
-                                @{
-                                    if(loginType == 0)
-                                    {
-                                        <td>Hand @Html.DropDownList("Hand",  new SelectList(listHand , "Value" , "Text"))</td>
-                                    }
-                                }
-                            </tr>
-                        </table>
-                        
-                        
-                        @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
-                        @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
-                        @Html.LabelFor(m => m.Country) @Html.DropDownList("Country",  new SelectList(listCountries , "Value" , "Text"))
-                        @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
-                        @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
-                        <br />
-                        <input type="submit" value="Register" />
-                   </td>
-               </tr>
+        <table>
+            <tr>
+                <td>
+                    @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
+                    @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
+                    <br />
 
-           </table>
+
+                    @Html.LabelFor(m => m.Email) @Html.TextBoxFor(m => m.Email)
+                    @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
+                    @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
+
+                    @Html.LabelFor(m => m.BirthDate)
+                    @Html.TextBoxFor(model => model.BirthDate, new { @Value = "MM/DD/YYYY", id = "datepicker" })
+                    @Html.ValidationMessageFor(model => model.BirthDate)
+
+
+
+                </td>
+                <td valign="top">
+
+
+
+                    <table>
+                        <tr>
+                            <td>Title: @Html.DropDownList("FkTitle", new SelectList(listItems, "Value", "Text"))</td>
+                            <td>Gender: @Html.DropDownList("Gender", new SelectList(listGender, "Value", "Text"))</td>
+
+                        </tr>
+
+
+
+                    </table>
+
+
+                    @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
+                    @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
+                    @Html.LabelFor(m => m.Country) @Html.DropDownList("Country", new SelectList(listCountries, "Value", "Text"))
+                    @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
+                    @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
+                    <br />
+                    @{
+                        if (loginType == 0)
+                        {
+                        
+                            <text>Choose where you are going to wear your smartguard</text>
+                            <br />
+                            @Html.DropDownList("Hand", new SelectList(listHand, "Value", "Text"));
+                        
+                        }
+                    }
+                    <br />
+                    <input type="submit" value="Register" />
+                    </td>
+                    </tr>
+
+                </table>
+
+
             
     </fieldset>
 }

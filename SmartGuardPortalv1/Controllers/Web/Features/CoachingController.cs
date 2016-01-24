@@ -22,7 +22,7 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
-            return View(db.Memories.Where(i => i.MemoryType == 1 || i.MemoryType == 3 || i.MemoryType == 4).ToList());
+            return View(db.Memories.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).Where(i => i.MemoryType == 1 || i.MemoryType == 3 || i.MemoryType == 4).ToList());
         }
 
         //
@@ -37,8 +37,10 @@ namespace SmartGuardPortalv1.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(memory);
-           
+                else if(memory.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                    return View(memory);
+                else
+                    return HttpNotFound();
             
            
                    
@@ -152,8 +154,13 @@ namespace SmartGuardPortalv1.Controllers
                 {
                     return HttpNotFound();
                 }
+                else if (memory.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                    return View(memory);
+                else
+                    return HttpNotFound();
+            
                 
-                return View(memory);
+                
                 
                     
             
@@ -191,8 +198,11 @@ namespace SmartGuardPortalv1.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                return View(memory);
+                else if (memory.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                    return View(memory);
+                else
+                    return HttpNotFound();
+            
 
             
             
@@ -206,8 +216,11 @@ namespace SmartGuardPortalv1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Memory memory = db.Memories.Find(id);
-            db.Memories.Remove(memory);
-            db.SaveChanges();
+            if (memory.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+            {
+                db.Memories.Remove(memory);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 

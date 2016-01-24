@@ -39,39 +39,27 @@ namespace SmartGuardPortalv1.Controllers
         //
         // GET: /Feature/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
+        
         //
         // POST: /Feature/Create
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(ContactSchedule contactSchedule)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ContactSchedules.Add(contactSchedule);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(contactSchedule);
-        }
-
+        
         //
         // GET: /Feature/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
+            int userId = WebMatrix.WebData.WebSecurity.CurrentUserId;
+            
             ContactSchedule contactSchedule = db.ContactSchedules.Where(i => i.fkUserId == id).First();
             if (contactSchedule == null)
             {
                 return HttpNotFound();
             }
-            return View(contactSchedule);
+            else if(contactSchedule.fkUserId == userId)
+                return View(contactSchedule);
+            else
+                return HttpNotFound();
         }
 
         //
@@ -93,29 +81,12 @@ namespace SmartGuardPortalv1.Controllers
         //
         // GET: /Feature/Delete/5
 
-        public ActionResult Delete(int id = 0)
-        {
-            ContactSchedule contactSchedule = db.ContactSchedules.Find(id);
-            if (contactSchedule == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contactSchedule);
-        }
+        
 
         //
         // POST: /Feature/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ContactSchedule contactSchedule = db.ContactSchedules.Find(id);
-            db.ContactSchedules.Remove(contactSchedule);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+       
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

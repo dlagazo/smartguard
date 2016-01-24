@@ -26,51 +26,11 @@ namespace SmartGuardPortalv1.Controllers
             return View(db.VitalInfos.Where(i=>i.fkUserId == userId).ToList());
         }
 
-        //
-        // GET: /Feature/Details/5
-        [Authorize(Roles = "User")]
-        public ActionResult Details(int id = 0)
-        {
-
-            
-                Memory memory = db.Memories.Find(id);
-                if (memory == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(memory);
-           
-            
-           
-                   
-                
-            
-            
-            
-        }
+        
 
         
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User")]
-        public ActionResult Details(Memory memory)
-        {
-
-
-            if (ModelState.IsValid)
-            {
-
-
-                //memory.MemoryDates = "Edited";
-                db.Entry(memory).State = EntityState.Modified;
-                db.SaveChanges();
-                
-            }
-
-            return View(memory);
-        }
-
+        
         //
         // GET: /Feature/Create
         [Authorize(Roles = "User")]

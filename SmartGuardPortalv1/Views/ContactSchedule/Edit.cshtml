@@ -327,6 +327,30 @@
         var endHr = document.getElementById("endHourType").value;
         var endMinTens = document.getElementById("endMinTensType").value;
         var endMinOnes = document.getElementById("endMinOnesType").value;
+
+        if (startHr > endHr)
+        {
+            alert("Invalid schedule");
+            return;
+        }
+        else if (startHr == endHr)
+        {
+            if (startMinTens > endMinTens)
+            {
+                alert("Invalid schedule");
+                return;
+            }
+            else if (startMinTens == endMinTens)
+            {
+                if(startMinOnes >= endMinOnes)
+                {
+                    alert("Invalid schedule");
+                    return;
+                }
+            }
+                
+        }
+
         if (day == 'SUN') {
             var Sched = document.getElementById("SunSched");
             var element = document.createElement("input");
@@ -413,7 +437,7 @@
     }
 </script>
 
-<b>Edit Contact Schedules</b>
+<b>@Html.ActionLink("Account Information", "Profile", "Account") > Edit Contact Schedules</b>
 <br />
 <table>
     <tr>
@@ -480,9 +504,7 @@
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

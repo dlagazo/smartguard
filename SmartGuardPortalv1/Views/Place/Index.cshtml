@@ -13,13 +13,13 @@
 </p>
 <table>
     
-@foreach (var item in Model.Where(i => i.fkUserId == userId)) {
+@foreach (var item in Model) {
     string marker = item.PlaceLat + "," + item.PlaceLong;
     <tr>
         
         <td>
             <b>@item.PlaceName</b> 
-            @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.PlaceId }) 
             @* Html.ActionLink("Details", "Details", new { id=item.PlaceId }) | *@
             @{
                 if(item.PlaceName != "Home")

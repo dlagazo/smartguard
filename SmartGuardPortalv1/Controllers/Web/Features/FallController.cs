@@ -20,7 +20,7 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Falls.ToList());
+            return View(db.Falls.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
         }
 
         //
@@ -33,66 +33,21 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fall);
-        }
-
-        //
-        // GET: /Feature/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Feature/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Memory memory)
-        {
-            if (ModelState.IsValid)
+            else if (fall.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
             {
-                db.Memories.Add(memory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(fall);
             }
-
-            return View(memory);
-        }
-
-        //
-        // GET: /Feature/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            Memory Memory = db.Memories.Find(id);
-            if (Memory == null)
-            {
+            else
                 return HttpNotFound();
-            }
-            return View(Memory);
         }
 
-        //
-        // POST: /Feature/Edit/5
+     
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Memory memory)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(memory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        
 
-            return View(memory);
-        }
+        
 
-        //
-        // GET: /Feature/Delete/5
+        
 
         public ActionResult Delete(int id = 0)
         {
@@ -101,7 +56,21 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fall);
+            else if (fall.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+            {
+                return View(fall);
+            }
+            else
+                return HttpNotFound();
+            
+        }
+
+        public ActionResult DeleteAll()
+        {
+            IEnumerable<Fall> falls = db.Falls.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId);
+            db.Falls.RemoveRange(falls);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         //

@@ -14,8 +14,11 @@ direct connection to one of your available contact persons informing them about 
 directly communicate with them.</p>
 
 <p>
-<img src='@Url.Content("~/Content/images/fall_icon.png")' width="600px" align="center"
-                        title="The Smartguard recognises when you fall down and sends an emergency signal to your contact persons immediately."/>
+    <div width="100%" align="center" textalign="center">
+        <img src='@Url.Content("~/Content/images/fall_icon.png")' width="600px" align="center"
+             title="The Smartguard recognises when you fall down and sends an emergency signal to your contact persons immediately." />
+    </div>
+
 <br />
 Smartguard detects a Fall situation -> SG asks if everything is okay ->
 If it was a false alarm you can answer “All OK” or press the green All OK button |
@@ -35,14 +38,12 @@ wasn’t able to reach anyone of your contact persons. This guarantees your
 the fastest way possible.</p>
 
 <br />
-<br />
+
 <b>My Fall History</b>
 <br />
 <table>
     <tr>
-        <th>
-            DATE
-        </th>
+        <td>@Html.ActionLink("Delete All", "DeleteAll", "Fall")</td>
         
         
         
@@ -50,7 +51,7 @@ the fastest way possible.</p>
         
     </tr>
 
-@foreach (var item in Model.Where(i => i.fkUserId == userId).OrderByDescending(i=>i.FallTimeStamp)) {
+@foreach (var item in Model.OrderByDescending(i=>i.FallTimeStamp)) {
     <tr>
         <td>
              @item.FallTimeStamp

@@ -74,7 +74,7 @@ namespace SmartGuardPortalv1.Controllers
                 
                 ChargeData temp = db.Charges.Where(i => i.fkUserId == userId).First();
                 temp.ChargePct = charge.ChargePct;
-                temp.ChargeTimeStamp = DateTime.Now;
+                temp.ChargeTimeStamp = charge.ChargeTimeStamp;
                 temp.ActivePct = charge.ActivePct;
                 temp.InactivePct = charge.InactivePct;
                 temp.FallCount = charge.FallCount;

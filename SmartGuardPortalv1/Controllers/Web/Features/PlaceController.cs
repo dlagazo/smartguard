@@ -20,7 +20,7 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Places.ToList());
+            return View(db.Places.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
         }
 
         //
@@ -33,6 +33,11 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
+            else if (place.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(place);
+            else
+                return HttpNotFound();
+            
             return View(place);
         }
 
@@ -71,7 +76,10 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(place);
+            else if (place.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(place);
+            else
+                return HttpNotFound();
         }
 
         //
@@ -100,7 +108,10 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(place);
+            else if (place.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(place);
+            else
+                return HttpNotFound();
         }
 
         //
@@ -111,8 +122,12 @@ namespace SmartGuardPortalv1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Place place = db.Places.Find(id);
-            db.Places.Remove(place);
-            db.SaveChanges();
+
+            if (place.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+            {
+                db.Places.Remove(place);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 

@@ -24,7 +24,7 @@
 <table width="100%">
 
 
-@foreach (var item in Model.Where(i => i.fkUserId == userId).OrderBy(i => i.Rank)) {
+@foreach (var item in Model.OrderBy(i => i.Rank)) {
     <tr valign="top" bgcolor="#d9d9d9">
         <td width="30%">
              @{

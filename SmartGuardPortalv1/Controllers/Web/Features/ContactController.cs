@@ -20,7 +20,7 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Contacts.ToList());
+            return View(db.Contacts.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
         }
 
         //
@@ -33,7 +33,11 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contact);
+            else if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(contact);
+            else
+                return HttpNotFound();
+            
         }
 
         public ActionResult MoveDown(int id = 0)
@@ -115,7 +119,10 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contact);
+            else if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(contact);
+            else
+                return HttpNotFound();
         }
 
         //
@@ -155,7 +162,10 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(contact);
+            else if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+                return View(contact);
+            else
+                return HttpNotFound();
         }
 
         //
@@ -166,8 +176,11 @@ namespace SmartGuardPortalv1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Contact contact = db.Contacts.Find(id);
-            db.Contacts.Remove(contact);
-            db.SaveChanges();
+            if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+            {
+                db.Contacts.Remove(contact);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
