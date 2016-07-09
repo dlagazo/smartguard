@@ -5,7 +5,16 @@
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Door Management </b>
+@if (Roles.IsUserInRole("User"))
+{
+    <b>@Html.ActionLink("Dashboard", "Modules", "Home") > Door Management </b>
+}
+else
+{
+    <b>@Html.ActionLink("Dashboard", "AllModules", "Home") > Door Management </b>
+}
+
+
 <br />
 <br />
 <p>

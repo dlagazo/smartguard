@@ -20,6 +20,15 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        public ActionResult Data()
+        {
+            return View();
+        }
+        public ActionResult Settings()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             
@@ -83,11 +92,23 @@ namespace SmartGuardPortalv1.Controllers
         }
 
         [Authorize(Roles = "Contact")]
-        public ActionResult AllMemory()
+        public ActionResult AllMyContacts()
         {
             ViewBag.Message = "Your app description page.";
 
             return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllMemory()
+        {
+            return View(db.Memories.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).Where(i => i.MemoryType == 0 || i.MemoryType == 2).ToList());
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllCoaching()
+        {
+            return View(db.Memories.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).Where(i => i.MemoryType == 1 || i.MemoryType == 3 || i.MemoryType == 4).ToList());
         }
 
         [Authorize(Roles = "Contact")]
@@ -100,6 +121,22 @@ namespace SmartGuardPortalv1.Controllers
 
         [Authorize(Roles = "Contact")]
         public ActionResult AllContacts()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllVital()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        [Authorize(Roles = "Contact")]
+        public ActionResult AllFall()
         {
             ViewBag.Message = "Your app description page.";
 

@@ -2,71 +2,126 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Smart Guard Portal @ViewBag.Title</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/Site.css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-           
-                <div>
-                    @* <p class="site-title">@Html.ActionLink("SMART GUARD", "Index", "Home")</p> *@
-                    
-                    <table width="100%">
-                        <tr>
-                            <td width="20%" />
-                            <td width="60%">
-                                @Html.Partial("_LoginPartial")
-                            </td>
-                            <td width="20%">
-                                <section id="login">
-                         
-                                    <img src="@Url.Content("~/Content/images/Germany-icon.png")" width="50px" onclick="" />
-                                    <img src="@Url.Content("~/Content/images/Austria-icon.png")" width="50px" />
-                                    @*Request.Headers["Host"]*@
-                        
-                                </section>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+        <title>SMARTGUARD</title>
+        <script>
+             (function (){var cb = function (){var cssFile = document.createElement('link');
+            cssFile.rel = 'stylesheet';
+            //cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+            cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+            document.head.appendChild(cssFile);
+            };
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+            webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf){raf(cb);
+            }else {
+            window.addEventListener('load', cb);
+            }}());
+        </script>
+        <style>
+            /* The switch - the box around the slider */
+            table, tr, td {
+                padding: 5px;
+                margin: 5px;
+                border-spacing:5px;
+            }
+            input, select{
+                background-color: #44c4ff;
+                margin: 5px;
                 
-           
-        </header>
-        <table width="100%">
-            <tr>
-                <td></td>
-                <td width="100%" align="left">
-                    <div id="body">
-                        @RenderSection("featured", required: false)
-                        <section class="content-wrapper main-content clear-fix">
-                            @RenderBody()
-                        </section>
-                    </div>
-                </td>
-                <td></td>
-            </tr>
-        </table>
+                
+            }
+            
+        </style>
         
-        <footer>
-            <div class="content-wrapper">
-                <div align="center">
-                    <p>
-                        @Html.ActionLink("About Us", "Index", "Home") |
-                        @Html.ActionLink("Contact","Create", "ContactUs") <br /> 
-                        @Html.ActionLink("Privacy Policy", "About", "Home") | 
-                        @Html.ActionLink("Terms and Conditions", "Contact", "Home")
-                    </p>
-                </div>
-                <div class="float-right">
-                    <p>&copy; SmartGuard @DateTime.Now.Year </p>
-                </div>
-            </div>
-        </footer>
+    </head>
+<body>
+    
+   
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+    <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+
+
+        <div class="header__inner" id="header__inner" style="text-align:center">
+            @* <p class="site-title">@Html.ActionLink("SMART GUARD", "Index", "Home")</p> *@
+
+            <table width="100%" align="center">
+                <tr>
+
+
+                    <td width="100%">
+                        
+                            <div class="header__hodari">
+                                <button class="hotdog hotdog--header" id="hotdog">
+                                    <span class="lines">
+                                    </span>
+                                </button>
+                            </div>
+
+
+
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Module"> HOME </a>
+                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Settings"> SETTINGS </a>
+                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Data"> DATA </a>
+                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/ContactUs/Create"> SUPPORT </a>
+
+                                <span class="nav__separator"></span>
+                                @Html.AntiForgeryToken()
+                                <a style="color:darkred" class="nav__item nav__register bttn bttn--medium" href="javascript:document.getElementById('logoutForm').submit()">LOGOUT</a>
+                            }
+                            
+                            
+                        
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+
+
+    </header>
+    <section class="holder holder--two-col-pitch holder--gray-bg" data-sizes="auto" id="cta-1" style="color:#000;width:100%">
+        <article class="main main--lp-intro-fs" style="width:100%">
+            <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
+                @Html.Partial("_LoginPartial")
+                <br />
+                <table width="100%">
+                    <tr>
+                        <td></td>
+                        <td width="100%" align="left">
+                            <div id="body">
+                                @RenderSection("featured", required: false)
+                                <section class="content-wrapper main-content clear-fix">
+                                    @RenderBody()
+                                </section>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </article>
+    </section>
+    <footer class="holder holder--two-col-pitch drop-shadow">
+
+        <div style="text-align:center; color:#000" class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+            <p class="pitch-list__content">
+                @Html.ActionLink("Terms & Conditions", "Index", "Home") |
+                @Html.ActionLink("About", "Create", "ContactUs") |
+                @Html.ActionLink("Social Media", "About", "Home")
+                <br />
+                SmartGuard @DateTime.Now.Year
+
+
+            </p>
+        </div>
+
+
+    </footer>
+                
+                @*Scripts.Render("~/bundles/jquery")
+                @RenderSection("scripts", required: false)*@
+</body>
+
 </html>

@@ -1,7 +1,7 @@
 ﻿@{
     
 }
-<b> @Html.ActionLink("Main Menu", "Contact", "Home") > Navigation </b>
+<b> @Html.ActionLink("Main Menu", "AllModules", "Home") > Memory </b>
 <br /><br />
 @*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
 
@@ -26,10 +26,10 @@
                         <div align="center">
                             <b> @user.FirstName @user.LastName 's Memory & Reminders </b>
                         </div>
-                        @Html.ActionLink("Create a memory", "ContactCreate", "Memory", new { id = contact.fkUserId }, null)
+                        @**Html.ActionLink("Create a memory", "ContactCreate", "Memory", new { id = contact.fkUserId }, null)**@
                         <br />
                         <br />
-                        @foreach(SmartGuardPortalv1.Models.Memory memory in db.Memories.Where(i => i.fkUserId == contact.fkUserId))
+                        @foreach(SmartGuardPortalv1.Models.Memory memory in db.Memories.Where(i => i.fkUserId == contact.fkUserId).Where(i => i.MemoryType == 0 || i.MemoryType == 2))
                         {
                             
                             
@@ -40,12 +40,14 @@
                             <br />
                             <b>Schedule:</b> @memory.MemoryDates
                             <br />
+                            @**
                             <b>@Html.ActionLink("Set Alarm Schedule", "Details", "Memory", new { id=memory.MemoryId }, null) </b>
                             if(memory.MemoryName != "Wake" && memory.MemoryName != "Sleep")
                             {
                                 <b>@Html.ActionLink("Edit", "Edit", "Memory", new { id=memory.MemoryId }, null) </b>
                                 <b>@Html.ActionLink("Delete", "Delete", "Memory", new { id=memory.MemoryId }, null) </b>
                             }
+                                **@
                             <br />
                             <br />
                         }

@@ -38,6 +38,8 @@ namespace SmartGuardPortalv1.Models
         public DbSet<AppBuild> AppBuilds { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
+        public DbSet<FAQ> FAQs { get; set; }
+
         public DbSet<LocateStatus> LocateDevicesStatus { get; set; }
 
     }
@@ -122,7 +124,17 @@ namespace SmartGuardPortalv1.Models
         public bool canContactOutsideSched { get; set; }
 
     }
-    
+
+    [Table("Subscription")]
+    public class Subscription
+    {
+        [Key]
+        public int SubId { get; set; }
+        public int fkUserId { get; set; }
+        //0-basic, 1-day rhythm, 2-home area, 3-nav, 4-mem&reminder, 5-door mgt, 6-medical data mgt
+        //7-personal health record, 8-service & updates
+        public int SubType { get; set; }
+    }
 
     [Table("UserInformation")]
     public class UserInformation
@@ -307,7 +319,7 @@ namespace SmartGuardPortalv1.Models
         [StringLength(120, ErrorMessage = "The instruction must be less than 120 characters.", MinimumLength = 0)]
         public string MemoryInstructions { get; set; }
         public string MemoryDates { get; set; }
-        public int MemoryType { get; set; }
+        public int MemoryType { get; set; } //0-Normal, 1-Medical, 2-Fitminutes, 3-Reminder, 4-Weigh
     }
 
     [Table("ContactUsTable")]
@@ -356,6 +368,7 @@ namespace SmartGuardPortalv1.Models
         [Display(Name = "Last")]
         public string LastName { get; set; }
         public string Email { get; set; }
+        [Required(ErrorMessage = "Mobile is required")]
         public string Mobile { get; set; }
         [Display(Name = "Relation")]
         public string Relationship { get; set; }
@@ -363,22 +376,15 @@ namespace SmartGuardPortalv1.Models
         public int fkUserId { get; set; }
         //0-false, 1-true
         public bool type { get; set; }
+
+        public string sched { get; set; }
+
+        public bool canContactOutside { get; set; }
         //public bool canContactOutsideSched { get; set; }
 
     }
 
-    [Table("SubscriptionTable")]
-    public class Subscription
-    {
-        [Key]
-        public int SubId { get; set; }
-        public int fkFeatureId { get; set; }
-        public int fkUserId { get; set; }
-        public int SubType { get; set; }
-        public DateTime SubStart { get; set; }
-        public DateTime SubEnd { get; set; }
-        public Boolean SubStatus { get; set; }
-    }
+    
 
     [Table("CountryTable")]
     public class Country
@@ -398,6 +404,17 @@ namespace SmartGuardPortalv1.Models
         public string MyLong { get; set; }
         public int fkUserId { get; set; }
         public DateTime MyLocationStamp { get; set; }
+    }
+
+    [Table("FAQTable")]
+    public class FAQ
+    {
+        [Key]
+        public int FaqId { get; set; }
+        public string FaqQuestion { get; set; }
+        public string FaqAnswer { get; set; }
+
+        public int typeFAQ { get; set; } //0-user, 1-contact
     }
     
 
@@ -455,5 +472,14 @@ namespace SmartGuardPortalv1.Models
         public string Provider { get; set; }
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
+    }
+
+    public class MainInfo
+    {
+        public int id { get; set; }
+        public string ambulance { get; set; }
+        public string ambulanceNumber { get; set; }
+        public string doorAddress { get; set; }
+        public string doorCode { get; set; }
     }
 }

@@ -23,8 +23,12 @@
         <legend>Contact</legend>
 
         @Html.HiddenFor(model => model.ContactId)
+        @Html.HiddenFor(model => model.sched)
+
+
         <input type="hidden" value="@userId" id="fkUserId" name="fkUserId"/>
         <input type="hidden" value="@Model.Rank" id="Rank" name="Rank"/>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
         </div>

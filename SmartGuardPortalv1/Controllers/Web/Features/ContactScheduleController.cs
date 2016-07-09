@@ -10,7 +10,7 @@ using SmartGuardPortalv1.Models;
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="Contact")]
+  
     public class ContactScheduleController : Controller
     {
         private UsersContext db = new UsersContext();

@@ -192,7 +192,7 @@ namespace SmartGuardPortalv1.Controllers
                 {
                     var token = WebSecurity.GeneratePasswordResetToken(profile.UserName);
                     // create a link with this token and send email
-                    string password = Membership.GeneratePassword(12, 0);
+                    string password = Membership.GeneratePassword(6, 1);
                     // link directed to an action with form to capture password
                     WebSecurity.ResetPassword(token, password);
 
@@ -310,7 +310,8 @@ namespace SmartGuardPortalv1.Controllers
                 // Attempt to register the user
 
                 //Random temporary password generator
-                string tempPassword = System.Web.Security.Membership.GeneratePassword(12,0);
+                string tempPassword = System.Web.Security.Membership.GeneratePassword(6,1);
+                tempPassword = System.Text.RegularExpressions.Regex.Replace(tempPassword, @"^a-zA-Z0-9", m => "0");
                 try
                 {
                     
@@ -380,11 +381,20 @@ namespace SmartGuardPortalv1.Controllers
                         place.PlaceLat = "48.4620863";
                         place.PlaceLong = "13.8696551";
 
+                        Contact cont = new Contact();
+                        cont.Email = "primary@smartguard.com";
+                        cont.FirstName = "Primary";
+                        cont.LastName = "Contact";
+                        cont.Rank = 1;
+                        cont.Relationship = "";
+                        cont.Mobile = "1234";
+                        cont.fkUserId = WebSecurity.GetUserId(model.UserName);
+
                         Contact contact = new Contact();
                         contact.Email = "primary@smartguard.com";
                         contact.FirstName = "Fallback";
                         contact.LastName = "";
-                        contact.Rank = 1;
+                        contact.Rank = 2;
                         contact.Relationship = "Emergency";
                         contact.Mobile = "911";
                         contact.fkUserId = WebSecurity.GetUserId(model.UserName);
@@ -395,7 +405,7 @@ namespace SmartGuardPortalv1.Controllers
                         wake.MemoryFreq = 0;
                         wake.MemoryInstructions = "Please input your wake up settings";
                         wake.MemoryName = "Wake";
-                        wake.MemoryDates = "Sun Dec 06 2015 08:00:54 GMT+0800,Mon Dec 07 2015 08:00:54 GMT+0800,Tue Dec 08 2015 08:00:54 GMT+0800,Wed Dec 09 2015 08:00:54 GMT+0800,Thu Dec 10 2015 08:00:54 GMT+0800,Fri Dec 11 2015 08:00:54 GMT+0800,Sat Dec 12 2015 08:00:54 GMT+0800,";
+                        wake.MemoryDates = "";
                         wake.MemoryType = 0;
 
                         Memory sleep = new Memory();
@@ -404,15 +414,15 @@ namespace SmartGuardPortalv1.Controllers
                         sleep.MemoryFreq = 0;
                         sleep.MemoryInstructions = "Please input your sleep settings";
                         sleep.MemoryName = "Sleep";
-                        sleep.MemoryDates = "Sun Dec 06 2015 20:00:01 GMT+0800,Mon Dec 07 2015 20:00:01 GMT+0800,Tue Dec 08 2015 20:00:01 GMT+0800,Wed Dec 09 2015 20:00:01 GMT+0800,Thu Dec 10 2015 20:00:01 GMT+0800,Fri Dec 11 2015 20:00:01 GMT+0800,Sat Dec 12 2015 20:00:01 GMT+0800,";
+                        sleep.MemoryDates = "";
 
                         Memory fitminutes = new Memory();
                         fitminutes.fkUserId = WebSecurity.GetUserId(model.UserName);
-                        
+             
                         fitminutes.MemoryFreq = 0;
                         fitminutes.MemoryInstructions = "Please input your sleep settings";
-                        fitminutes.MemoryName = "Sleep";
-                        fitminutes.MemoryDates = "Sun Dec 06 2015 10:00:00 GMT+0800,Mon Dec 07 2015 10:00:01 GMT+0800,Tue Dec 08 2015 10:00:01 GMT+0800,Wed Dec 09 2015 10:00:01 GMT+0800,Thu Dec 10 2015 10:00:01 GMT+0800,Fri Dec 11 2015 10:00:01 GMT+0800,Sat Dec 12 2015 10:00:01 GMT+0800,";
+                        fitminutes.MemoryName = "Fitminutes";
+                        fitminutes.MemoryDates = "";
 
                         VitalInfo name = new VitalInfo();
                         name.fkUserId = WebSecurity.GetUserId(model.UserName);
@@ -442,6 +452,7 @@ namespace SmartGuardPortalv1.Controllers
 
                         db.Charges.Add(charge);
                         db.Contacts.Add(contact);
+                        db.Contacts.Add(cont);
                         db.Memories.Add(wake);
                         db.Memories.Add(sleep);
                         db.Memories.Add(fitminutes);

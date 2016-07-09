@@ -6,172 +6,475 @@
     SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
     String SUN = "", MON = "", TUE = "", WED = "", THU = "", FRI = "", SAT = "";
     Dictionary<Int32, Boolean> timeSlots = new Dictionary<int,bool>();
-    int maxRank = db.Contacts.OrderByDescending(i => i.Rank).FirstOrDefault().Rank;
+    int maxRank = db.Contacts.Where(i => i.fkUserId == userId).OrderByDescending(i => i.Rank).FirstOrDefault().Rank;
+    List<string> colors = new List<string>();
+    List<string> tempColors;
+    Dictionary<int, string> colorCode = new Dictionary<int, string>();
+    
+    
+    
+    colors.Add("#000");
+    colors.Add("#f00");
+    colors.Add("#0f0");
+    colors.Add("#00f");
+    colors.Add("#ff0");
+    colors.Add("#f0f");
+    colors.Add("#0ff");
+    colors.Add("#fff");
+    colors.Add("#7f7");
+    colors.Add("#f1a");
+    colors.Add("#20f");
+    colors.Add("c73");
 }
 
+<script type="text/javascript">
+    function myFunction() {
+        alert('loaded');
+    }
+
+    $(document).ready(function () {
+        alert('loaded');
+    });
+
+    body.onload = function () {
+        alert('loaded');
+    };
+</script>
 
 
 
 
+<h2 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black" style="text-align:center;">
+    CONTACT PERSONS
+</h2>
 
+<table onload="myFunction()" style="width:100%;margin:2px;padding:2px;">
+    <tr>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">NAME</th>
 
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">RELATION</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">EMAIL</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">MOBILE PHONE</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">AVAILABILITY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">STATUS</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">OPTIONS</th>
+    </tr>
+    <tr>
+        <td width="15%"></td>
 
-<b> @Html.ActionLink("Dashboard", "Module", "Home") > My Contacts </b>
+        <td width="15%"></td>
+        <td width="15%"></td>
+        <td width="15%"></td>
+        <td width="20%"></td>
+        <td width="5%"></td>
+        <td width="10%"></td>
+    </tr>
+    @foreach (var item in Model.OrderBy(i => i.Rank))
+    {
+        <tr>
+            <td style="border-bottom: 1px solid #ddd">
+                @item.FirstName @item.LastName
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                @item.Relationship
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                @item.Email
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                @item.Mobile
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                @item.sched
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                
+            </td>
+            <td style="border-bottom: 1px solid #ddd">
+                <a href="/Contact/Details/@item.ContactId">Edit Schedule</a>
+                <br />
+                <a href="/Contact/Edit/@item.ContactId">Edit Info</a>
+                <br />
+                <a href="/Contact/Delete/@item.ContactId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
 <br />
-<br />
-@Html.ActionLink("Create a new contact", "Create")
+<h3 class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black" style="text-align:center;">
+    Manage Contact Persons
+</h3>
+<table width="100%" style="margin:10px;padding:10px;vertical-align:top;">
+    <tr style="margin:10px; padding:10px">
+        <td align="left" width="24%" style="border: 1px solid #444;padding:10px;vertical-align:top">
+            <p class="pitch-list__content">
+                <b>Enter your availability</b>
+                <br />
+                <b>Create time window:</b>
+                <br />
+                Day: 
+                <select>
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
+                <br />
+                
+            </p>
+            <form action="">
+                Once: <input type="radio" name="freq" value="0"/> 
+                
+                Always: <input type="radio" name="freq" value="1" /> 
+            </form>
 
-<table width="100%">
-
-
-@foreach (var item in Model.OrderBy(i => i.Rank)) {
-    <tr valign="top" bgcolor="#d9d9d9">
-        <td width="30%">
-             @{
-    
-                if (@item.type == false)
-                {
-                    <text><b>Primary Contact:</b> @item.FirstName @item.LastName</text>
-                    <br />
-                    <text><b>Relationship:</b> @item.Relationship</text>
-                    <br />
-                    <text><b>Contact:</b> @item.Mobile</text>
-                    <br />
-                    <text><b>Email:</b> @item.Email</text>
-                    
-                    
-                   
-                }
-                else
-                {
-                    <text><b>Secondary Contact:</b> @item.FirstName @item.LastName</text>
-                    <br />
-                    <text><b>Relationship:</b> @item.Relationship</text>
-                    <br />
-                    <text><b>Contact:</b> @item.Mobile</text>
-                    <br />
-                    <text><b>Email:</b> @item.Email</text>
-                    
-                    
-                }
-              }
         </td>
+        <td width="1%"></td>
+        <td align="left" width="14%" style="border: 1px solid #444;padding:10px;vertical-align:top">
+            <p class="pitch-list__content">
+                Automatic sharing of all your information to all Contact Persons:
+
+            </p>
+            
+
+        </td>
+        <td width="1%"></td>
+        <td align="left" width="60%" style="border: 1px solid red;padding:10px;vertical-align:top">
+            <p class="pitch-list__content">
+                <b>Invite a new Contact Person(CP)</b>
+            @using (Html.BeginForm("Create", "Contact"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <table width="100%">
+                    <tr>
+                        <td width="70%">
+                            <table width="100%">
+                            
+                                <tr>
+                                    <td width="20%">First Name:</td>
+                                    <td width="40%">
+                                        <input type="text" name="FirstName" /> 
+                                    </td>
+                               
+                                </tr>
+
+                                <tr>
+                                    <td width="20%">Family Name:</td>
+                                    <td width="40%"><input type="text" name="LastName" />  </td>
+                                 
+                                </tr>
+                                <tr>
+                                    <td width="20%">Email:</td>
+                                    <td width="40%"><input type="text" name="Email" />  </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td width="20%">Mobile:</td>
+                                    <td width="40%"><input type="text" name="Mobile" /> </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td width="20%">Relation:</td>
+                                    <td width="40%">
+                                        <select name="Relation">
+                                            <option>Family</option>
+                                            <option>Friend</option>
+                                            <option>Doctor</option>
+                                            <option>Nurse</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                
+                            
+                                
+                            </table>
+                        </td>
+                        <td width="30%">
+                            Send invitation email with temporary login password and app download link
+                            <br />
+                            <input type="hidden" value="@userId" id="fkUserId" name="fkUserId" />
+                            <input type="hidden" value="@maxRank" id="Rank" name="Rank" />
+                            <input type="submit" value="Send" />
+                        </td>
+                        
+                    </tr>
+                </table>
+                }
+
+            </p>
+
+        </td>
+    </tr>
+</table>
+
+<h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black" style="text-align:center;">
+    Contact Schedule Summary
+</h3>
+
+<p class="pitch-list__content" id="legend">
+    
+    @foreach(var item in Model.OrderBy(i => i.Rank))
+    {
         
-        
-        <td width="50%">
-            @{
-                try
+       
+            <span id="span@{@item.ContactId}" style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[item.ContactId%10] "></span> 
+
+            <b>@item.FirstName @item.LastName | </b> 
+            
+    }
+
+</p>
+
+<table style="width:100%;margin:2px;padding:2px;">
+    <tr>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-left: 1px solid #000;">TIME</th>
+
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">SUNDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">MONDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">TUESDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">WEDNESDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">THURSDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">FRIDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-right: 1px solid #000;">SATURDAY</th>
+
+    </tr>
+    <tr>
+        <td width="16%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+    </tr>
+    @for(int i=0; i < 24; i++)
+    {
+        int j = i + 1;
+        string time = i.ToString()+":00-"+ j.ToString() + ":00";
+ 
+        <tr>
+            <td style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                @time
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;" id="SUN@{@i;}">
+               
+                @foreach(var contact in Model.OrderBy(l => l.Rank))
                 {
-                    int contactId = db.UserProfiles.Where(i => i.Email == item.Email).FirstOrDefault().UserId;
-                    if (contactId != null)
+                    
+                    try
                     {
-                        SmartGuardPortalv1.Models.ContactSchedule cs = db.ContactSchedules.Where(i => i.fkUserId == contactId).FirstOrDefault();
-                        if (cs != null)
+                        
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
                         {
-                                        <b>Schedule:</b> 
-                                        @cs.ContactSchedules
-                                        <br />
-                                        
-                                        String[] parsedSched = cs.ContactSchedules.Split(',');
-                                        foreach (String sched in parsedSched)
-                                        {
-                                            String[] tempDate = sched.Split(' ');
-                                            if (tempDate[0] == "SUN")
-                                            {
-                                                SUN += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "MON")
-                                            {
-                                                MON += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "TUE")
-                                            {
-                                                TUE += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "WED")
-                                            {
-                                                WED += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "THU")
-                                            {
-                                                THU += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "FRI")
-                                            {
-                                                FRI += tempDate[1] + ", ";
-                                            }
-                                            else if (tempDate[0] == "SAT")
-                                            {
-                                                SAT += tempDate[1] + ", ";
-                                            }
-                                        }
+                            if (schedule.Contains("SUN"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+                                    
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span> 
+
+                                }
+                            }
                         }
                     }
+                    catch (Exception ex) { }
+                    
                 }
-                catch (Exception ex)
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="MON@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
                 {
-                }
-            }
-            
-            
-            
-        </td>
-        <td width="20%">
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) 
-            <br />
-            @* Html.ActionLink("Details", "Details", new { id=item.ContactId }) | *@
-            @{
-                if (item.Rank != 1 && item.Rank != maxRank )
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
-                    <br />
-                    @Html.ActionLink("Move up", "MoveUp", new { id = item.ContactId })
-                    <br />
-                    @Html.ActionLink("Move down", "MoveDown", new { id = item.ContactId });
-                }
-                else if(item.Rank == 1)
-                {
-                    @Html.ActionLink("Move down", "MoveDown", new { id = item.ContactId });
-                }
-                else
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
-                    <br />
-                    @Html.ActionLink("Move up", "MoveUp", new { id = item.ContactId });
-                }
-             }
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr>
-    
-}
 
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("MON"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="TUE@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("TUE"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="WED@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("WED"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="THU@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("THU"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="FRI@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("FRI"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="SAT@{@i;}">
+                @foreach (var contact in Model.OrderBy(l => l.Rank))
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("SAT"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+        </tr>
+    }
 </table>
-<br />
-<div align="center">
-    <b>Contact Schedule Summary</b>
-</div>
-<table>
-    <tr>
-        <td>Sunday</td>
-        <td>Monday</td>
-        <td>Tuesday</td>
-        <td>Wednesday</td>
-        <td>Thursday</td>
-        <td>Friday</td>
-        <td>Saturday</td>
-    </tr>
-    <tr>
-        <td>
-            @SUN
-        </td>
-        <td>@MON</td>
-        <td>@TUE</td>
-        <td>@WED</td>
-        <td>@THU</td>
-        <td>@FRI</td>
-        <td>@SAT</td>
-    </tr>
-</table>
+

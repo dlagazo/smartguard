@@ -1,0 +1,129 @@
+﻿@{
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+
+    //int charge = db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargePct;
+    string timeStamp = db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargeTimeStamp.ToShortDateString() +
+        " " + db.Charges.Where(i => i.fkUserId == (int)WebSecurity.CurrentUserId).First().ChargeTimeStamp.ToShortTimeString();
+
+    SmartGuardPortalv1.Models.ChargeData charge = db.Charges.Where(i => i.fkUserId == WebSecurity.CurrentUserId).FirstOrDefault();        
+}
+
+@*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
+
+
+<p class="pitch-list__content" style="text-align:center;">
+   
+    <b><u>View Data</u></b>
+
+
+</p>
+
+<table width="100%">
+    <tr>
+        <td width="100%">
+            <table>
+                <tr>
+                    <td>
+                        <a href="/Memory">
+                            <img src="@Url.Content("~/Content/images/Alarm.png")" width="50px">
+                            </a>
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Memory"> Alarm events and reasons(fall, inactivity, low battery...) </a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/Coaching"><img src="@Url.Content("~/Content/images/WALKING.png")" width="50px"></a>
+</td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Coaching">Activity history of last week</a>
+</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/images/sleeping.png")" width="50px">
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            Sleep history of last week
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/Place"><img src="@Url.Content("~/Content/images/emrecord.png")" width="50px"></a>
+</td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Place">Medical compliance</a>
+</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/images/monitor_activity.png")" width="50px">
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Medical">Fitminutes</a>
+</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/Track">
+                            <img src="@Url.Content("~/Content/images/preset_area.png")" width="50px">
+
+                        </a>
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Track">Search Smartguard location</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/images/charge.png")" width="50px">
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Medical">Control battery level and last charging event</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/Contact">
+                            <img src="@Url.Content("~/Content/images/CONTACTPERSONS.png")" width="50px">
+
+                        </a>
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Contact">Show if all timeslots are covered by contact persons</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/Content/images/emrecord.png")" width="50px">
+                    </td>
+                    <td>
+                        <p class="pitch-list__content">
+                            <a href="/Medical">View medical record</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+
+</table>
+

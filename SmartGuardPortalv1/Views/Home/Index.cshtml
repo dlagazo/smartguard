@@ -1,135 +1,842 @@
-﻿@model SmartGuardPortalv1.Models.LoginModel
-@{
-    ViewBag.Title = "Home Page";
-     
-}
-
-<div align="center">
+﻿@{ Layout = "";}
+<!doctype html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SMARTGUARD WATCH</title>
+    <meta name="apple-itunes-app" content="app-id=956857223">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="theme-color" content="#66cdcc">
+    <meta name="msapplication-TileColor" content="#66cdcc">
+    <meta name="msapplication-TileImage" content="https://number26.eu/wp-content/themes/number26/dist/img/icons/mstile-144x144.png">
+    <link href='//cdn.optimizely.com' rel='preconnect' crossorigin>
+    <link href="//cdn.optimizely.com" rel="dns-prefetch">
+    <link href='//www.googletagmanager.com' rel='preconnect' crossorigin>
+    <link href='//www.googletagmanager.com' rel='dns-prefetch' crossorigin>
+    <link href='//cdn.mxpnl.com' rel='preconnect' crossorigin>
+    <link href='//cdn.mxpnl.com' rel='dns-prefetch' crossorigi>
+    <link href='//www.google-analytics.com' rel='preconnect' crossorigin>
+    <link href='//www.google-analytics.com' rel='dns-prefetch' crossorigin>
+    <link href='//connect.facebook.net' rel='preconnect' crossorigin>
+    <link href='//connect.facebook.net' rel='dns-prefetch' crossorigin>
+    <link href='//analytics.twitter.com' rel='preconnect' crossorigin>
+    <link href='//analytics.twitter.com' rel='dns-prefetch' crossorigin>
+    <script>
+ (function (){var cb = function (){var cssFile = document.createElement('link');
+cssFile.rel = 'stylesheet';
+//cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+document.head.appendChild(cssFile);
+};
+var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+webkitRequestAnimationFrame || msRequestAnimationFrame;
+if (raf){raf(cb);
+}else {
+window.addEventListener('load', cb);
+}}());
+    </script>
     
-    <br />
-    <br />
-    <table width="100%">
-        <tr width="100%">
-            <td width="67%" align="center">
-                <b>Existing SMARTGUARD Users</b>
-            </td>
-            <td width="33%" align="center">
-                I am new here!
-            </td>
-        </tr>
+    <script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+</head>
+<body class=' home page page-id-1226 page-template page-template-front-page page-template-front-page-php custom-background lp'>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-W8C5VL"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <style>
+        /* The switch - the box around the slider */
+        table, tr, td {
+            padding: 5px;
+            margin: 5px;
+            border-spacing: 5px;
+        }
 
-    </table>
-    <table width="100%">
-        <tr align="center" valign="top">
+        input, select {
+            background-color: #44c4ff;
+            margin: 5px;
+        }
+    </style>
 
-            <td width="33%">
-                <a href="@Url.Action("Login","Account",new { login_type  = 0 })">
-                    <img  src="http://www.mantality.co.za/images/detailed/32/Wave-smartwatch.jpg" height="128" width="128">
+    <script id="gtm-init">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8C5VL');</script>
+        <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+            <div class="header__inner" id="header__inner" style="text-align:center">
+                <div class="header__hodari"><button class="hotdog hotdog--header" id="hotdog">
+                    <span class="lines">
+                    </span></button>
+                </div>
+                
+                <a class="nav__item nav__register bttn bttn--medium" href="" /> Overview </a>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/FAQs"> FAQ </a>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" /> Contact / Buy </a>
+                
+                <span class="nav__separator"></span>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
+                    Login
                 </a>
-                <br />
-                <b>USER</b>
-                <br />
-                You are wearing a Smartguard product
-                <br />
                 
-                
-
-                @using (Html.BeginForm("Login","Account")) {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-
-                    <fieldset>
-                        <legend>Log in Form</legend>
-                        <ol>
-                            <li>
-                                
-                                @Html.TextBoxFor(m => m.UserName)
-               
-                                @Html.ValidationMessageFor(m => m.UserName)
-                            </li>
-                            <li>
-                                
-                                @Html.PasswordFor(m => m.Password)
-                                @Html.ValidationMessageFor(m => m.Password)
-                            </li>
-                            <li>
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-                            </li>
-                            </ol>
-                            <input type="submit" value="Log in"  style="width:100%"/>
-                        </fieldset>
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "Forgot", "Account")
-                            <br />
-                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 0 }, null)
-                        </p>
-                    }
+            </div>
+        </header>
+        <section class="holder holder--two-col-pitch holder--gray-bg" data-sizes="auto" id="cta-1" style="color:#000;width:100%">
+            <article class="main main--lp-intro-fs" style="width:100%">
+                <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
                     
-                
-            </td>
-            <td width="33%">
-                
-                <img  src="http://cdn.flaticon.com/png/256/21519.png" height="128" width="128">
-                
-                <br />
-                <b>CONTACT PERSON</b>
-                <br />
-                You will be contacted in case of emergency
-                <br />
-                
-                
+                    
+                    <h2 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> 
+                        For your smart independence
+                        <br />
+                        SMARTGUARD 
+                    </h2>
 
-                @using (Html.BeginForm("Login","Account")) {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
+                    <table style="text-align:center; width:100%">
+                        <tr>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/caretaker.png")" width="200px">
+                            </td>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/swatch.png")" width="200px">
 
-                    <fieldset>
-                        <legend>Log in Form</legend>
-                        <ol>
-                            <li>
-                             
-                                @Html.TextBoxFor(m => m.UserName)
-               
-                                @Html.ValidationMessageFor(m => m.UserName)
-                            </li>
-                            <li>
-                            
-                                @Html.PasswordFor(m => m.Password)
-                                @Html.ValidationMessageFor(m => m.Password)
-                            </li>
-                            <li>
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-                            </li>
-                            </ol>
-                            <input type="submit" value="Log in" style="width:100%"/>
-                        </fieldset>
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "Forgot", "Account") 
-                            <br />
-                            @Html.ActionLink("Register here if you don't have an account", "Register", "Account", new { login_type  = 1 }, null)
-                        </p>
-                    }
-                   
-            </td>
-            <td width="34%">
-                <form action="http://google.com">
-                    <input type="submit" value="Overview" style="width:100%">
-                </form>
-                <form action="http://smartguardwatch.azurewebsites.net/Video">
-                    <input type="submit" value="Training Videos" style="width:100%">
-                </form>
-                <form action="http://smartguardwatch.azurewebsites.net/Product">
-                    <input type="submit" value="Shop" style="width:100%">
-                </form>
-                <form action="http://smartguardwatch.azurewebsites.net/ContactUs/Create">
-                    <input type="submit" value="Contact Us" style="width:100%">
-                </form>
-            </td>
-            
-        </tr>
+                            </td>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/old.png")" width="200px">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                    <p class="pitch-list__content"> If you care for an elderly family member or friend who is living alone </p>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>
+                                <div class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                    <p class="pitch-list__content">If you want to continue living in the place where your roots are </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="text-align:center; width:100%">
+                        <tr>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/Alarm.png")" width="150px">
+                                <br />
+                                <p class="pitch-list__content">Smart Alarms</p>
+
+</td>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/health.png")" width="150px">
+                                <br />
+                                <p class="pitch-list__content">Health Relevant Information</p>
+</td>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/coaching.png")" width="150px">
+                                <br />
+                                <p class="pitch-list__content">Coaching & Monitoring</p>
+</td>
+                            <td>
+                                <img src="@Url.Content("~/Content/images/simple.png")" width="150px">
+                                <br />
+                                <p class="pitch-list__content">Reliable & Simple</p>
+</td>
+                        </tr>
+                    </table>
+                    
+                </div>
+                
+                
+            </article>
+        <button class="scroll-down-button icon-bttn icon-P_arrow_down" id="scroll-down-button"></button>
+        </section>
         
-    </table>
+        <section class="holder holder--two-col-pitch drop-shadow" id="holder--two-col-pitch-1" style="width:100%">
+            <article class="main main--narrow" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:30%; text-align:center">
+                                <img src="@Url.Content("~/Content/images/Alarm.png")" width="150px">
+                       
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> Smart Alarms </h3>
+                            </td>
+                            <td style="width:70%">
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> SMARTGUARD informs instantaneously selected family members or friends if you had an accident or if you need help </h3>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width:100%;text-align:center">
+                        <tr>
+                            <td width="10%"></td>
+                            <td width="40%">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <img src="@Url.Content("~/Content/images/falling.png")" width="100px">
+                                            </td>
+                                        
+                                            <td>
+                                                <p class="pitch-list__content"> Automatic Fall Detection and Alarm (using tested algorithm) </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="@Url.Content("~/Content/images/sleeping.png")" width="100px">
 
-</div>
+                                            </td>
+                                            <td>
+                                                <p class="pitch-list__content"> Inactivity Alarm (flexible parameters)  </p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="@Url.Content("~/Content/images/SOS.png")" width="100px">
+
+                                            </td>
+                                            <td>
+                                                <p class="pitch-list__content"> Manual Alarm / SOS button  </p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="@Url.Content("~/Content/images/preset_area.png")" width="100px">
+
+                                            </td>
+                                            <td>
+                                                <p class="pitch-list__content"> Alarm if user outside preset area  </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                  
+
+                                
+                                    
+                                </ul>
+                            </td>
+                            <td width="20%">
+                                <img src="@Url.Content("~/Content/images/arrow.png")" width="100px">
+
+                            </td>
+                            <td width="30%">
+                                <img src="@Url.Content("~/Content/images/cpersons.png")" width="180px">
+                                <br />
+                                <p class="pitch-list__content"> Contact Persons </p>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    
+                </div>
+            </article>
+        </section>
+        <section class="holder holder--two-col-pitch holder--gray-bg" style="width:100%">
+            <article class="main main--reverse-col-mobile" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:30%;text-align:center">
+                                <img src="@Url.Content("~/Content/images/health.png")" width="150px">
+
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                    Health Relevant <br /> Information
+                                </h3>
+                            </td>
+                            <td style="width:70%">
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                    SMARTGUARD collects important health related information and makes it available when needed
+                                </h3>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
+                            <td width="20%"></td>
+                            <td width="80%">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/emrecord.png")" width="100px">
+                                        </td>
+
+                                        <td>
+                                            <p class="pitch-list__content"> Emergency health record always with you </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/weightsurv.png")" width="100px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content">
+                                                Automatic weight surveillance
+                                                (including Alarms based on recommendation of German heart association)
+                                            </p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/monitor_activity.png")" width="100px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> Monitoring of activity intensity  </p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/analysis_sleep.png")" width="100px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> Analysis of sleep behavior  </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/support_control.png")" width="100px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> Support and control of medical compliance  </p>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+
+
+                                </ul>
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+                </div>
+            </article>
+        </section>
+        
+        <section class="holder holder--two-col-pitch drop-shadow"  style="width:100%;background-color:#fff">
+            <article class="main main--narrow" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:30%; text-align:center">
+                                <img src="@Url.Content("~/Content/images/coaching.png")" width="150px">
+
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> 
+                                    Coaching & <br /> Monitoring 
+                                </h3>
+                            </td>
+                            <td style="width:70%">
+                                <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> 
+                                    SMARTGUARD can remind you about important events and monitor your compliance
+                                </h3>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width:100%;text-align:center">
+                        <tr>
+                            <td width="20%"></td>
+                            <td width="50%">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/bell.png")" width="80px">
+                                        </td>
+
+                                        <td>
+                                            <p class="pitch-list__content"> "Good morning Peter, time to get up" </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/meds.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Good morning Peter, please take your 3 pills"  </p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/water.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Did you already drink 2 glasses of water today?"  </p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/charge.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Peter, please put watch in charger."  </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/weightsurv.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Please step on scale."  </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/WALKING.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Hello Peter, consider to take a walk."  </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/calendar.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Get prepared Peter, you have an appointment soon."  </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="@Url.Content("~/Content/images/MEAL.png")" width="80px">
+
+                                        </td>
+                                        <td>
+                                            <p class="pitch-list__content"> "Hello Peter, time for dinner."  </p>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+
+
+                                </ul>
+                            </td>
+                         
+                            <td width="30%">
+                                
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </article>
+        </section>
+
+                                                                   <section class="holder holder--two-col-pitch holder--gray-bg drop-shadow" style="width: 100%">
+                                                                       <article class="main main--cta-para main--narrow cta-para tac" style="width:100%">
+                                                                           <div class="lp-data-col lp-data-col--cta-para" style="width:100%">
+
+
+
+                                                                               <table style="width:100%">
+                                                                                   <tr>
+                                                                                       <td width="30%" style="text-align:center">
+                                                                                           <img src="@Url.Content("~/Content/images/RELY.png")" width="150px">
+
+                                                                                           <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                                                               Reliable
+                                                                                           </h3>
+                                                                                       </td>
+                                                                                       <td width="70%">
+                                                                                           <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                                                               SMARTGUARD is designed for maximal reliability
+                                                                                           </h3>
+                                                                                       </td>
+                                                                                   </tr>
+                                                                                   <tr>
+                                                                                       <td width="30%"> </td>
+                                                                                       <td width="70%">
+                                                                                           <p class="pitch-list__content"> Up to 10 contact persons. Secured web portal and log files.  </p>
+                                                                                           <p class="pitch-list__content"> Assignment of days/time slots and heirarchies to contact persons.  </p>
+                                                                                           <p class="pitch-list__content"> Alarm to contact persons if watch will not be put on after charging.   </p>
+                                                                                           <p class="pitch-list__content"> Alarm to contact persons if watch is not active.   </p>
+                                                                                           <p class="pitch-list__content"> Alarm if battery is too low.  </p>
+                                                                                       </td>
+                                                                                   </tr>
+                                                                               </table>
+                                                                           </div>
+                                                                       </article>
+                                                                   </section>
+                                                                   <section class="holder holder--two-col-pitch holder--gray-bg drop-shadow" style="background-color:#fff" width="100%">
+                                                                       <article class="main main--cta-para main--narrow cta-para tac" style="width:100%">
+                                                                           <div class="lp-data-col lp-data-col--cta-para" style="width:100%">
+
+
+
+                                                                               <table style="width:100%">
+                                                                                   <tr>
+                                                                                       <td width="30%" style="text-align:center">
+                                                                                           <img src="@Url.Content("~/Content/images/simple.png")" width="150px">
+
+                                                                                           <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                                                               Extremely <br /> Simple
+                                                                                           </h3>
+                                                                                       </td>
+                                                                                       <td width="70%">
+                                                                                           <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                                                               For its user, SMARTGUARD is extremely simple and requires no learning
+                                                                                           </h3>
+                                                                                       </td>
+                                                                                   </tr>
+                                                                                   <tr>
+                                                                                       <td width="30%"> </td>
+                                                                                       <td width="70%">
+                                                                                           <p class="pitch-list__content"> Smartguard looks just like a watch.  </p>
+                                                                                           <p class="pitch-list__content"> No set up required for user. No (wrong) manipulations possible.   </p>
+                                                                                           <p class="pitch-list__content"> No interaction required except charging (folowing instructions).   </p>
+                                                                                           <p class="pitch-list__content"> Simple set up through web portal by contact persons.   </p>
+                                                                                           <p class="pitch-list__content"> Dials adjust automatically to situations/environment.  </p>
+                                                                                       </td>
+                                                                                   </tr>
+                                                                               </table>
+                                                                           </div>
+                                                                       </article>
+                                                                   </section>
+
+
+    <section class="holder holder--two-col-pitch holder--gray-bg drop-shadow" style="width: 100%">
+        <article class="main main--cta-para main--narrow cta-para tac" style="width:100%">
+            <div class="lp-data-col lp-data-col--cta-para" style="width:100%">
+                <h3 style="width:100%; text-align:center" class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                    Product Overview
+                </h3>
+
+
+                <table style="width:100%;text-align:center">
+                    <tr>
+                        <td width="37%" style="text-align:left">
+               
+                               
+
+                     
+                        </td>
+                        <td width="1%" style="text-align:left"></td>
+                        <td width="20%" style="text-align:center;vertical-align:middle; background-color:#00ff90;padding:2px">
+                            <p class="pitch-list__content"> <b>Safety Everywhere</b> </p>
+                        </td>
+                        <td width="1%" style="text-align:left"></td>
+                        <td width="20%" style="text-align:center;vertical-align:middle;background-color:#00ff90;padding:2px">
+                            <p class="pitch-list__content"> <b>Safety Everywhere & Health</b> </p>
+                        </td>
+                        <td width="1%" style="text-align:left"></td>
+                        <td width="20%" style="text-align:center;vertical-align:middle;background-color:#00ff90;padding:2px">
+                            <p class="pitch-list__content"> <b>Safety & Health & Convenience</b> </p>
+                            
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            SIM Card: Works away from home*
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            300 minutes voice calls per month
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Navigation to present targets
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Area alarm if you leave preset area
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Search location if you are lost
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Medical record (key data)
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Heart rate
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Weight surveillance (incl. weighing scale)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Sleep stage analysis
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Medical record (incl. uploads)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Fit-minutes
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            NFC payments ready**
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            Electronic key
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            12 contact persons
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid gray">
+                        <td>
+                            600 minutes voice
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/euro.png")" width=23>
+
+                        </td>
+                        <td></td>
+                        <td>
+                            <img src="@Url.Content("~/Content/images/buttons/check-64.png")" width=23>
+
+                        </td>
+                    </tr>
+                   
+                </table>
+            </div>
+        </article>
+    </section>
+        
+</body>
+</html>

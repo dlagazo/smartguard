@@ -1,65 +1,254 @@
 ﻿@model SmartGuardPortalv1.Models.ContactUs
 
 @{
-    ViewBag.Title = "Create";
-    int userId = (int)WebSecurity.CurrentUserId;
-    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
-    
+    Layout = "";
+
 }
 
-<b> @Html.ActionLink("Back", "Index", "Home") > Contact Us</b>
-<br />
-<br />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>SMARTGUARD WATCH</title>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<script>
+ (function (){var cb = function (){var cssFile = document.createElement('link');
+cssFile.rel = 'stylesheet';
+//cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+document.head.appendChild(cssFile);
+};
+var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+webkitRequestAnimationFrame || msRequestAnimationFrame;
+if (raf){raf(cb);
+}else {
+window.addEventListener('load', cb);
+}}());
+</script>
 
-    <fieldset>
-        <legend>Feature</legend>
+<script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+</head>
+<body class=' home page page-id-1226 page-template page-template-front-page page-template-front-page-php custom-background lp'>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-W8C5VL"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script id="gtm-init">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8C5VL');</script><main class="page-wrapper" id="page_wrapper">
+    <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+        <div class="header__inner" id="header__inner" style="text-align:center">
+            <div class="header__hodari">
+                <button class="hotdog hotdog--header" id="hotdog">
+                    <span class="lines">
+                    </span>
+                </button>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Phone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Phone)
-            @Html.ValidationMessageFor(model => model.Phone)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Body)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(model => model.Body,10,30,null)
-            @Html.ValidationMessageFor(model => model.Body)
-        </div>
+            <a href="http://smartguardwatch.azurewebsites.net/" class=" nav__item nav__register bttn bttn--medium"> Overview </a>
+            <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/FAQs"> FAQ </a>
+            <a href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" class=" nav__item nav__register bttn bttn--medium"> Contact / Buy </a>
 
-        
-        
-        
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
+            <span class="nav__separator"></span>
+            <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
+                Login
+            </a>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        </div>
+    </header>
+    <section class="holder holder--two-col-pitch holder--gray-bg" data-sizes="auto" id="cta-1" style="color:#000;width:100%">
+        <article class="main main--lp-intro-fs" style="width:100%">
+            <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:40%;text-align:center; vertical-align:bottom">
+                            <div style="width:80%">
+                                <b><u>Choose your area, country and distributor:</u></b>
+                                <br />
+                                <table>
+                                    <tr>
+                                        <td>Continent:</td>
+                                        <td>
+                                            <select>
+                                                <option>Europe</option>
+                                                <option>North America</option>
+                                                <option>Asia</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country:</td>
+                                        <td>
+                                            <select>
+                                                <option>Belgium</option>
+                                                <option>Germany</option>
+                                                <option>Austria</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Segment:</td>
+                                        <td>
+                                            <select>
+                                                <option>Personal User</option>
+                                                <option>Business</option>
+                                                <option>Retailer</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Distributor:</td>
+                                        <td>
+                                            <select>
+                                                <option>Lorem</option>
+                                                <option>Ipsum</option>
+                                                <option>Dolorem</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                If there is no distributor yet assigned to your area, please send us an email to
+                                inquiry@TanteDitti.com stating your address
+                            </div>
+                            <div>
+                                *If you are interested to become a distributor in a not yet covered region or channel
+                                , please send us an email by clicking <a>here</a>.
+                            </div>
+                        </td>
+                        <td style="width:60%;border:4px solid red; background-color:yellow; padding:20px; font-size:large">
+                            
+                            Human Safety Supply Inc.
+                            <br />
+                            Antwerp road 55
+                            <br />
+                            1234 Amsterdam
+                            <br />
+                            <br />
+                            Tel: +1233 45678
+                            <br />
+                            Email: contact@hss.nl
+                            <br />
+                            <br />
+                            Own shops also in Antwerp and Rotterdam. Find address on your homepage:
+                            www.hss.nl/brances
+                            <br />
+                            <br />
+                            You can see all <a><b style="color:blue">Services</b></a>, 
+                            <a><b style="color:blue">Products</b></a> and buy online in our
+                            <a><b style="color:blue">Webshop</b></a>.
+                            
+                            <br />
+                            <br />
+                            A sales representative is available now. Start a webchat by clicking here. 
+                        </td>
+                    </tr>
+                </table>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+                @**
+                <table>
+                    <tr>
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+
+                                <text>
+                                    <p class="pitch-list__content">
+                                        WE ARE HERE FOR YOU!
+                                        <br />
+                                        <br />
+                                        Please call or write us, we are happy to
+                                        <br />
+                                        answer any questions you may have.
+                                    </p>
+                                </text>
+
+                                <div class="editor-label">
+                                    <p class="pitch-list__content">
+                                        @Html.LabelFor(model => model.Name)
+                                    </p>
+                                </div>
+                                <div class="editor-field">
+                                    <p class="pitch-list__content">
+                                        @Html.EditorFor(model => model.Name)
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </p>
+                                </div>
+                                <div class="editor-label">
+                                    <p class="pitch-list__content">
+                                        @Html.LabelFor(model => model.Phone)
+                                    </p>
+                                </div>
+                                <div class="editor-field">
+                                    <p class="pitch-list__content">
+                                        @Html.EditorFor(model => model.Phone)
+                                        @Html.ValidationMessageFor(model => model.Phone)
+                                    </p>
+                                </div>
+                                <div class="editor-label">
+                                    <p class="pitch-list__content">
+                                        @Html.LabelFor(model => model.Email)
+                                    </p>
+                                </div>
+                                <div class="editor-field">
+                                    <p class="pitch-list__content">
+                                        @Html.EditorFor(model => model.Email)
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </p>
+                                </div>
+                                <div class="editor-label">
+                                    <p class="pitch-list__content">
+                                        @Html.LabelFor(model => model.Body)
+                                    </p>
+                                </div>
+                                <div class="editor-field">
+                                    <p class="pitch-list__content">
+                                        @Html.TextAreaFor(model => model.Body, 10, 30, null)
+                                        @Html.ValidationMessageFor(model => model.Body)
+                                    </p>
+                                </div>
+                                <br />
+
+
+
+                                <p class="pitch-list__content">
+                                    <input type="submit" value="Send inquiry" />
+                                </p>
+
+                            }
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td style="background-color:#ccc">
+                                        <p class="pitch-list__content">
+                                            <b>FAQ - </b> frequently asked questions
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:#ccc">
+                                        <p class="pitch-list__content">
+                                            Germany - +123456789
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+                **@
+
+            </div>
+        </article>
+    </section>
+
+
+
+
+

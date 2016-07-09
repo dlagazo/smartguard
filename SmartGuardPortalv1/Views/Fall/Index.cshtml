@@ -54,7 +54,9 @@ the fastest way possible.</p>
 @foreach (var item in Model.OrderByDescending(i=>i.FallTimeStamp)) {
     <tr>
         <td>
-             @item.FallTimeStamp
+            @item.FallTimeStamp
+            GPS: @item.FallLat , @item.FallLong
+
         </td>
         
         

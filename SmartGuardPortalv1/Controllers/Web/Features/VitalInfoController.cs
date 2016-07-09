@@ -68,15 +68,15 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Edit(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
+            VitalInfo vital = db.VitalInfos.Find(id);
             
                 
-                if (memory == null)
+                if (vital == null)
                 {
                     return HttpNotFound();
                 }
                 
-                return View(memory);
+                return View(vital);
                 
                     
             
@@ -88,18 +88,18 @@ namespace SmartGuardPortalv1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "User")]
-        public ActionResult Edit(Memory memory)
+        public ActionResult Edit(VitalInfo vital)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(memory).State = EntityState.Modified;
+                db.Entry(vital).State = EntityState.Modified;
                 db.SaveChanges();
                 
                     return RedirectToAction("Index");
                 
             }
 
-            return View(memory);
+            return View(vital);
         }
 
         //
@@ -107,15 +107,15 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Delete(int id = 0)
         {
-            Memory memory = db.Memories.Find(id);
+           VitalInfo vital = db.VitalInfos.Find(id);
             
 
-                if (memory == null)
+                if (vital == null)
                 {
                     return HttpNotFound();
                 }
 
-                return View(memory);
+                return View(vital);
 
             
             
@@ -128,8 +128,8 @@ namespace SmartGuardPortalv1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Memory memory = db.Memories.Find(id);
-            db.Memories.Remove(memory);
+            VitalInfo vital = db.VitalInfos.Find(id);
+            db.VitalInfos.Remove(vital);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

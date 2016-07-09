@@ -1,20 +1,172 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model SmartGuardPortalv1.Models.LoginModel
+
+@{ 
+    Layout = "";
    
 }
-
-<div align="center">
+<!doctype html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SMARTGUARD WATCH</title>
+   
+    <script>
+ (function (){var cb = function (){var cssFile = document.createElement('link');
+cssFile.rel = 'stylesheet';
+//cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+document.head.appendChild(cssFile);
+};
+var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+webkitRequestAnimationFrame || msRequestAnimationFrame;
+if (raf){raf(cb);
+}else {
+window.addEventListener('load', cb);
+}}());
+    </script>
     
-    <table>
-        <tr>
-            <td>
-                
-            </td>
-            
-        </tr>
-        <tr align="center">
-            
-        </tr>
-    </table>
+    <script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+</head>
+<body class=' home page page-id-1226 page-template page-template-front-page page-template-front-page-php custom-background lp'>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-W8C5VL"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script id="gtm-init">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8C5VL');</script><main class="page-wrapper" id="page_wrapper">
+        <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+            <div class="header__inner" id="header__inner" style="text-align:center">
+                <div class="header__hodari">
+                    <button class="hotdog hotdog--header" id="hotdog">
+                        <span class="lines">
+                        </span>
+                    </button>
+                </div>
 
-</div>
+                <a href="http://smartguardwatch.azurewebsites.net/" class=" nav__item nav__register bttn bttn--medium"> Overview </a>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/FAQs"> FAQ </a>
+                <a href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" class=" nav__item nav__register bttn bttn--medium" > Contact / Buy </a>
+
+                <span class="nav__separator"></span>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
+                    Login
+                </a>
+
+            </div>
+        </header>
+        
+
+        <section class="holder holder--two-col-pitch drop-shadow" id="holder--two-col-pitch-1" style="width:100%">
+            <article class="main main--narrow" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%;text-align:center;">
+
+                    <h3 class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black"> Welcome to your SMARTGUARD Web Portal </h3>
+                    <br />
+                    <p class="pitch-list__content"> If you have <u><b><i>already registered</i></b></u>  or <u><b><i>received an invitation with login details</i></b></u> </p>
+                    
+                    @using (Html.BeginForm("Login", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <table style="width:100%;vertical-align:text-top">
+                            <tr>
+                                <td style="text-align:right">
+                                    <p class="pitch-list__content"> enter the <b>login</b> </p>
+
+                                </td>
+                                <td style="text-align:center;">
+                                    @Html.TextBoxFor(m => m.UserName)
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right">
+                                    <p class="pitch-list__content"> and <b>password</b> </p>
+                                </td>
+                                <td style="text-align:center">
+
+                                    @Html.PasswordFor(m => m.Password)
+                                    @Html.ValidationMessageFor(m => m.Password)
+
+                                </td>
+                                <td style="text-align:center">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="text-align:center"><br /><input type="submit" value="Log in" style="background-color:#90ff90" /></td>
+                                <td></td>
+                            </tr>
+                            
+                    </table>
+                        
+                        
+                    }
+                    
+                    <br />
+                    <p class="pitch-list__content">_________________________________________________________________</p>
+
+                    <p class="pitch-list__content"> If you <u><b><i>forgot your login details, </b></i></u> input your registered email and submit to reset your password. </p>
+                    <p class="pitch-list__content"> Please check your email for a new temporary password </p>
+                    @using (Html.BeginForm("Reset", "Account"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <input id="Email" name="Email" value="email address"/>
+                        <br />
+                        <br />
+                        <input type="submit" value="Reset password" style="background-color:#ff4444" />
+                     
+
+                    }
+                    <p class="pitch-list__content">_________________________________________________________________</p>
+
+                    <br />
+
+                    <p class="pitch-list__content"> If you are a <u><b><i>new contact person,</i></b></u> please download and install app before registering </p>
+
+             
+                    <input type="submit" value="Download APP for Contact Person" style="background-color:#90ff90" />
+                    <p class="pitch-list__content">_________________________________________________________________</p>
+
+                    <br />
+                    <p class="pitch-list__content"> If you are a <u><b><i>new user</i></b></u> or <u><b><i>new contact person</i></b></u> without login details, please register below: </p>
+                    
+                    <form action="http://smartguardwatch.azurewebsites.net/Account/Register?login_type=0">
+                        <input type="submit" value="Register as new user" style="background-color:#90ff90" />
+
+                    </form>
+
+                    
+                    
+                   
+                    
+
+
+                </div>
+            </article>
+        </section>
+        
+        
+
+</body>
+</html>
+

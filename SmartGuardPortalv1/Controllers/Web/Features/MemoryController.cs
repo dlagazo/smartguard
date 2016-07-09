@@ -22,8 +22,10 @@ namespace SmartGuardPortalv1.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
-            return View(db.Memories.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).Where(i => i.MemoryType == 0 || i.MemoryType == 2).ToList());
+            return View(db.Memories.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
         }
+
+        
 
         //
         // GET: /Feature/Details/5

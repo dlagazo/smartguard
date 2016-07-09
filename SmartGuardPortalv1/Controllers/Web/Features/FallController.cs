@@ -10,22 +10,39 @@ using SmartGuardPortalv1.Models;
 namespace SmartGuardPortalv1.Controllers
 {
     
-    [Authorize(Roles="User, Contact")]
+    
     public class FallController : Controller
     {
         private UsersContext db = new UsersContext();
 
         //
         // GET: /Feature/
-
+        [Authorize(Roles = "User, Contact")]
         public ActionResult Index()
         {
-            return View(db.Falls.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
+            if(User.IsInRole("User"))
+                return View(db.Falls.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId).ToList());
+            else
+            {
+                int contactId = WebMatrix.WebData.WebSecurity.CurrentUserId;
+                string contactEmail = db.UserProfiles.Where(i => i.UserId == contactId).FirstOrDefault().Email;
+                if(contactEmail != null)
+                {
+                    int userId = db.Contacts.Where(i => i.Email == contactEmail).FirstOrDefault().fkUserId;
+                    if(userId != null)
+                        return View(db.Falls.Where(i => i.fkUserId == userId).ToList());
+                }
+
+                return View();
+            }
         }
+
+        
+
 
         //
         // GET: /Feature/Details/5
-
+        [Authorize(Roles = "User")]
         public ActionResult Details(int id = 0)
         {
             Fall fall = db.Falls.Find(id);
@@ -41,14 +58,14 @@ namespace SmartGuardPortalv1.Controllers
                 return HttpNotFound();
         }
 
-     
 
-        
 
-        
 
-        
 
+
+
+
+        [Authorize(Roles = "User")]
         public ActionResult Delete(int id = 0)
         {
             Fall fall = db.Falls.Find(id);
@@ -64,7 +81,7 @@ namespace SmartGuardPortalv1.Controllers
                 return HttpNotFound();
             
         }
-
+        [Authorize(Roles = "User")]
         public ActionResult DeleteAll()
         {
             IEnumerable<Fall> falls = db.Falls.Where(i => i.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId);
@@ -75,7 +92,7 @@ namespace SmartGuardPortalv1.Controllers
 
         //
         // POST: /Feature/Delete/5
-
+        [Authorize(Roles = "User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

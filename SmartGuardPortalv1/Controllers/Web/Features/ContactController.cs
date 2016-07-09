@@ -28,31 +28,65 @@ namespace SmartGuardPortalv1.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Contact contact = db.Contacts.Find(id);
+            //int userId = WebMatrix.WebData.WebSecurity.CurrentUserId;
+            Contact contact = db.Contacts.Where(i => i.ContactId == id).First();
+            //ContactSchedule contactSchedule = db.ContactSchedules.Where(i => i. == id).First();
             if (contact == null)
             {
                 return HttpNotFound();
+                
             }
-            else if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
-                return View(contact);
-            else
-                return HttpNotFound();
             
+            return View(contact);
+           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(contact).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Contact");
+            }
+            return View(contact);
         }
 
         public ActionResult MoveDown(int id = 0)
         {
             Contact contact = db.Contacts.Find(id);
-            int rank = contact.Rank;
+            int userId = contact.fkUserId;
 
-            Contact tempContact = db.Contacts.FirstOrDefault(i => i.Rank == (rank + 1));
-            tempContact.Rank = (short) rank;
+            List<Contact> contacts = db.Contacts.Where(i => i.fkUserId == userId).OrderBy(i => i.Rank).ToList();
+            short counter = 0;
+            foreach (Contact tempContact in contacts)
+            {
+                tempContact.Rank = counter;
+                db.Entry(tempContact).State = EntityState.Modified;
+                //db.Entry(contact).State = EntityState.Modified;
+                db.SaveChanges();
+                counter++;
+            }
 
-            contact.Rank = (short) (rank + 1);
+            //short counter = 0;
 
-            db.Entry(tempContact).State = EntityState.Modified;
-            db.Entry(contact).State = EntityState.Modified;
-            db.SaveChanges();
+            if (contact.Rank < counter)
+            {
+                Contact cont = contacts.Where(i => i.ContactId == id).FirstOrDefault();
+                Contact temp = contacts.Where(i => i.Rank == (cont.Rank + 1)).FirstOrDefault();
+                temp.Rank = (short)(cont.Rank);
+                //temp.Rank = contact.Rank;
+                db.Entry(temp).State = EntityState.Modified;
+                db.SaveChanges();
+
+                cont.Rank = (short)(cont.Rank + 1);
+                db.Entry(cont).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+         
+
 
             return RedirectToAction("Index");
         }
@@ -60,16 +94,40 @@ namespace SmartGuardPortalv1.Controllers
         public ActionResult MoveUp(int id = 0)
         {
             Contact contact = db.Contacts.Find(id);
-            int rank = contact.Rank;
+            int userId = contact.fkUserId;
 
-            Contact tempContact = db.Contacts.FirstOrDefault(i => i.Rank == (rank-1));
-            tempContact.Rank = (short)rank;
+            List<Contact> contacts = db.Contacts.Where(i => i.fkUserId == userId).OrderBy(i => i.Rank).ToList();
+            short counter = 0;
+            foreach(Contact tempContact in contacts)
+            {
+                tempContact.Rank = counter;
+                db.Entry(tempContact).State = EntityState.Modified;
+                //db.Entry(contact).State = EntityState.Modified;
+                db.SaveChanges();
+                counter++;
+            }
 
-            contact.Rank = (short)(rank - 1);
+            //short counter = 0;
 
-            db.Entry(tempContact).State = EntityState.Modified;
-            db.Entry(contact).State = EntityState.Modified;
-            db.SaveChanges();
+            if(contact.Rank > 0)
+            {
+                Contact cont = contacts.Where(i => i.ContactId == id).FirstOrDefault();
+                Contact temp = contacts.Where(i => i.Rank == (cont.Rank-1)).FirstOrDefault();
+                temp.Rank = (short)(cont.Rank);
+                //temp.Rank = contact.Rank;
+                db.Entry(temp).State = EntityState.Modified;
+                db.SaveChanges();
+
+                cont.Rank = (short)(cont.Rank-1);
+                db.Entry(cont).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            
+            /*
+            
+            */
+            
 
             return RedirectToAction("Index");
         }
@@ -90,17 +148,34 @@ namespace SmartGuardPortalv1.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserProfile up = db.UserProfiles.Where(i => i.Email == contact.Email).FirstOrDefault();
-                if (up != null)
+                try
                 {
-                    contact.FirstName = up.FirstName;
-                    contact.LastName = up.LastName;
-                    if (contact.Mobile == null)
+                    SmartGuardPortalv1.Models.UserProfile prof = db.UserProfiles.Where(i => i.Email == contact.Email).FirstOrDefault();
+                    if (prof != null)
                     {
-                        UserInformation ui = db.UserInfos.Where(i => i.fkUserId == up.UserId).FirstOrDefault();
-                        contact.Mobile = ui.Phone;
+                        db.Contacts.Add(contact);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        RegisterModel regMod = new RegisterModel();
+                        regMod.Email = contact.Email;
+                        regMod.FirstName = contact.FirstName;
+                        regMod.LastName = contact.LastName;
+                        regMod.UserName = contact.Email;
+                        regMod.UserType = 1;
+                        AccountController contr = new AccountController();
+                        contr.Register(regMod);
+
+                        db.Contacts.Add(contact);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
                     }
                 }
+                catch (Exception ex) { }
+            
+                
                 db.Contacts.Add(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -119,7 +194,7 @@ namespace SmartGuardPortalv1.Controllers
             {
                 return HttpNotFound();
             }
-            else if (contact.fkUserId == WebMatrix.WebData.WebSecurity.CurrentUserId)
+            else if (contact.ContactId == id)
                 return View(contact);
             else
                 return HttpNotFound();
@@ -134,17 +209,7 @@ namespace SmartGuardPortalv1.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserProfile up = db.UserProfiles.Where(i => i.Email == contact.Email).FirstOrDefault();
-                if (up != null)
-                {
-                    contact.FirstName = up.FirstName;
-                    contact.LastName = up.LastName;
-                    if (contact.Mobile == null)
-                    {
-                        UserInformation ui = db.UserInfos.Where(i => i.fkUserId == up.UserId).FirstOrDefault();
-                        contact.Mobile = ui.Phone;
-                    }
-                }
+                
                 db.Entry(contact).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

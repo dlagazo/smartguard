@@ -33,13 +33,13 @@ namespace SmartGuardPortalv1.Models
                 try
                 {
                     userId = db.UserProfiles.Where(i => i.Email == cont.Email).FirstOrDefault().UserId;
-                    sched = db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().ContactSchedules;
-                    canContact = db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().canContactOutsideSched;
+                    //sched = cont.sched;//db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().ContactSchedules;
+                    //canContact = cont.canContactOutside;//db.ContactSchedules.Where(i => i.fkUserId == userId).FirstOrDefault().canContactOutsideSched;
                 }
                 catch (Exception ex)
                 {
                 }
-                MyContact myCont = new MyContact(cont, sched, canContact);
+                MyContact myCont = new MyContact(cont, cont.sched, cont.canContactOutside);
                 contacts.Add(myCont);
                 sched = "";
             }

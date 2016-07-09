@@ -1,130 +1,294 @@
-﻿<script src="pikaday.js"></script>
+﻿
+<!doctype html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class="no-js">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SMARTGUARD WATCH</title>
+    <script src="pikaday.js"></script>
 
-@model SmartGuardPortalv1.Models.RegisterModel
-@{
-    
-    int loginType = Request.Params["login_type"].AsInt();
-    var listItems = new List<SelectListItem> 
-    { 
-              new SelectListItem { Text = "Mr.", Value = "0" }, 
+    @model SmartGuardPortalv1.Models.RegisterModel
+    @{
+
+        int loginType = Request.Params["login_type"].AsInt();
+        var listItems = new List<SelectListItem>
+    {
+              new SelectListItem { Text = "Mr.", Value = "0" },
               new SelectListItem { Text = "Ms.", Value = "1" },
-              new SelectListItem { Text = "Mrs.", Value = "2" }, 
+              new SelectListItem { Text = "Mrs.", Value = "2" },
               new SelectListItem { Text = "Dr.", Value = "3" },
     };
 
-    var listGender = new List<SelectListItem> 
-    { 
-              new SelectListItem { Text = "Male", Value = "false" }, 
+        var listGender = new List<SelectListItem>
+    {
+              new SelectListItem { Text = "Male", Value = "false" },
               new SelectListItem { Text = "Female", Value = "true" },
-              
+
     };
 
-    var listHand = new List<SelectListItem> 
-    { 
-              new SelectListItem { Text = "Right", Value = "false" }, 
+        var listHand = new List<SelectListItem>
+    {
+              new SelectListItem { Text = "Right", Value = "false" },
               new SelectListItem { Text = "Left", Value = "true" },
-              
+
     };
+
+        var listCountries = new List<SelectListItem>();
+
+        SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+        foreach (SmartGuardPortalv1.Models.Country country in db.Countries)
+        {
+            listCountries.Add(new SelectListItem { Text = country.CountryName, Value = country.CountryId });
+        }
+
+    }
+
     
-    var listCountries = new List<SelectListItem>();
 
-    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
-    foreach(SmartGuardPortalv1.Models.Country country in db.Countries)
-    {
-        listCountries.Add(new SelectListItem{ Text = country.CountryName, Value = country.CountryId});
-    }
-    
-}
+    @{
+        Layout = "";
 
-<b>@Html.ActionLink("Back", "Index", "Home") > New user registration</b>
-
-@{
-    if(loginType == 0)
-    {
-        <p>Welcome to the Smartguard Web Portal!</p>
-        <p>Congratulations on your new Smartguard!</p>
-        <p>Please enter your personal information and pick your new username and password.</p>
-        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
-    }
-    else if(loginType == 1)
-    {
-        <p>Welcome to the Smartguard Web Portal!</p>
-        <p>Thank you for registering as a contact person for our Smartguard users!</p>
-        <p>Please enter your personal information and pick your new username and password.</p>
-        <p>If you have any questions or need help during the setup feel free to call our customer support: _________</p>
     }
 
-}
+    <script>
+ (function (){var cb = function (){var cssFile = document.createElement('link');
+cssFile.rel = 'stylesheet';
+//cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+document.head.appendChild(cssFile);
+};
+var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+webkitRequestAnimationFrame || msRequestAnimationFrame;
+if (raf){raf(cb);
+}else {
+window.addEventListener('load', cb);
+}}());
+    </script>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+    <script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+</head>
+<body class=' home page page-id-1226 page-template page-template-front-page page-template-front-page-php custom-background lp'>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-W8C5VL"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script id="gtm-init">
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W8C5VL');
+    </script>
+    <style>
+        /* The switch - the box around the slider */
+        table, tr, td {
+            padding: 2px;
+            margin: 2px;
+            border-spacing: 5px;
+        }
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <table>
-            <tr>
-                <td>
-                    @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
-                    @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
-                    <br />
+        input, select {
+            background-color: #44c4ff;
+            margin: 5px;
+        }
+    </style>
+
+    <main class="page-wrapper" id="page_wrapper">
+        <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+            <div class="header__inner" id="header__inner" style="text-align:center">
+                <div class="header__hodari">
+                    <button class="hotdog hotdog--header" id="hotdog">
+                        <span class="lines">
+                        </span>
+                    </button>
+                </div>
+
+                <a href="http://smartguardwatch.azurewebsites.net/" class=" nav__item nav__register bttn bttn--medium"> Overview </a>
+                <a class="nav__item nav__register bttn bttn--medium" href=""> FAQ </a>
+                <a href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" class=" nav__item nav__register bttn bttn--medium"> Contact / Buy </a>
+
+                <span class="nav__separator"></span>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
+                    Login
+                </a>
+
+            </div>
+        </header>
+        <section class="holder holder--two-col-pitch drop-shadow" id="holder--two-col-pitch-1" style="width:100%">
+            <article class="main main--narrow" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%;text-align:left;">
 
 
-                    @Html.LabelFor(m => m.Email) @Html.TextBoxFor(m => m.Email)
-                    @Html.LabelFor(m => m.LastName) @Html.TextBoxFor(m => m.LastName)
-                    @Html.LabelFor(m => m.FirstName) @Html.TextBoxFor(m => m.FirstName)
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
 
-                    @Html.LabelFor(m => m.BirthDate)
-                    @Html.TextBoxFor(model => model.BirthDate, new { @Value = "MM/DD/YYYY", id = "datepicker" })
-                    @Html.ValidationMessageFor(model => model.BirthDate)
-
-
-
-                </td>
-                <td valign="top">
-
+                        <fieldset>
+                            <legend>User Registration</legend>
+                            <table style="padding:10px">
+                                <tr>
+                                    <td>
+                                        @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
 
 
-                    <table>
-                        <tr>
-                            <td>Title: @Html.DropDownList("FkTitle", new SelectList(listItems, "Value", "Text"))</td>
-                            <td>Gender: @Html.DropDownList("Gender", new SelectList(listGender, "Value", "Text"))</td>
+                                        SMARTGUARD Serial Number:
+                                    </td>
+                                    <td>
+                                        <input type="text"/>
+                                    </td>
+                                    <td>
+                                        Username:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.UserName)
+                                    </td>    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Email:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Email)
 
-                        </tr>
+
+                                    </td>
+                                    <td>
+                                        Family Name:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.LastName)
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        User First Name:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.FirstName)
 
 
+                                    </td>
+                                    <td>
+                                        Title:
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("FkTitle", new SelectList(listItems, "Value", "Text"))
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Gender:
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("Gender", new SelectList(listGender, "Value", "Text"))
 
-                    </table>
+                                    </td>
+                                    <td>
+                                        Birthdate:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => model.BirthDate, new { @Value = "MM/DD/YYYY", id = "datepicker" })
+                                        @Html.ValidationMessageFor(model => model.BirthDate)
+                                    </td>
+                                    
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        User Address:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Address)
 
 
-                    @Html.LabelFor(m => m.Address) @Html.TextBoxFor(m => m.Address)
-                    @Html.LabelFor(m => m.City) @Html.TextBoxFor(m => m.City)
-                    @Html.LabelFor(m => m.Country) @Html.DropDownList("Country", new SelectList(listCountries, "Value", "Text"))
-                    @Html.LabelFor(m => m.Zip) @Html.TextBoxFor(m => m.Zip)
-                    @Html.LabelFor(m => m.Phone) @Html.TextBoxFor(m => m.Phone)
-                    <br />
-                    @{
-                        if (loginType == 0)
-                        {
-                        
-                            <text>Choose where you are going to wear your smartguard</text>
-                            <br />
-                            @Html.DropDownList("Hand", new SelectList(listHand, "Value", "Text"));
-                        
-                        }
+                                    </td>
+
+                                    <td>
+                                        User Address City:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.City)
+                                    </td>
+
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Country:
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("Country", new SelectList(listCountries, "Value", "Text"))
+
+
+                                    </td>
+                                    <td>
+                                        User Address Zip:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Zip)
+                                    </td>
+                                    
+                                </tr>  
+                                <tr>
+                                    <td>
+                                        Mobile #:
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Phone)
+
+                                    </td>
+                                    
+
+                                </tr>
+
+                                        
+                                        
+                                        
+                                        
+                                        
+
+                            </table>
+                        <input type="submit" value="Register" />
+
+
+                        </fieldset>
                     }
+                   
+                    </div>
+               
+
+
+
+                
+
+
+
+                
+
+
+
+
+
+
+
+
                     <br />
-                    <input type="submit" value="Register" />
-                    </td>
-                    </tr>
+                </article>
+            </section>
+    </main>
 
-                </table>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>
 
 
-            
-    </fieldset>
-}
+                
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                

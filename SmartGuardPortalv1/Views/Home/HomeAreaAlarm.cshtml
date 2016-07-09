@@ -5,12 +5,21 @@
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Home area alarm</b>
+@if (Roles.IsUserInRole("User"))
+{
+    <b>@Html.ActionLink("Dashboard", "Modules", "Home") > Home area alarm</b>
+}
+else
+{
+    <b>@Html.ActionLink("Dashboard", "AllModules", "Home") > Home area alarm</b>
+}
+
+
 <br />
 <br />
 <p>Whenever you lose your way of your standard routes, one of your contact persons will be informed and you will be given the opportunity to being
 
-directed to your favourite destinations with the <b>@Html.ActionLink("Navigation module", "Index", "Navigation")</b>, if it is activated.
+directed to your favourite destinations with the <b>@Html.ActionLink("Navigation module", "Index", "Place")</b>, if it is activated.
 
 The Smartguard will ask you if you need guidance to a choosable location like home, supermarket or whatever you enter in the 
 

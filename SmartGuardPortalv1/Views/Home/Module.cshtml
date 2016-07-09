@@ -7,63 +7,181 @@
 
     SmartGuardPortalv1.Models.ChargeData charge = db.Charges.Where(i => i.fkUserId == WebSecurity.CurrentUserId).FirstOrDefault();        
 }
-<br /><br />
+
 @*Html.ActionLink("Home","Welcome","Home") > My Modules</b>*@
 
-<div>
+<script type="text/javascript">
+    function edit() {
+        document.getElementById("iAddress").disabled = false;
+        document.getElementById("iPhone").disabled = false;
+        document.getElementById("iAmbulance").disabled = false;
+        document.getElementById("iAmbPhone").disabled = false;
+        document.getElementById("iDoorAddress").disabled = false;
+        document.getElementById("iDoorCode").disabled = false;
+    };
 
+</script>
     
-    <br />
-    <br />
-    <table width="100%">
-        <tr>
-            <td align="left">
-                
-                
+    
+    <table width="100%" style="margin:10px;padding:10px;vertical-align:top;">
+        <tr style="margin:10px; padding:10px">
+            <td align="left" width="70%" style="border: 1px solid red;padding:10px;vertical-align:top">
+                @using (Html.BeginForm("Create", "Contact"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <table style="border-spacing:5px; border-collapse:separate;">
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    <b><u>Key data for alarm event:</u></b>
+                                </p>
+                            </td>
+                            <td>
+                                <input type="button" value="EDIT" onclick="edit()"/>
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="submit" value="SAVE" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    User address and phone number
+                                </p>
+                            </td>
+                            <td>
+                                <input id="iAddress" type="text" value="address" disabled onfocus="this.value = '';" />
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="iPhone" type="text" value="phone" disabled onfocus="this.value = '';" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    Ambulance and phone number
+                                </p>
+                            </td>
+                            <td>
+                                <input id="iAmbulance" type="text" value="ambulance" disabled onfocus="this.value = '';"/>
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="iAmbPhone" type="text" value="phone" disabled onfocus="this.value = '';" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    Door Key (Address, Code)
+                                </p>
+                            </td>
+                            <td>
+                                <input id="iDoorAddress" type="text" value="address" disabled onfocus="this.value = '';" />
+                            </td>
+                            <td></td>
+                            <td>
+                                <input id="iDoorCode" type="text" value="code" disabled onfocus="this.value = '';" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    View or Send Medical Record
+                                </p>
+                            </td>
+                            <td>
+                                <input type="button" value="VIEW" />
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="button" value="SEND" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    Write to all Contact Persons
+                                </p>
+                            </td>
+                            <td>
+                                <input type="button" value="SEND EMAIL" />
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="button" value="SEND SMS" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="pitch-list__content">
+                                    Find location of user
+                                </p>
+                            </td>
+                            <td>
+                                <input type="button" value="VIEW" />
+                            </td>
+                            <td></td>
+                            <td>
+                            
+                            </td>
+                        </tr>
+
+                    </table>
+                }
+
             </td>
-            <td align="right">
-                <b>My Smartguard</b>
-                <br />
-                @charge.ChargePct% Battery
-                
-            
-                <br />
-                Last charge & sync:
-                <br />
-                @charge.ChargeTimeStamp
-                
+            <td width="3%"></td>
+            <td width="20%" align="left" style="border: 1px solid green;padding:10px;">
+                <p class="pitch-list__content">
 
-
+                    <u>System data:</u>
+                    <br />
+                    Battery:  @charge.ChargePct% 
+                    
+                    <br />
+                    <br />
+                    Last charge & sync:
+                    <br />
+                    @charge.ChargeTimeStamp
+                    <br />
+                    <br />
+                    Last activity:
+                    <br />
+                    @charge.ChargeTimeStamp
+                    <br />
+                </p>
+                <p class="pitch-list__content" style="text-align:center">
+                    <b>ACTIVE ALARM:</b> <b style="color:lightgreen">NO</b>
+                </p>
             </td>
             
         </tr>
-        <tr>
-            <td align="left">
-                <a href='@Url.Action("Modules", "Home")'>
-                    <img src='@Url.Content("~/Content/images/buttons/btn_MyModules.png")' width="200px"/>
-                </a>
-                <br />
-                <a href='@Url.Action("Index", "Contact")'>
-                    <img src='@Url.Content("~/Content/images/buttons/btn_MyContact.png")' width="200px"/>
-                </a>
-                <br />
-                <a href='@Url.Action("Overview", "Home")'>
-                    <img src='@Url.Content("~/Content/images/buttons/btn_Manual.png")' width="200px"/>
-                </a>
-                <br />
-                <a href='@Url.Action("Support", "Home")'>
-                    <img src='@Url.Content("~/Content/images/buttons/btn_Support.png")' width="200px"/>
-                </a>
-                
-                
-                
-               
-            </td>
-            <td>
-
-            </td>
-        </tr>
+        
         
     </table>
 
-</div>
+<p class="pitch-list__content" style="text-align:center">
+    <b>Contact History</b>
+</p>
+
+<table style="border-collapse:collapse;border:2px solid black;width:100%;margin:10px;padding:10px;">
+    <tr>
+        <th>DATE</th>
+        <th>TIME</th>
+        <th>SOURCE</th>
+        <th>MESSAGE</th>
+        <th>SEND EMAIL</th>
+    </tr>
+    <tr>
+        <td width="10%"></td>
+        <td width="10%"></td>
+        <td width="20%"></td>
+        <td width="50%"></td>
+        <td width="10%"></td>
+    </tr>
+</table>

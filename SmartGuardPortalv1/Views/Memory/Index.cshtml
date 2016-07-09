@@ -1,77 +1,331 @@
 ﻿@model IEnumerable<SmartGuardPortalv1.Models.Memory>
-
 @{
+    //Layout = "";
     ViewBag.Title = "Index";
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Activity Check </b>
-<br />
-<br />
-<p>
-    If you want to use this module you need to define the time windows when you normally are active during your day. Therefore please enter your 
-waking up and going to bed times for every day of the week into the form down below.
-When the Smartguard is not taken out of its charging station/doesn’t move within your active times, it will ask you if everything is okay. When you 
-don’t answer or call for “Help” it will call the next available contact person to inform about your situation. This helps to generate a fast emergency 
-response if something happened to you which is the reason for your inactivity.
-</p>
 
-<p>
-    <b>@Html.ActionLink("Create New", "Create")</b>
-</p>
-<table>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/js/datetimepicker/jquery.datetimepicker.css")" />
+<script src="@Url.Content("~/Content/js/datetimepicker/jquery.js")"></script>
+<script src="@Url.Content("~/Content/js/datetimepicker/build/jquery.datetimepicker.full.min.js")"></script>
 
-@foreach (var item in Model) {
-
-    <tr style="padding-bottom:3px">
-        <td width="70%">
-             <b>Activity: </b>@item.MemoryName
-             <br />
-             <b>Schedule: </b>@item.MemoryDates
-             <br />
-
-             <b>Remind: </b> 
-             @{
-                 if(@item.MemoryFreq==0)
-                 {
-                     <text>Once</text>
-                 }
-                 else if (@item.MemoryFreq == 1)
-                 {
-                     <text>Daily</text>
-                 }
-                 else if (@item.MemoryFreq == 2)
-                 {
-                     <text>Weekly</text>
-                 }
-                 else if (@item.MemoryFreq == 3)
-                 {
-                     <text>Monthly</text>
-                 }
-              }
-            <br />
-            <b>Instructions: </b> @item.MemoryInstructions
-            <br />
-            <b>Activity Type: </b> @if(item.MemoryType == 0) { <text>Normal</text>} 
-  
-                else if(item.MemoryType == 2) { <text>Fitminutes </text>}
-              
-                
-        </td>
+<script>
+    function add() {
+        document.getElementById("btnSubmit").setAttribute("value", "Add");
+        var dash_dates = document.getElementById("dash_dates");
         
-        <td width="30%">
-            @Html.ActionLink("Edit", "Edit", new { id=item.MemoryId }) 
-            @Html.ActionLink("Set Alarm", "Details", new { id=item.MemoryId }) 
-            @* Html.ActionLink("Details", "Details", new { id=item.MemoryId }) | *@
-            @{
-                if(!(item.MemoryName == "Wake" || item.MemoryName == "Sleep" || item.MemoryName == "Fitminutes") )
+        while (dash_dates.firstChild) {
+            
+                dash_dates.removeChild(dash_dates.firstChild);
+            
+
+        }
+    };
+
+    function removeDate(e) {
+        
+        if (confirm('Delete this date?')) {
+            alert(e);
+            var dash_dates = document.getElementById("dash_dates");
+            dash_dates.removeChild(e);
+            while (dash_dates.firstChild) {
+                if (dash_dates.firstChild == e)
                 {
-                    
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MemoryId });
+                    dash_dates.removeChild(dash_dates.firstChild);
                 }
+                
             }
+        } 
+
+        
+    };
+
+    function addDate() {
+        //var date = document.getElementById("datetimepicker").getAttribute("value");
+        var dateString = $('#datetimepicker').datetimepicker('getValue');
+        var dash_dates = document.getElementById("dash_dates");
+        var date = document.createElement("INPUT");
+        date.setAttribute("type", "button");
+        date.setAttribute("value", dateString);
+        date.setAttribute("style", "width: 100%;");
+        date.setAttribute("onclick", "removeDate('" + date + "')");
+        dash_dates.appendChild(date);
+        //alert(date);
+    }
+
+    function edit(e) {
+        document.getElementById("btnSubmit").setAttribute("value", "Save");
+        //alert(e);
+        //alert(document.getElementById("mem_dates_" + e).getAttribute("name"));
+        fill_dash_dates(document.getElementById("mem_dates_" + e).getAttribute("name"));
+        fill_dash_type(document.getElementById("mem_type_" + e).getAttribute("name"));
+        fill_dash_ins(document.getElementById("mem_ins_" + e).getAttribute("name"));
+        //alert(document.getElementById("mem_type_" + e).getAttribute("name"));
+    };
+
+    function fill_dash_ins(e) {
+        var dash_mem_ins = document.getElementById("memMsg");
+        dash_mem_ins.setAttribute("value", e);
+    };
+
+    function fill_dash_type(e)
+    {
+        //alert(e);
+        if (e == 0) {
+            document.getElementById("memType0").setAttribute("selected", "selected");
+        }
+        else if (e == 1) {
+            document.getElementById("memType1").setAttribute("selected", "selected");
+        }
+        if (e == 2) {
+            document.getElementById("memType2").setAttribute("selected", "selected");
+        }
+        if (e == 3) {
+            document.getElementById("memType3").setAttribute("selected", "selected");
+        }
+        else if (e == 4) {
+            document.getElementById("memType4").setAttribute("selected", "selected");
+        }
+    };
+    
+
+    function fill_dash_dates(e) {
+        //alert(e);
+        var dash_dates = document.getElementById("dash_dates");
+        var dash_type = document.getElementById("memoryType");
+        var dates = e.split(",");
+        dash_dates.setAttribute("background", "#000");
+        while (dash_dates.firstChild) {
+            dash_dates.removeChild(dash_dates.firstChild);
+        }
+
+        for (var i = 0; i < dates.length-1; i++ )
+        {
+            //alert(dates[i]);
+            var date = document.createElement("INPUT");
+            date.setAttribute("type", "button");
+            date.setAttribute("value", dates[i]);
+            date.setAttribute("style", "width: 100%;");
+            dash_dates.appendChild(date);
+            
+        }
+
+
+
+        
+    };
+</script>
+
+
+
+
+<table style="width:100%;margin:2px;padding:2px;">
+    <tr>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-left: 1px solid #000;">CATEGORY</th>
+
+
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">SCHEDULE</th>
+     
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">FREQUENCY</th>
+
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">MESSAGE</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">CONFIRM</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-right: 1px solid #000;">OPTIONS</th>
+
+    </tr>
+    <tr>
+        <td width="10%"></td>
+        <td width="30%"></td>
+
+        <td width="10%"></td>
+        <td width="30%"></td>
+ 
+        <td width="10%"></td>
+        <td width="10%"></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td id="mem_type_@item.MemoryId" name="@item.MemoryType" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+
+                @if (item.MemoryType == 0)
+                {
+                    <text>Normal</text>
+                }
+                else if (item.MemoryType == 1)
+                {
+                    <text>Medication</text>
+
+                }
+                else if (item.MemoryType == 2)
+                {
+                    <text>Fitminutes</text>
+
+                }
+                else if (item.MemoryType == 3)
+                {
+                    <text>Reminder</text>
+
+                }
+                else if (item.MemoryType == 4)
+                {
+                    <text>Weigh</text>
+
+                }
+
+            </td>
+            <td id="mem_dates_@item.MemoryId" name="@item.MemoryDates" style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                @{
+                string[] dates = item.MemoryDates.Split(',');
+                foreach (string date in dates)
+                {
+                    <text>@date</text>
+                    <br />
+                }
+                }
+
+            </td>
+
+
+
+            
+            <td id="mem_freq_@item.MemoryId" name="@item.MemoryFreq" style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                @if (item.MemoryFreq == 0)
+                {
+                    <text>Once</text>
+                }
+                else if (item.MemoryFreq == 1)
+                {
+                    <text>Daily</text>
+                }
+                else if (item.MemoryFreq == 2)
+                {
+                    <text>Weekly</text>
+                }
+                else if (item.MemoryFreq == 3)
+                {
+                    <text>Monthly</text>
+                }
+
+            </td>    
+            <td id="mem_ins_@item.MemoryId" name="@item.MemoryInstructions" style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                @item.MemoryInstructions
+
+            </td>
+            
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                YES
+
+            </td>   
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                
+                <a href="#dashboard" onclick="edit(@item.MemoryId)">Edit</a>
+                @**Html.ActionLink("Edit info", "Edit", new { id = item.MemoryId })**@
+                <br />
+                @Html.ActionLink("Edit schedule", "Details", new { id = item.MemoryId })
+                <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.MemoryId })
+
+            </td>
+                
+                
+
+            
+                
+          
+        </tr>
+    }
+
+    
+</table>
+
+<br />
+<p class="pitch-list__content">
+    <b><u>Reminder and Alarm Generator</u></b>
+</p>
+<a onclick="add();">Create new alarm</a>
+<a name="dashboard">
+<table width="100%" style="color:#000; border: 1px solid red;padding:10px; margin:10px; text-align:center; vertical-align: middle;">
+    <tr>
+        <td width="15%">
+            <br />
+            Category
+            <br />
+            <select>
+                <option value="0" id="memType0">Normal</option>
+                <option value="1" id="memType1">Medical</option>
+                <option value="2" id="memType2">Fitminutes</option>
+                <option value="3" id="memType3">Reminder</option>
+                <option value="4" id="memType4">Weigh</option>
+            </select>
+            <br />
+        </td>
+        <td width="25%">
+            <br />
+            Date and Time
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        <input id="datetimepicker" type="text" value="Select date & time" />
+                        <script type="text/javascript">
+
+
+                            window.onload = function () {
+
+                                jQuery('#datetimepicker').datetimepicker({
+                                    startDate: new Date()
+                                });
+                                //jQuery('datetimepicker').datetimepicker();
+                            };
+
+                        </script>
+                    </td>
+                    <td>
+                        <input type="button" value="Add" onclick="addDate();"/>
+                    </td>
+                </tr>
+            </table>
+            
+        </td>
+        <td width="40%">
+            <br />
+            Message
+            <br />
+            <input type="text" id="memMsg" value="Message" style="width:100%" />
+            
+        </td>
+        <td width="20%">
+            <br />
+            Frequency
+            <br />
+            <select>
+                <option>Once</option>
+                <option>Daily</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+            </select>
+
         </td>
     </tr>
-}
-
+    <tr>
+        <td>
+            
+        </td>
+        <td id="dash_dates">
+            
+        </td>
+        <td></td>
+        <td>
+            <input type="button" value="Save" id="btnSubmit" />
+            <input type="button" value="Reset" onclick="reset();" />
+        </td>
+    </tr>
 </table>
+</a>
+
+
+
+

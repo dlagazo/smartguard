@@ -2,7 +2,15 @@
     ViewBag.Title = "About";
 }
 
-<b> @Html.ActionLink("Dashboard", "Modules", "Home") > Communication </b>
+@if (Roles.IsUserInRole("User"))
+{
+    <b> @Html.ActionLink("Dashboard", "Modules", "Home") > Communication </b>
+}
+else
+{
+    <b> @Html.ActionLink("Dashboard", "AllModules", "Home") > Communication </b>
+}
+
 
 <p>
     The Smartguard is not only an emergency device on your wrist, you can also call the ones who are close to you with it. 
@@ -22,7 +30,6 @@ Here you can edit your phone contacts and enter new numbers which the Smartguard
 Furthermore you can see your call list on the watch itself and here in this menu under Call list:
 </p>
 
-<input type="button" value="Contacts" />
-<input type="button" value="Call List" />
+@Html.ActionLink("Contacts", "Index", "Contact")
 
 

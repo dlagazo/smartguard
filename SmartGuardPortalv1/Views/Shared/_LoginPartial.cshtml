@@ -28,7 +28,7 @@
     }
     
 }
-<br /><br />
+
 
 
 @{
@@ -37,18 +37,22 @@
         
         if(Roles.IsUserInRole("User") || Roles.IsUserInRole("Contact"))
         {
-            <div align="left">Hello @Html.ActionLink(@user, "Profile", "Account", null, new {Class = "action add", title="View account settings" })
-                    @*Html.ActionLink("profile", "Profile", "Account") *@
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('logoutForm').submit()">logout</a>
-                    }
             
-            </div>
+                <h2 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                    <b>
+                    Welcome 
+                        <i> @Html.ActionLink(@user, "Profile", "Account", null, new { Class = "action add", title = "View account settings" }) </i>
+                        to your SMARTGUARD Webportal!
+                        @*Html.ActionLink("profile", "Profile", "Account") *@
+                    </b>
+                </h2>
+
+
+            
         }
         else
         {
-            <div align="left">Hello @Html.ActionLink(@user, "Manage", "Account", null, new {Class = "action add", title="View account settings" })
+            <div>Welcome @Html.ActionLink(@user, "Manage", "Account", null, new {Class = "action add", title="View account settings" })
                     @*Html.ActionLink("profile", "Profile", "Account") *@
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
                         @Html.AntiForgeryToken()
