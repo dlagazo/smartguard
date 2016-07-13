@@ -82,12 +82,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                     <tr>
                                         <td width="10%"></td>
                                         <td width="80%">
-                                            <p class="pitch-list__content">
-                                                Frequently Asked Questions
-
-
-
-                                            </p>
+                                            <h1 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-1 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                <b>Frequently Asked Questions</b>
+                                            </h1>
 
                                             @{
                                                 if (Request.IsAuthenticated && (User.IsInRole("Administrator")))
@@ -111,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
                                                             <h1 class="lp-data-col__resizing-heading-1 lp-data-col--subtitle lvl-3--lc mbm cf color-black" style="text-align:center;">
 
-                                                                @item.FaqQuestion @item.typeFAQ
+                                                                @item.FaqQuestion 
                                                             </h1>
                                                             <div>
                                                                 <p class="pitch-list__content">
@@ -209,7 +206,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
             </p>
         </div>
-
+        
 
     </footer>
 </body>

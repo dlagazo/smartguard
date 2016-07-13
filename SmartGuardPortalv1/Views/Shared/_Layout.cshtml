@@ -23,12 +23,16 @@
                 padding: 5px;
                 margin: 5px;
                 border-spacing:5px;
+                vertical-align:text-top;
             }
             input, select{
-                background-color: #44c4ff;
+                
                 margin: 5px;
                 
                 
+            }
+            fieldset{
+                background-color: none
             }
             
         </style>
@@ -120,8 +124,8 @@
 
     </footer>
                 
-                @*Scripts.Render("~/bundles/jquery")
-                @RenderSection("scripts", required: false)*@
+                @*Scripts.Render("~/bundles/jquery")*@
+                @RenderSection("scripts", required: false)
 </body>
 
 </html>

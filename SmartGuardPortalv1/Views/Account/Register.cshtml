@@ -126,9 +126,9 @@ window.addEventListener('load', cb);
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary()
 
-                        <fieldset>
+                        <fieldset style="background-color:#fff">
                             <legend>User Registration</legend>
-                            <table style="padding:10px">
+                            <table style="padding:10px; background-color:#fff">
                                 <tr>
                                     <td>
                                         @Html.Hidden("UserType", Request.Params["login_type"].AsInt())

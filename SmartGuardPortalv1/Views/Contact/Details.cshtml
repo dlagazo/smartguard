@@ -17,6 +17,8 @@
               //new SelectListItem { Text = "", Value = "2" },
 
     };
+    
+    
 
     var hoursType = new List<SelectListItem>
     {
@@ -54,7 +56,7 @@
     {
               new SelectListItem { Text = "0", Value = "0" },
         
-              new SelectListItem { Text = "3", Value = "3" }
+             
          
     };
 
@@ -64,6 +66,33 @@
              
 
     };
+
+    Dictionary<Int32, Boolean> timeSlots = new Dictionary<int, bool>();
+    //int maxRank = db.Contacts.Where(i => i.fkUserId == userId).OrderByDescending(i => i.Rank).FirstOrDefault().Rank;
+    List<string> colors = new List<string>();
+    List<string> tempColors;
+    Dictionary<int, string> colorCode = new Dictionary<int, string>();
+
+
+
+    colors.Add("#000");
+    colors.Add("#f00");
+    colors.Add("#0f0");
+    colors.Add("#00f");
+    colors.Add("#ff0");
+    colors.Add("#f0f");
+    colors.Add("#0ff");
+    colors.Add("#fff");
+    colors.Add("#7f7");
+    colors.Add("#f1a");
+    colors.Add("#20f");
+    colors.Add("c73");
+
+    
+
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    List<SmartGuardPortalv1.Models.Contact> contacts = context.Contacts.Where(i => i.fkUserId == userId).ToList();
+    
 }
 
 <script type="text/javascript">
@@ -74,7 +103,7 @@
             var schedContent = parsedSched[i].split(' ');
             if (schedContent[0] == 'SUN')
             {
-                var sched = document.getElementById("SunSched");
+                var sched = document.getElementById("SunSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -96,7 +125,7 @@
                 };
             }
             else if (schedContent[0] == 'MON') {
-                var sched = document.getElementById("MonSched");
+                var sched = document.getElementById("MonSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -118,7 +147,7 @@
                 };
             }
             else if (schedContent[0] == 'TUE') {
-                var sched = document.getElementById("TueSched");
+                var sched = document.getElementById("TueSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -140,7 +169,7 @@
                 };
             }
             else if (schedContent[0] == 'WED') {
-                var sched = document.getElementById("WedSched");
+                var sched = document.getElementById("WedSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -162,7 +191,7 @@
                 };
             }
             else if (schedContent[0] == 'THU') {
-                var sched = document.getElementById("ThuSched");
+                var sched = document.getElementById("ThuSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -184,7 +213,7 @@
                 };
             }
             else if (schedContent[0] == 'FRI') {
-                var sched = document.getElementById("FriSched");
+                var sched = document.getElementById("FriSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -206,7 +235,7 @@
                 };
             }
             else if (schedContent[0] == 'SAT') {
-                var sched = document.getElementById("SatSched");
+                var sched = document.getElementById("SatSchedTemp");
                 var element = document.createElement("input");
 
                 element.type = "button";
@@ -233,7 +262,7 @@
     function submitForm() {
         var strSched = "";
 
-        var Sched = document.getElementById("SunSched");
+        var Sched = document.getElementById("SunSchedTemp");
         var childSched;
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
@@ -245,7 +274,7 @@
             //allDates = childDate.id;
         }
 
-        Sched = document.getElementById("MonSched");
+        Sched = document.getElementById("MonSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -255,7 +284,7 @@
             }
             //allDates = childDate.id;
         }
-        Sched = document.getElementById("TueSched");
+        Sched = document.getElementById("TueSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -265,7 +294,7 @@
             }
             //allDates = childDate.id;
         }
-        Sched = document.getElementById("WedSched");
+        Sched = document.getElementById("WedSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -275,7 +304,7 @@
             }
             //allDates = childDate.id;
         }
-        Sched = document.getElementById("ThuSched");
+        Sched = document.getElementById("ThuSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -285,7 +314,7 @@
             }
             //allDates = childDate.id;
         }
-        Sched = document.getElementById("FriSched");
+        Sched = document.getElementById("FriSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -295,7 +324,7 @@
             }
             //allDates = childDate.id;
         }
-        Sched = document.getElementById("SatSched");
+        Sched = document.getElementById("SatSchedTemp");
         for (i = 0; i < Sched.childNodes.length; i++) {
             childSched = Sched.childNodes[i];
             //allDates.concat(childDate.id, ",");
@@ -345,7 +374,7 @@
         }
 
         if (day == 'SUN') {
-            var Sched = document.getElementById("SunSched");
+            var Sched = document.getElementById("SunSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -355,7 +384,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'MON') {
-            var Sched = document.getElementById("MonSched");
+            var Sched = document.getElementById("MonSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -365,7 +394,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'TUE') {
-            var Sched = document.getElementById("TueSched");
+            var Sched = document.getElementById("TueSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -375,7 +404,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'WED') {
-            var Sched = document.getElementById("WedSched");
+            var Sched = document.getElementById("WedSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -385,7 +414,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'THU') {
-            var Sched = document.getElementById("ThuSched");
+            var Sched = document.getElementById("ThuSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -395,7 +424,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'FRI') {
-            var Sched = document.getElementById("FriSched");
+            var Sched = document.getElementById("FriSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -405,7 +434,7 @@
             Sched.appendChild(br);
         }
         else if (day == 'SAT') {
-            var Sched = document.getElementById("SatSched");
+            var Sched = document.getElementById("SatSchedTemp");
             var element = document.createElement("input");
 
             element.type = "button";
@@ -430,81 +459,339 @@
     }
 </script>
 
-<b>@Html.ActionLink("Account Information", "Profile", "Account") > Edit Contact Schedules</b>
+<b>@Html.ActionLink("Account Information", "Profile", "Account") > Edit Contact Schedule of @Model.FirstName @Model.LastName</b>
 <br />
-<table>
+<table width="100%" style="text-align:center">
+    
     <tr>
-        <td>Day</td>
-        <td>Start time</td>
-        <td>End time</td>
-    </tr>
-    <tr>
-        <td>@Html.DropDownList("dayType", new SelectList(daysType, "Value", "Text"))</td>
         <td>
-            @Html.DropDownList("startHourType", new SelectList(hoursType, "Value", "Text")):
-            @Html.DropDownList("startMinTensType", new SelectList(minsTensType, "Value", "Text"))
-            @Html.DropDownList("startMinOnesType", new SelectList(minsOnesType, "Value", "Text"))
-        </td>
-        <td>
-            @Html.DropDownList("endHourType", new SelectList(hoursType, "Value", "Text")):
-            @Html.DropDownList("endMinTensType", new SelectList(minsTensType, "Value", "Text"))
-            @Html.DropDownList("endMinOnesType", new SelectList(minsOnesType, "Value", "Text"))
+            
+            @using ((Html.BeginForm("Save", "Contact", FormMethod.Post, new { id = "contactSchedulesForm" })))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+
+
+
+
+                @Html.HiddenFor(model => model.sched)
+                @Html.HiddenFor(model => model.ContactId)
+                @Html.HiddenFor(model => model.Email)
+                @Html.HiddenFor(model => model.FirstName)
+                @Html.HiddenFor(model => model.fkUserId)
+                @Html.HiddenFor(model => model.LastName)
+                @Html.HiddenFor(model => model.Mobile)
+                @Html.HiddenFor(model => model.Rank)
+                @Html.HiddenFor(model => model.Relationship)
+                @Html.HiddenFor(model => model.type)
+
+                <input type="hidden" value="@userId" id="fkUserId" name="fkUserId" />
+
+                @*Html.CheckBoxFor(m => m.canContactOutside) Can contact outside schedule?*@
+
+                <text>Day</text>
+                @Html.DropDownList("dayType", new SelectList(daysType, "Value", "Text"));
+                <span></span>
+                <text>Start time:</text>
+                @Html.DropDownList("startHourType", new SelectList(hoursType, "Value", "Text"));
+                <text>:</text>
+                @Html.DropDownList("startMinTensType", new SelectList(minsTensType, "Value", "Text"));
+                @Html.DropDownList("startMinOnesType", new SelectList(minsOnesType, "Value", "Text"));
+                <span></span>
+                <text>End time:</text>
+                @Html.DropDownList("endHourType", new SelectList(hoursType, "Value", "Text"));
+                <text>:</text>
+                @Html.DropDownList("endMinTensType", new SelectList(minsTensType, "Value", "Text"));
+                @Html.DropDownList("endMinOnesType", new SelectList(minsOnesType, "Value", "Text"));
+                <span></span>
+                <input type="button" value="Add Schedule" onclick="parseSchedule()" />
+                <input type="button" value="Save" onclick="submitForm()" />
+                
+
+            }
         </td>
 
     </tr>
 </table>
-<input type="button" value="Add Schedule" onclick="parseSchedule()" />
+
 
 <br />
-<table>
+
+
+
+
+
+<p class="pitch-list__content" id="legend">
+
+    @foreach (var item in contacts)
+    {
+
+
+        <span id="span@{@item.ContactId}" style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[item.ContactId%10] "></span>
+
+        <b>@item.FirstName @item.LastName | </b>
+
+    }
+
+</p>
+
+<table style="width:100%;margin:2px;padding:2px;">
     <tr>
-        <td>Sunday</td>
-        <td>Monday</td>
-        <td>Tuesday</td>
-        <td>Wednesday</td>
-        <td>Thursday</td>
-        <td>Friday</td>
-        <td>Saturday</td>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-left: 1px solid #000;">TIME</th>
+
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">SUNDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">MONDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">TUESDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">WEDNESDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">THURSDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">FRIDAY</th>
+        <th style="border-bottom: 1px solid #000; border-top: 1px solid #000; border-right: 1px solid #000;">SATURDAY</th>
+
     </tr>
-    <tr id="WeekSched" valign="top">
-        <td id="SunSched"></td>
-        <td id="MonSched"></td>
-        <td id="TueSched"></td>
-        <td id="WedSched"></td>
-        <td id="ThuSched"></td>
-        <td id="FriSched"></td>
-        <td id="SatSched"></td>
+    <tr>
+        <td width="16%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
+        <td width="12%"></td>
     </tr>
+    <tr>
+        <td style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">@Model.FirstName @Model.LastName's Schedule</td>
+        <td id="SunSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="MonSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="TueSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="WedSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="ThuSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="FriSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+        <td id="SatSchedTemp" style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center"></td>
+    </tr>
+    @for (int i = 0; i < 24; i++)
+    {
+        int j = i + 1;
+        string time = i.ToString() + ":00-" + j.ToString() + ":00";
+
+        <tr>
+            <td style="border-bottom: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; text-align:center">
+                @time
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;" id="SUN@{@i;}">
+
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("SUN"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="MON@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("MON"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="TUE@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("TUE"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="WED@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("WED"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="THU@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("THU"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="FRI@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("FRI"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+            <td style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd" id="SAT@{@i;}">
+                @foreach (var contact in contacts)
+                {
+
+                    try
+                    {
+
+                        string[] schedules = contact.sched.Split(',');
+                        foreach (string schedule in schedules)
+                        {
+                            if (schedule.Contains("SAT"))
+                            {
+                                string timespan = schedule.Split(' ')[1];
+                                string startTime = timespan.Split('-')[0];
+                                string endTime = timespan.Split('-')[1];
+                                string startHr = startTime.Split(':')[0];
+                                string endHr = endTime.Split(':')[0];
+                                if (Int32.Parse(startHr) <= i && Int32.Parse(endHr) >= j)
+                                {
+
+                                    <span style="width: 15px; height: 15px; margin:auto; display: inline-block; border: 1px solid gray; vertical-align: middle; border-radius: 2px; background: @colors[contact.ContactId%10] "></span>
+
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex) { }
+
+                }
+            </td>
+        </tr>
+    }
 </table>
-
-@using ((Html.BeginForm("Save", "Contact", FormMethod.Post, new { id = "contactSchedulesForm" })))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Contact Schedules</legend>
-
-        
-        @Html.HiddenFor(model => model.sched)
-        @Html.HiddenFor(model => model.ContactId)
-        @Html.HiddenFor(model => model.Email)
-        @Html.HiddenFor(model => model.FirstName)
-        @Html.HiddenFor(model => model.fkUserId)
-        @Html.HiddenFor(model => model.LastName)
-        @Html.HiddenFor(model => model.Mobile)
-        @Html.HiddenFor(model => model.Rank)
-        @Html.HiddenFor(model => model.Relationship)
-        @Html.HiddenFor(model => model.type)
-
-        <input type="hidden" value="@userId" id="fkUserId" name="fkUserId" />
-        @Html.CheckBoxFor(m => m.canContactOutside) Can contact outside schedule?
-
-        <p>
-            <input type="button" value="Save" onclick="submitForm()" />
-        </p>
-    </fieldset>
-}
 
 
 

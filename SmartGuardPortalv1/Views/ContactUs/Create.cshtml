@@ -4,26 +4,51 @@
     Layout = "";
 
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SMARTGUARD WATCH</title>
 
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>SMARTGUARD WATCH</title>
+    <script>
+        (function () {
+            var cb = function () {
+                var cssFile = document.createElement('link');
+                cssFile.rel = 'stylesheet';
+                //cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
+                cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
+                document.head.appendChild(cssFile);
+            };
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+            webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf) {
+                raf(cb);
+            } else {
+                window.addEventListener('load', cb);
+            }
+        }());
+    </script>
+    <style>
+        /* The switch - the box around the slider */
+        table, tr, td {
+            padding: 5px;
+            margin: 5px;
+            border-spacing: 5px;
+            vertical-align: text-top;
+            text-align: left;
+        }
 
-<script>
- (function (){var cb = function (){var cssFile = document.createElement('link');
-cssFile.rel = 'stylesheet';
-//cssFile.href = 'https://number26.eu/wp-content/themes/number26/dist/css/style.opt.css?7db955d1a9';
-cssFile.href = '@Url.Content("~/Content/css/style.opt.css?7db955d1a9")';
-document.head.appendChild(cssFile);
-};
-var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-webkitRequestAnimationFrame || msRequestAnimationFrame;
-if (raf){raf(cb);
-}else {
-window.addEventListener('load', cb);
-}}());
-</script>
+        input, select {
+            background-color: #44c4ff;
+            margin: 5px;
+        }
 
-<script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+        
+    </style>
+
+
+
+    <script id="no-js-replacer">document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 </head>
 <body class=' home page page-id-1226 page-template page-template-front-page page-template-front-page-php custom-background lp'>
     <noscript>
@@ -31,230 +56,1006 @@ window.addEventListener('load', cb);
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <script id="gtm-init">
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W8C5VL');</script><main class="page-wrapper" id="page_wrapper">
-    <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
-        <div class="header__inner" id="header__inner" style="text-align:center">
-            <div class="header__hodari">
-                <button class="hotdog hotdog--header" id="hotdog">
-                    <span class="lines">
-                    </span>
-                </button>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W8C5VL');</script><main class="page-wrapper" id="page_wrapper">
+        <header class="header header--white" id="header" data-position="0" style="background:#fff;color:#000;font-family:'Courier New'">
+            <div class="header__inner" id="header__inner" style="text-align:center">
+                <div class="header__hodari">
+                    <button class="hotdog hotdog--header" id="hotdog">
+                        <span class="lines">
+                        </span>
+                    </button>
+                </div>
+
+                <a href="http://smartguardwatch.azurewebsites.net/" class=" nav__item nav__register bttn bttn--medium"> Overview </a>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/FAQs"> FAQ </a>
+                <a href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" class=" nav__item nav__register bttn bttn--medium"> Contact / Buy </a>
+
+                <span class="nav__separator"></span>
+                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
+                    Login
+                </a>
+
             </div>
+        </header>
+        <section class="holder holder--two-col-pitch holder--gray-bg drop-shadow" data-sizes="auto" id="cta-1" style="color:#000;width:100%">
+            <article class="main main--lp-intro-fs" style="width:100%">
+                <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:40%;text-align:center; vertical-align:bottom;">
+                                <div style="width:90%;background-color:aliceblue;padding:5px">
+                                    <b><u>Choose your area, country and distributor:</u></b>
+                                    <br />
+                                    <br />
+                                    <table>
+                                        <tr>
+                                            <td>Continent:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Europe</option>
+                                                    <option>North America</option>
+                                                    <option>Asia</option>
+                                                </select>
 
-            <a href="http://smartguardwatch.azurewebsites.net/" class=" nav__item nav__register bttn bttn--medium"> Overview </a>
-            <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/FAQs"> FAQ </a>
-            <a href="http://smartguardwatch.azurewebsites.net/ContactUs/Create" class=" nav__item nav__register bttn bttn--medium"> Contact / Buy </a>
-
-            <span class="nav__separator"></span>
-            <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Landing">
-                Login
-            </a>
-
-        </div>
-    </header>
-    <section class="holder holder--two-col-pitch holder--gray-bg" data-sizes="auto" id="cta-1" style="color:#000;width:100%">
-        <article class="main main--lp-intro-fs" style="width:100%">
-            <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
-                <table style="width:100%">
-                    <tr>
-                        <td style="width:40%;text-align:center; vertical-align:bottom;">
-                            <div style="width:90%;background-color:aliceblue;padding:5px">
-                                <b><u>Choose your area, country and distributor:</u></b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Belgium</option>
+                                                    <option>Germany</option>
+                                                    <option>Austria</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Segment:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Personal User</option>
+                                                    <option>Business</option>
+                                                    <option>Retailer</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Distributor:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Lorem</option>
+                                                    <option>Ipsum</option>
+                                                    <option>Dolorem</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                                 <br />
                                 <br />
-                                <table>
+                                <div style="border:solid 1px lightgreen;width:90%; padding:5px">
+                                    If there is no distributor yet assigned to your area, please send us an email to
+                                    inquiry@TanteDitti.com stating your address
+                                </div>
+                                <br />
+                                <br />
+                                <div style="border:solid 1px lightgreen;width:90%; padding:5px">
+                                    *If you are interested to become a distributor in a not yet covered region or channel
+                                    , please send us an email by clicking <a>here</a>.
+                                </div>
+                            </td>
+                            <td style="width:60%;border:4px solid red; background-color:yellow; padding:20px; font-size:large">
+
+                                Human Safety Supply Inc.
+                                <br />
+                                Antwerp road 55
+                                <br />
+                                1234 Amsterdam
+                                <br />
+                                <br />
+                                Tel: +1233 45678
+                                <br />
+                                Email: contact@hss.nl
+                                <br />
+                                <br />
+                                Own shops also in Antwerp and Rotterdam. Find address on your homepage:
+                                www.hss.nl/brances
+                                <br />
+                                <br />
+                                You can see all <a href="#product"><b style="color:blue">Services</b></a>,
+                                <a href="#product"><b style="color:blue">Products</b></a> and buy online in our
+                                <a href="#webshop"><b style="color:blue">Webshop</b></a>.
+
+                                <br />
+                                <br />
+                                A sales representative is available now. Start a webchat by clicking here.
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    @**
+                        <table>
+                            <tr>
+                                <td>
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true)
+
+                                        <text>
+                                            <p class="pitch-list__content">
+                                                WE ARE HERE FOR YOU!
+                                                <br />
+                                                <br />
+                                                Please call or write us, we are happy to
+                                                <br />
+                                                answer any questions you may have.
+                                            </p>
+                                        </text>
+
+                                        <div class="editor-label">
+                                            <p class="pitch-list__content">
+                                                @Html.LabelFor(model => model.Name)
+                                            </p>
+                                        </div>
+                                        <div class="editor-field">
+                                            <p class="pitch-list__content">
+                                                @Html.EditorFor(model => model.Name)
+                                                @Html.ValidationMessageFor(model => model.Name)
+                                            </p>
+                                        </div>
+                                        <div class="editor-label">
+                                            <p class="pitch-list__content">
+                                                @Html.LabelFor(model => model.Phone)
+                                            </p>
+                                        </div>
+                                        <div class="editor-field">
+                                            <p class="pitch-list__content">
+                                                @Html.EditorFor(model => model.Phone)
+                                                @Html.ValidationMessageFor(model => model.Phone)
+                                            </p>
+                                        </div>
+                                        <div class="editor-label">
+                                            <p class="pitch-list__content">
+                                                @Html.LabelFor(model => model.Email)
+                                            </p>
+                                        </div>
+                                        <div class="editor-field">
+                                            <p class="pitch-list__content">
+                                                @Html.EditorFor(model => model.Email)
+                                                @Html.ValidationMessageFor(model => model.Email)
+                                            </p>
+                                        </div>
+                                        <div class="editor-label">
+                                            <p class="pitch-list__content">
+                                                @Html.LabelFor(model => model.Body)
+                                            </p>
+                                        </div>
+                                        <div class="editor-field">
+                                            <p class="pitch-list__content">
+                                                @Html.TextAreaFor(model => model.Body, 10, 30, null)
+                                                @Html.ValidationMessageFor(model => model.Body)
+                                            </p>
+                                        </div>
+                                        <br />
+
+
+
+                                        <p class="pitch-list__content">
+                                            <input type="submit" value="Send inquiry" />
+                                        </p>
+
+                                    }
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td style="background-color:#ccc">
+                                                <p class="pitch-list__content">
+                                                    <b>FAQ - </b> frequently asked questions
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color:#ccc">
+                                                <p class="pitch-list__content">
+                                                    Germany - +123456789
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+                        **@
+
+                </div>
+            </article>
+        </section>
+   
+        <section class="holder holder--two-col-pitch drop-shadow" id="product" style="width:100%">
+            <article class="main main--narrow" style="width:100%">
+                <div class="lp-data-col lp-data-col--fp-pitch" style="width:100%">
+                    <h1 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-1 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                        <b>Product Overview</b>
+                    </h1>
+                    <p class="pitch-list__content" style="text-align:center">
+                        Recommended Price List Private Customers*
+                        <br />
+                        All services are offered for 12 months duration and can be renewed automatically or manually
+                    </p>
+                    <table style="width:100%; text-align:center;padding:10px">
+                        <tr>
+                            <td style="width:66%">
+                                <table style="width:90%">
                                     <tr>
-                                        <td>Continent:</td>
-                                        <td>
-                                            <select>
-                                                <option>Europe</option>
-                                                <option>North America</option>
-                                                <option>Asia</option>
-                                            </select>
-                                            
+                                        <td style="width:22%;vertical-align:top;">
+                                            <div style="width:90%; background-color:lightgreen; border: 1px solid black">
+                                                <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                    <b>Safety Everywhere</b>
+
+                                                </h3>
+                                                <p class="pitch-list__content" style="text-align:left">
+                                                    Smart Alarms
+                                                    <br />
+                                                    Smart Reminders
+                                                    <br />
+                                                    Compliance Alarms
+                                                    <br />
+                                                    SIM Card: GSM
+                                                    <br />
+                                                    300 minutes voice calls per month
+                                                    <br />
+                                                    Navigation
+                                                    <br />
+                                                    Area Alarm
+                                                    <br />
+                                                    Search Location
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td style="width:22%;vertical-align:top">
+                                            <div style="width:90%; background-color:lightgreen;border:1px solid black">
+                                                <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                    <b>Safety Everywhere & Health</b>
+                                                </h3>
+
+                                                <p class="pitch-list__content" style="text-align:left">
+                                                    As safety home plus everywhere
+                                                    <br />
+                                                    SIM Card
+                                                    <br />
+                                                    300 minutes voice
+                                                    <br />
+                                                    Navigation
+                                                    <br />
+                                                    Heart Rate
+                                                    <br />
+                                                    Medical Record
+                                                    <br />
+                                                    Medical Compliance
+                                                    <br />
+                                                    and much more...
+                                                </p>
+
+                                            </div>
+                                        </td>
+                                        <td style="width:22%; vertical-align:top">
+                                            <div style="width:90%; background-color:lightgreen; border: 1px solid black">
+                                                <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                                    <b>Safety & Health & Convenience</b>
+                                                </h3>
+
+                                                <p class="pitch-list__content" style="text-align:left">
+                                                    All of before plus:
+                                                    <br />
+                                                    NFC Payments**
+                                                    <br />
+                                                    Electronic Key
+                                                    <br />
+                                                    12 Contact Persons
+                                                    <br />
+                                                    600 Minutes Voice
+                                                    <br />
+                                                    Data Storage 1 year
+                                                    <br />
+                                                    Extra accu power bank
+                                                    <br />
+                                                    Multi-user ready
+                                                </p>
+
+
+                                            </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Country:</td>
-                                        <td>
-                                            <select>
-                                                <option>Belgium</option>
-                                                <option>Germany</option>
-                                                <option>Austria</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Segment:</td>
-                                        <td>
-                                            <select>
-                                                <option>Personal User</option>
-                                                <option>Business</option>
-                                                <option>Retailer</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Distributor:</td>
-                                        <td>
-                                            <select>
-                                                <option>Lorem</option>
-                                                <option>Ipsum</option>
-                                                <option>Dolorem</option>
-                                            </select>
-                                        </td>
-                                    </tr>
+
                                 </table>
-                            </div>
-                            <br />
-                            <br />
-                            <div style="border:solid 1px lightgreen;width:90%; padding:5px">
-                                If there is no distributor yet assigned to your area, please send us an email to
-                                inquiry@TanteDitti.com stating your address
-                            </div>
-                            <br />
-                            <br />
-                            <div style="border:solid 1px lightgreen;width:90%; padding:5px">
-                                *If you are interested to become a distributor in a not yet covered region or channel
-                                , please send us an email by clicking <a>here</a>.
-                            </div>
-                        </td>
-                        <td style="width:60%;border:4px solid red; background-color:yellow; padding:20px; font-size:large">
-                            
-                            Human Safety Supply Inc.
-                            <br />
-                            Antwerp road 55
-                            <br />
-                            1234 Amsterdam
-                            <br />
-                            <br />
-                            Tel: +1233 45678
-                            <br />
-                            Email: contact@hss.nl
-                            <br />
-                            <br />
-                            Own shops also in Antwerp and Rotterdam. Find address on your homepage:
-                            www.hss.nl/brances
-                            <br />
-                            <br />
-                            You can see all <a><b style="color:blue">Services</b></a>, 
-                            <a><b style="color:blue">Products</b></a> and buy online in our
-                            <a><b style="color:blue">Webshop</b></a>.
-                            
-                            <br />
-                            <br />
-                            A sales representative is available now. Start a webchat by clicking here. 
-                        </td>
-                    </tr>
-                </table>
-
-
-                @**
-                <table>
-                    <tr>
-                        <td>
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true)
-
-                                <text>
-                                    <p class="pitch-list__content">
-                                        WE ARE HERE FOR YOU!
-                                        <br />
-                                        <br />
-                                        Please call or write us, we are happy to
-                                        <br />
-                                        answer any questions you may have.
-                                    </p>
-                                </text>
-
-                                <div class="editor-label">
-                                    <p class="pitch-list__content">
-                                        @Html.LabelFor(model => model.Name)
-                                    </p>
-                                </div>
-                                <div class="editor-field">
-                                    <p class="pitch-list__content">
-                                        @Html.EditorFor(model => model.Name)
-                                        @Html.ValidationMessageFor(model => model.Name)
-                                    </p>
-                                </div>
-                                <div class="editor-label">
-                                    <p class="pitch-list__content">
-                                        @Html.LabelFor(model => model.Phone)
-                                    </p>
-                                </div>
-                                <div class="editor-field">
-                                    <p class="pitch-list__content">
-                                        @Html.EditorFor(model => model.Phone)
-                                        @Html.ValidationMessageFor(model => model.Phone)
-                                    </p>
-                                </div>
-                                <div class="editor-label">
-                                    <p class="pitch-list__content">
-                                        @Html.LabelFor(model => model.Email)
-                                    </p>
-                                </div>
-                                <div class="editor-field">
-                                    <p class="pitch-list__content">
-                                        @Html.EditorFor(model => model.Email)
-                                        @Html.ValidationMessageFor(model => model.Email)
-                                    </p>
-                                </div>
-                                <div class="editor-label">
-                                    <p class="pitch-list__content">
-                                        @Html.LabelFor(model => model.Body)
-                                    </p>
-                                </div>
-                                <div class="editor-field">
-                                    <p class="pitch-list__content">
-                                        @Html.TextAreaFor(model => model.Body, 10, 30, null)
-                                        @Html.ValidationMessageFor(model => model.Body)
-                                    </p>
+                                <br />
+                                <div style="width:90%; border: 1px solid black">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>Monthly usage fees***</b>
+                                    </h3>
+                                    <table style="width:100%; text-align:center">
+                                        <tr>
+                                            <td width="33%">
+                                                &euro;20 + VAT
+                                            </td>
+                                            <td width="33%">
+                                                &euro;25 + VAT
+                                            </td>
+                                            <td width="33%">
+                                                &euro;33 + VAT
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <br />
+                                <div style="width:90%; border: 1px solid black">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>One-Time Hardware Cost</b>
+                                    </h3>
+                                    <table style="width:100%; text-align:center">
+                                        <tr>
+                                            <td width="33%">
+                                                &euro;249 + VAT
+                                            </td>
+                                            <td width="33%">
+                                                &euro;299 + VAT
+                                            </td>
+                                            <td width="33%">
+                                                &euro;349 + VAT
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <td style="width:24%;vertical-align:top">
+                                <div style="width:90%; background-color:lightyellow; text-align:center; border: 1px solid black">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>Add-on Services</b>
+                                    </h3>
+                                    <p class="pitch-list__content" style="text-align:center">
+                                        Data Storage 1 year:
+                                        <br />
+                                        + 3&euro; per Month + VAT
+                                        <br />
+                                        <br />
+                                        Adding 6 Contact Persons:
+                                        <br />
+                                        + 2&euro; per Month + VAT
+                                        <br />
+                                        <br />
+                                        Voice Calls +300 min.
+                                        <br />
+                                        + 4&euro; per Month + VAT
+                                        <br />
+                                        <br />
+                                        Monthly Billing:
+                                        <br />
+                                        + 1&euro; per Month + VAT
+                                        <br />
+                                        <br />
+                                        NFC Payments + eKey
+                                        <br />
+                                        + 25&euro; + VAT
+                                        <br />
+                                        <br />
+                                        Accu Power Bank
+                                        <br />
+                                        + 25&euro; + VAT
+                                    </p>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p class="pitch-list__content" style="text-align:left">
+                        *Special Multi-User Software available for Retirement Homes
+                        <br />
+                        **SMARTGUARD is NFC-ready, must be registered with user's bank
+                        <br />
+                        ***Billing annually; Monthly Billing + 1&euro; + VAT
+                    </p>
+                </div>
+            </article>
+        </section>
+        <section class="holder holder--two-col-pitch holder--gray-bg drop-shadow" data-sizes="auto" id="webshop" style="color:#000;width:100%">
+            <article class="main main--lp-intro-fs" style="width:100%">
+                <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
+                    <h1 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-1 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                        <b>Get a SMARTGUARD together with its Service in 4 steps</b>
+                    </h1>
+                    <p class="pitch-list__content" style="text-align:center">
+                        (If you are already a customer and want to extend your service or buy additional hardware click <a href="#customer">here</a>)
+                    </p>
+                    <div style="width:100%; border: 1px solid black">
+                        <p class="pitch-list__content" style="text-align:left">
+                            <b>1. Customer Details for Billing and Shipping: </b> (For companies name plus Contact Person)
+                        </p>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:13%">
+                                    Company
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Street #:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Phone:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span></span></td>
+                            </tr>
+                            <tr>
+                                <td style="width:13%">
+                                    First Name:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    City:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    City:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span></span></td>
+                            </tr>
+                            <tr>
+                                <td style="width:13%">
+                                    Family Name:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Zip:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Role/Relation:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <select>
+                                        <option>Relative</option>
+                                        <option>Friend</option>
+                                        <option>Nurse</option>
+                                        <option>Doctor</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <br />
+                    <div style="width:100%; border: 1px solid black">
+                        <p class="pitch-list__content" style="text-align:left">
+                            <b>2. Contact Person or User </b> 
+                        </p>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:13%">
+                                    First Name: 
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Family Name #: 
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Role/Relation:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <select>
+                                        <option>Relative</option>
+                                        <option>Friend</option>
+                                        <option>Nurse</option>
+                                        <option>Doctor</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:13%">
+                                    Email:
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    <input type="text" />
+                                </td>
+
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:13%">
+                                    Phone:
+                                </td>
+                                
+                            </tr>
+                        </table>
+
+                    </div>
+                    <br />
+                    <div style="width:100%; border: 1px solid black">
+                        <p class="pitch-list__content" style="text-align:left">
+                            <b>3. Product </b>
+                        </p>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:32%;text-align:center">
+                                    Package:
+                                    <br />
+                                    <div style="text-align:left;width:90%;background-color:blue;border: 1px solid black;color:white;height:100%;padding:10px">
+                                        <select>
+                                            <option>Safety Everywhere</option>
+                                            <option>Safety Everywhere & Health</option>
+                                            <option>Safet & Health & Convenience</option>
+                                        </select>
+                                        <br />
+                                        <input type="radio" name="type" value="1"> 1 year
+                                        <span></span>
+                                        <input type="radio" name="type" value="2"> Automatic Renewal
+                                    </div>
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:32%;text-align:center">
+                                    Add-ons:
+                                    <br />
+                                    <div style="text-align:left;width:90%;background-color:cyan;border: 1px solid black;color:black;padding:10px">
+                                        <input type="checkbox" /> Data storage 1 year
+                                        <br />
+                                        <input type="checkbox" /> Adding 6 Contact Persons
+                                        <br />
+                                        <input type="checkbox" /> Voice calls + 30 minutes
+                                        <br />
+                                        <input type="checkbox" /> Multi-user option
+                                        <br />
+                                        Billing
+                                        <select>
+                                            <option>Annually</option>
+                                            <option>Monthly</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:32%;text-align:center;">
+                                    Price:
+                                    <br />
+                                    <div style="text-align:left;width:90%;border:1px solid black;color:black;height:100%;padding:10px">
+                                        Total Price: &euro;50 
+                                        <br />
+                                        Hardware Price: &euro;38
+                                        <br />
+                                        VAT: &euro;12
+                                        <br />
+                                        ______________________
+                                        <br />
+                                        Total: &euro;100
+                                        
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                    <br />
+                    <div style="width:100%; border: 1px solid black">
+                        <p class="pitch-list__content" style="text-align:left">
+                            <b>3. Payment Method</b>
+                        </p>
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:32%;text-align:center">
+                                    Choose Channel
+                                    <br />
+                                    <div style="text-align:left;width:90%;background-color:blue;border: 1px solid black;color:white;height:100%;padding:10px">
+                                        <select>
+                                            <option>Bank Transfer</option>
+                                            <option>TransferWise</option>
+                                            <option>Debit</option>
+                                        </select>
+                                        
+                                    </div>
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:32%;text-align:center">
+                                    Exchange Data:
+                                    <br />
+                                    <div style="text-align:left;width:90%;background-color:cyan;border: 1px solid black;color:black;padding:10px">
+                                        HSBC
+                                        <br />
+                                        IBAN: SHKD7834638dhk7384
+                                        <br />
+                                        BIC: HSBCCCBSA
+                                    </div>
+                                </td>
+                                <td style="width:2%"><span></span></td>
+                                <td style="width:32%;text-align:center;">
+                                    
+                                    <br />
+                                    <div style="text-align:left;width:90%;border:1px solid black;color:black;height:100%;padding:10px">
+                                        As soon as your payment is received, the persons under 1 & 2 above will
+                                        get an email with login and shipment tracking.
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        
+                    </div>
+                    <br />
+                    <input type="button" value="ORDER" style="background-color:green" />
+                    <input type="button" value="RESET" style="background-color:red;color:white" />
+                    
+                </div>
+            </article>
+        </section>
+
+    <section class="holder holder--two-col-pitch drop-shadow" id="customer" style="width:100%">
+            <article class="main main--lp-intro-fs" style="width:100%">
+                <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
+
+                    <p class="pitch-list__content" style="text-align:center">
+                        If you are already a customer and want to extend your service, buy additional hardware
+                        or change the billing address, enter your <br /> User ID
+                        <input type="text" /> and Password <input type="text" />
+                        <br />
+                        You can find it on your webportal in the SUPPORT section under "System & Services". THere is
+                        also a direct link to the webshop there.
+                        <br />
+                        <input type="button" value="SUBMIT" style="background-color:green" />
+                        <input type="button" value="RESET" style="background-color:red;color:white" />
+                        <br />
+                        <br />
+                        Do you want to <b>renew</b> your <u>existing</u> <b>Service</b> for another year
+                        or change your <b>billing address</b>? Click <a>here</a>
+                        <br />
+                        Do you want to <b>change</b> or add <b><u>new</u> Services</b> or add <b><u>new</u> hardware</b>?
+                        Fill out the form below
+                    </p>
+
+                    <table style="width:100%; text-align:center;padding:10px">
+                        <tr>
+                            <td style="width:32%;vertical-align:top;height:100%;">
+                                <div style="width:100%;height:100%; background-color:white; border: 1px solid black; padding:10px">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>Existing Software Services</b>
+
+                                    </h3>
+                                    <p class="pitch-list__content" style="text-align:left">
+                                        <b>Main Service:</b> Safety Everywhere & Health
+                                        <br />
+                                        <b>Add-ons: </b> +6 CPs, +600 minutes voice
+                                        <br />
+                                        <b>Expiry:</b> June 30, 2017
+                                    </p>
+                                </div>
+                            </td>
+                            <td width="1%"><span></span></td>
+                            <td style="width:32%;vertical-align:top;height:100%;">
+                                <div style="width:100%; height:100%; background-color:white;border:1px solid black;padding:10px">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>New Software Services: (cost/unit)</b>
+                                    </h3>
+
+                                    <p class="pitch-list__content" style="text-align:left">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <select>
+                                                        <option>Safety Everywhere</option>
+                                                        <option>Safety Everywhere & Health</option>
+                                                        <option>Safety & Health & Convenience</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    20
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select>
+                                                        <option>+6 Contact Persons</option>
+                                                        <option>+300 Minutes</option>
+
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    3
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select>
+                                                        <option>none</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    20
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select>
+                                                        <option>Monthly</option>
+                                                        <option>Annually</option>
+
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    1
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </p>
+
+                                </div>
+                            </td>
+                            <td width="1%"><span></span></td>
+                            <td style="width:32%; vertical-align:top;height:100%;">
+                                <div style="width:100%;height:100%; background-color:white; border: 1px solid black;padding:10px">
+                                    <h3 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-3 lp-data-col--subtitle lvl-3--lc mbm cf color-black">
+                                        <b>Price per month</b>
+                                    </h3>
+
+                                    <p class="pitch-list__content" style="text-align:left">
+                                        <b>Units</b>
+                                        <select>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                        <br />
+                                        <b>Start:</b>
+                                        <select>
+                                            <option>Now</option>
+                                            <option>Expiry</option>
+
+                                        </select>
+                                        <br />
+                                        <b>Renewal:</b>
+                                        <select>
+                                            <option>Automatic</option>
+                                            <option>No</option>
+
+                                        </select>
+                                    </p>
 
 
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="width:100%; border: 1px solid black">
+                    <p class="pitch-list__content" style="text-align:left">
+                        <b>1. Customer Details for Billing and Shipping: </b> (For companies name plus Contact Person)
+                    </p>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:13%">
+                                Company
+                            </td>
 
-                                <p class="pitch-list__content">
-                                    <input type="submit" value="Send inquiry" />
-                                </p>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
 
-                            }
-                        </td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td style="background-color:#ccc">
-                                        <p class="pitch-list__content">
-                                            <b>FAQ - </b> frequently asked questions
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="background-color:#ccc">
-                                        <p class="pitch-list__content">
-                                            Germany - +123456789
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                Street #:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                Phone:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:13%">
+                                First Name:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
 
-                </table>
-                **@
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                City:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                City:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:13%">
+                                Family Name:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
 
-            </div>
-        </article>
-    </section>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                Zip:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <input type="text" />
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                Role/Relation:
+                            </td>
+                            <td style="width:2%"><span></span></td>
+                            <td style="width:13%">
+                                <select>
+                                    <option>Relative</option>
+                                    <option>Friend</option>
+                                    <option>Nurse</option>
+                                    <option>Doctor</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
 
+                </div>
+                    <br />
+                                
+                                <div style="width:100%; border: 1px solid black">
+                                    <p class="pitch-list__content" style="text-align:left">
+                                        <b>3. Payment Method</b>
+                                    </p>
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td style="width:32%;text-align:center">
+                                                Choose Channel
+                                                <br />
+                                                <div style="text-align:left;width:90%;background-color:blue;border: 1px solid black;color:white;height:100%;padding:10px">
+                                                    <select>
+                                                        <option>Bank Transfer</option>
+                                                        <option>TransferWise</option>
+                                                        <option>Debit</option>
+                                                    </select>
 
+                                                </div>
+                                            </td>
+                                            <td style="width:2%"><span></span></td>
+                                            <td style="width:32%;text-align:center">
+                                                Exchange Data:
+                                                <br />
+                                                <div style="text-align:left;width:90%;background-color:cyan;border: 1px solid black;color:black;padding:10px">
+                                                    HSBC
+                                                    <br />
+                                                    IBAN: SHKD7834638dhk7384
+                                                    <br />
+                                                    BIC: HSBCCCBSA
+                                                </div>
+                                            </td>
+                                            <td style="width:2%"><span></span></td>
+                                            <td style="width:32%;text-align:center;">
 
+                                                <br />
+                                                <div style="text-align:left;width:90%;border:1px solid black;color:black;height:100%;padding:10px">
+                                                    As soon as your payment is received, the persons under 1 & 2 above will
+                                                    get an email with login and shipment tracking.
 
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                </div>
+                                <br />
+                                <input type="button" value="ORDER" style="background-color:green" />
+                                <input type="button" value="RESET" style="background-color:red;color:white" />
+                         
+                                
+                              
+                                
+
+                            
+                      
+                   
+                    <br />
+                    
+                </div>
+            </article>
+        </section>
+
+</body>
+</html>
 

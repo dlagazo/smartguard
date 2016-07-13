@@ -489,7 +489,7 @@ namespace SmartGuardPortalv1.Controllers
                         db.SaveChanges();
                     }
 
-
+                    FormsAuthentication.SetAuthCookie(model.UserName, true);
 
                     return RedirectToAction("Email", "Home");
                 }

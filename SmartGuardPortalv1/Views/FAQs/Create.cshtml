@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Create";
+    var listItems = new List<SelectListItem>
+    {
+              new SelectListItem { Text = "User", Value = "0" },
+              new SelectListItem { Text = "Contact", Value = "1" }
+    };
 }
 
 <h2>Create</h2>
@@ -34,10 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.typeFAQ, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select name="type">
-                    <option value="0">User FAQ</option>
-                    <option value="1">Contact FAQ</option>
-                </select>
+                @Html.DropDownList("typeFAQ", new SelectList(listItems, "Value", "Text"))
                 
                 
             </div>
