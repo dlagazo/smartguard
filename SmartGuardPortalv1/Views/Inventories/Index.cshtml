@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Inventory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.serialKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fkUserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.serialKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fkUserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.serialKey }) |
+            @Html.ActionLink("Details", "Details", new { id=item.serialKey }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.serialKey })
+        </td>
+    </tr>
+}
+
+</table>

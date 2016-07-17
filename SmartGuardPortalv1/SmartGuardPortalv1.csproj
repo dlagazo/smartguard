@@ -242,6 +242,7 @@
     <Compile Include="Controllers\Web\Cms\FallProfileController.cs" />
     <Compile Include="Controllers\Web\Cms\AppBuildController.cs" />
     <Compile Include="Controllers\Web\Cms\FAQsController.cs" />
+    <Compile Include="Controllers\Web\Cms\InventoriesController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
@@ -762,6 +763,11 @@
     <Content Include="Views\FAQs\Index.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Home\Data.cshtml" />
+    <Content Include="Views\Inventories\Create.cshtml" />
+    <Content Include="Views\Inventories\Delete.cshtml" />
+    <Content Include="Views\Inventories\Details.cshtml" />
+    <Content Include="Views\Inventories\Edit.cshtml" />
+    <Content Include="Views\Inventories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

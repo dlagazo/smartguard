@@ -8,6 +8,7 @@ using SmartGuardPortalv1.Filters;
 using SmartGuardPortalv1.Models;
 using System.Text;
 using WebMatrix.WebData;
+using System.Data.Entity;
 
 namespace SmartGuardPortalv1.Controllers
 {
@@ -28,12 +29,42 @@ namespace SmartGuardPortalv1.Controllers
             }
             UsersContext db = new UsersContext();
             string[] roles = System.Web.Security.Roles.Provider.GetRolesForUser(getUserCredential(Request.Headers.Authorization.ToString()));
+            
             //string json_data = JsonConvert.SerializeObject(arr);
             List<Response> responses = new List<Response>();
             responses.Add(new Response("Result", "Success"));
-             
+            string serial = Request.Headers.GetValues("serial").ToArray()[0]; 
             
             int userId = (int)WebMatrix.WebData.WebSecurity.GetUserId(getUserCredential(Request.Headers.Authorization.ToString()));
+            try
+            {
+                Inventory inv = db.Inventories.Find(serial);
+                if (inv == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("invalid serial key: " + serial));
+                else if(inv.fkUserId != userId && inv.fkUserId != null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("invalid serial key: " + serial));
+
+                }
+                else if(inv.fkUserId == null)
+                {
+                    Inventory isRegistered = db.Inventories.FirstOrDefault(i => i.fkUserId == userId);
+                    if(isRegistered == null)
+                    {
+                        inv.fkUserId = userId;
+                        db.Entry(inv).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("user already registered to " + isRegistered.serialKey));
+
+                    }
+                    
+                }
+                
+            }
+            catch (Exception ex) { }
             
             
             //int title = db.UserInfos.Where(i => i.fkUserId == userId).First().FkTitle;

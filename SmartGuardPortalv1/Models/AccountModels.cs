@@ -42,6 +42,20 @@ namespace SmartGuardPortalv1.Models
 
         public DbSet<LocateStatus> LocateDevicesStatus { get; set; }
 
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Inventory> Inventories { get; set; }
+
+
+    }
+
+    [Table("InventoryTable")]
+    public class Inventory
+    {
+        
+        [Key]
+        public string serialKey{ get; set;}
+        
+        public DateTime? stamp { get; set; }
+        public int? fkUserId { get; set; }
     }
 
     [Table("VideosTable")]
