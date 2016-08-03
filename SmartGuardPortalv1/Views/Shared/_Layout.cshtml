@@ -65,12 +65,20 @@
 
                             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                             {
-                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Module"> HOME </a>
-                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Settings"> SETTINGS </a>
-                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Data"> DATA </a>
-                                <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/ContactUs/Create"> SUPPORT </a>
+                                if (!Roles.IsUserInRole("Administrator") && !Roles.IsUserInRole("Distributor"))
+                                { 
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Module"> HOME </a>
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Settings"> SETTINGS </a>
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Data"> DATA </a>
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/ContactUs/Create"> SUPPORT </a>
 
-                                <span class="nav__separator"></span>
+                                    <span class="nav__separator"></span>
+                                }
+                                else if(Roles.IsUserInRole("Distributor"))
+                                {
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Distributor"> HOME </a>
+
+                                }
                                 @Html.AntiForgeryToken()
                                 <a style="color:darkred" class="nav__item nav__register bttn bttn--medium" href="javascript:document.getElementById('logoutForm').submit()">LOGOUT</a>
                             }

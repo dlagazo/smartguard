@@ -1,7 +1,8 @@
 ﻿@{
     string user = "administrator";
-    if (Request.IsAuthenticated && (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User") || 
-        Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact")))
+    if (Request.IsAuthenticated && (Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("User") ||
+        Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Contact") || 
+        Roles.GetRolesForUser(WebSecurity.CurrentUserName).Contains("Distributor")))
     {
         SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
         int userId = (int)WebSecurity.CurrentUserId;
@@ -34,8 +35,8 @@
 @{
     if (Request.IsAuthenticated) 
     {
-        
-        if(Roles.IsUserInRole("User") || Roles.IsUserInRole("Contact"))
+
+        if (Roles.IsUserInRole("User") || Roles.IsUserInRole("Contact") || Roles.IsUserInRole("Distributor"))
         {
             
                 <h2 style="width:100%;text-align:center;" class="lp-data-col__resizing-heading-2 lp-data-col--subtitle lvl-3--lc mbm cf color-black">

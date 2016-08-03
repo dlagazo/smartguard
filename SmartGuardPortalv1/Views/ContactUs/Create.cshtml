@@ -2,8 +2,68 @@
 
 @{
     Layout = "";
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    List<SmartGuardPortalv1.Models.Distributor> distros = context.Distributors.ToList();
 
+    var listDistros = new List<SelectListItem>();
+    int count = 0;
+    listDistros.Add(new SelectListItem { Text = "Select", Value = "-1" });
+    foreach(var distro in distros)
+    {
+        listDistros.Add(new SelectListItem { Text = distro.name, Value = count.ToString() });
+        count++;
+    }
+    
+              
+    
 }
+<script>
+    var distro_name = new Array(), distro_lat = new Array(), distro_lng = new Array(),
+        distro_email = new Array(), distro_phone = new Array()
+        distro_mobile = new Array(), distro_address = new Array();
+    
+    function selectDistro(index)
+    {
+        if (index != -1)
+        {
+            document.getElementById("distroName").innerHTML = "Distributor: " + distro_name[index - 1];
+            document.getElementById("distroAdd").innerHTML = "Address: " + distro_address[index - 1];
+            document.getElementById("distroTel").innerHTML = "Telephone: " + distro_phone[index - 1];
+            document.getElementById("distroMob").innerHTML = "Mobile: " + distro_mobile[index - 1];
+            document.getElementById("distroEmail").innerHTML = "Email: " + distro_email[index - 1];
+            document.getElementById("map").setAttribute("src", 
+                "https://maps.googleapis.com/maps/api/staticmap?center="
+                + distro_lat[index-1] + "," + distro_lng[index-1] +
+                "&zoom=10&size=600x200&maptype=roadmap&markers=color:red%7Clabel:P%7C " 
+                + distro_lat[index - 1] + "," + distro_lng[index - 1] 
+                +"&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI");
+        }
+        //alert(index);
+        
+    }
+
+    function init()
+    {
+        @foreach(var distro in distros)
+        {
+            <text>distro_name.push("@distro.name");</text>
+            <text>distro_lat.push("@distro.lat");</text>
+            <text>distro_lng.push("@distro.lng");</text>
+            <text>distro_phone.push("@distro.telephone");</text>
+            <text>distro_email.push("@distro.email");</text>
+            <text>distro_mobile.push("@distro.mobile");</text>
+            <text>distro_address.push("@distro.address");</text>
+            
+        }
+    }
+
+    
+
+    window.onload = init;
+</script>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,7 +149,7 @@
                 <div class="lp-data-col lp-data-col--fulscreen-columns lp-data-col--front-page" style="text-align:center;width:100%">
                     <table style="width:100%">
                         <tr>
-                            <td style="width:40%;text-align:center; vertical-align:bottom;">
+                            <td style="width:40%;text-align:center; vertical-align:top;">
                                 <div style="width:90%;background-color:aliceblue;padding:5px">
                                     <b><u>Choose your area, country and distributor:</u></b>
                                     <br />
@@ -129,11 +189,9 @@
                                         <tr>
                                             <td>Distributor:</td>
                                             <td>
-                                                <select>
-                                                    <option>Lorem</option>
-                                                    <option>Ipsum</option>
-                                                    <option>Dolorem</option>
-                                                </select>
+                                                @Html.DropDownList("Distributor", new SelectList(listDistros, "Value", "Text"), new { onchange = "selectDistro(this.selectedIndex);" })
+
+
                                             </td>
                                         </tr>
                                     </table>
@@ -151,22 +209,18 @@
                                     , please send us an email by clicking <a>here</a>.
                                 </div>
                             </td>
-                            <td style="width:60%;border:4px solid red; background-color:yellow; padding:20px; font-size:large">
-
-                                Human Safety Supply Inc.
-                                <br />
-                                Antwerp road 55
-                                <br />
-                                1234 Amsterdam
-                                <br />
-                                <br />
-                                Tel: +1233 45678
-                                <br />
-                                Email: contact@hss.nl
+                            <td style="width:75%;border:4px solid red; background-color:yellow; padding:20px; font-size:large">
+                                <div id="distroName"></div>
+                                <div id="distroAdd"></div>
+                                <div id="distroTel"></div>
+                                <div id="distroMob"></div>
+                                <div id="distroEmail"></div>
+                                
                                 <br />
                                 <br />
-                                Own shops also in Antwerp and Rotterdam. Find address on your homepage:
-                                www.hss.nl/brances
+                                <img id="map"
+                                     src="https://maps.googleapis.com/maps/api/staticmap?center=1,1&zoom=10&size=600x200&maptype=roadmap
+                                     &markers=color:red%7Clabel:P%7C1,1 &key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
                                 <br />
                                 <br />
                                 You can see all <a href="#product"><b style="color:blue">Services</b></a>,
@@ -177,6 +231,7 @@
                                 <br />
                                 A sales representative is available now. Start a webchat by clicking here.
                             </td>
+                            
                         </tr>
                     </table>
 

@@ -64,8 +64,8 @@ namespace SmartGuardPortalv1.Controllers
                 }
                 else if (Roles.GetRolesForUser(model.UserName).Contains("Administrator"))
                     return RedirectToAction("Administrator", "Home", new { userName = WebSecurity.CurrentUserName });
-                else if (Roles.GetRolesForUser(model.UserName).Contains("ContentAdministrator"))
-                    return RedirectToAction("Content", "Home", new { userName = WebSecurity.CurrentUserName });
+                else if (Roles.GetRolesForUser(model.UserName).Contains("Distributor"))
+                    return RedirectToAction("Distributor", "Home", new { userName = WebSecurity.CurrentUserName });
                 else if (Roles.GetRolesForUser(model.UserName).Contains("LocalAdministrator"))
                     return RedirectToAction("Local", "Home", new { userName = WebSecurity.CurrentUserName });
             }
@@ -93,6 +93,8 @@ namespace SmartGuardPortalv1.Controllers
             ViewBag.Title = "Register";
             return View();
         }
+
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -469,6 +471,30 @@ namespace SmartGuardPortalv1.Controllers
                         if (!Roles.GetRolesForUser(model.UserName).Contains("Contact"))
                         {
                             Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Contact" });
+                        }
+                        UserInformation ui = new UserInformation();
+                        ui.Address = model.Address;
+                        ui.BirthDate = model.BirthDate;
+                        ui.City = model.City;
+                        ui.FkTitle = model.FkTitle;
+                        ui.fkUserId = WebSecurity.GetUserId(model.UserName);
+                        ui.Gender = model.Gender;
+                        //ui.Hand = model.Hand;
+                        ui.Phone = model.Phone;
+                        ui.Zip = model.Zip;
+
+                        ContactSchedule cs = new ContactSchedule();
+                        cs.fkUserId = WebSecurity.GetUserId(model.UserName);
+
+                        db.ContactSchedules.Add(cs);
+                        db.UserInfos.Add(ui);
+                        db.SaveChanges();
+                    }
+                    else if (model.UserType == 2)
+                    {
+                        if (!Roles.GetRolesForUser(model.UserName).Contains("Distributor"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Distributor" });
                         }
                         UserInformation ui = new UserInformation();
                         ui.Address = model.Address;

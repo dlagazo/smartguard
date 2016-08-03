@@ -2,9 +2,13 @@
 
 @{
     ViewBag.Title = "Edit";
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
+    List<string> distros = Roles.GetUsersInRole("Distributor").ToList();
+    
 }
 
-<h2>Edit</h2>
+<h2>Serial: @Model.serialKey</h2>
+
 
 
 @using (Html.BeginForm())
@@ -18,10 +22,10 @@
         @Html.HiddenFor(model => model.serialKey)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.stamp, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.fkDistroId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.stamp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.stamp, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.fkDistroId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fkDistroId, "", new { @class = "text-danger" })
             </div>
         </div>
 

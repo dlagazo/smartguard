@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "My Modules";
+}
+
+<h1>Distributor Dashboard</h1>
+<div align="left">
+    
+    <br />
+    <br />
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("My Business Information", "Details", "Distributors") <br />
+                @Html.ActionLink("Manage Inventory", "Details", "Inventories") <br /> 
+                @Html.ActionLink("My Users", "Index", "Country") <br /> 
+                @Html.ActionLink("Statement of Account", "Index", "Country") <br /> 
+                @Html.ActionLink("My Analytics","Index", "Product") <br />
+                @Html.ActionLink("Order Page","Index", "Video") <br />
+               
+                
+            </td>
+            <td>
+                
+            </td>
+            
+        </tr>
+        
+    </table>
+
+</div>

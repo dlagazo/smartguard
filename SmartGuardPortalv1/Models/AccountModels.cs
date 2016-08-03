@@ -44,6 +44,69 @@ namespace SmartGuardPortalv1.Models
 
         public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Inventory> Inventories { get; set; }
 
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Distributor> Distributors { get; set; }
+
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Shop> Shops { get; set; }
+
+
+    }
+
+    [Table("OrderTable")]
+    public class Order
+    {
+        [Key]
+        public int id { get; set; }
+        public int fkShopId { get; set; }
+        public int fkUserId { get; set; }
+        public int quantity { get; set; }
+        public bool status { get; set; } //0-pending, 1-approved/paid
+    }
+    
+    [Table("ShopTable")]
+    public class Shop
+    {
+        [Key]
+        public int id { get; set; }
+        public bool type { get; set; } //0 - product, 1 - service
+        public double amount { get; set; }
+        public string image { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public int costType { get; set; } // 0 - once, 1 - per use, 2 - daily, 3 - monthly, 4 - yearly
+
+        
+
+    }
+
+    [Table("DistributorTable")]
+    public class Distributor
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }
+        public string lat { get; set; }
+        public string lng { get; set; }
+
+        public int fkUserId { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string telephone { get; set; }
+        public string mobile { get; set; }
+        public string email { get; set; }
+        public DateTime stamp { get; set; }
+
+    }
+
+    [Table("DistributorStatsTable")]
+    public class DistributorStats
+    {
+        [Key]
+        public int id { get; set; }
+        public int views { get; set; }
+        
+
+        public DateTime stamp { get; set; }
 
     }
 
@@ -56,6 +119,8 @@ namespace SmartGuardPortalv1.Models
         
         public DateTime? stamp { get; set; }
         public int? fkUserId { get; set; }
+
+        public int? fkDistroId { get; set; }
     }
 
     [Table("VideosTable")]
@@ -186,6 +251,9 @@ namespace SmartGuardPortalv1.Models
         public string Email { get; set; }
 
         public string Country { get; set; }
+
+        //0-user, 1-caretaker, 2-business, 3-distributor, 4-owner
+        
         
      
     }

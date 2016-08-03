@@ -43,7 +43,7 @@ namespace SmartGuardPortalv1.Controllers
                     return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("invalid serial key: " + serial));
                 else if(inv.fkUserId != userId && inv.fkUserId != null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("invalid serial key: " + serial));
+                    return Request.CreateErrorResponse(HttpStatusCode.Forbidden, new Exception("access denied: " + serial + " already in use"));
 
                 }
                 else if(inv.fkUserId == null)
@@ -51,6 +51,7 @@ namespace SmartGuardPortalv1.Controllers
                     Inventory isRegistered = db.Inventories.FirstOrDefault(i => i.fkUserId == userId);
                     if(isRegistered == null)
                     {
+                        
                         inv.fkUserId = userId;
                         db.Entry(inv).State = EntityState.Modified;
                         db.SaveChanges();

@@ -20,6 +20,11 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        public ActionResult Distributor()
+        {
+            return View();
+        }
+
         public ActionResult Data()
         {
             return View();

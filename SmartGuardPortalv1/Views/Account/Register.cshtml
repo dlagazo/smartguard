@@ -127,17 +127,41 @@ window.addEventListener('load', cb);
                         @Html.ValidationSummary()
 
                         <fieldset style="background-color:#fff">
-                            <legend>User Registration</legend>
+                            @{
+                                if(Request.Params["login_type"].AsInt() == 0)
+                                {
+                                    <legend>User Registration</legend>
+
+                                }
+                                else if(Request.Params["login_type"].AsInt() == 2)
+                                {
+                                    <legend>Distributor Registration</legend>
+
+                                }
+                                else
+                                {
+                                    <legend>User Registration</legend>
+
+                                }
+                            }
                             <table style="padding:10px; background-color:#fff">
                                 <tr>
                                     <td>
                                         @Html.Hidden("UserType", Request.Params["login_type"].AsInt())
+                                        @if(Request.Params["login_type"].AsInt() != 2)
+                                        {
+                                            <text>SMARTGUARD Serial Number:</text>
 
+                                        }
 
-                                        SMARTGUARD Serial Number:
+                                        
                                     </td>
                                     <td>
-                                        <input type="text"/>
+                                        @if (Request.Params["login_type"].AsInt() != 2)
+                                        {
+                                            <input type="text"/>
+                                        }
+                                        
                                     </td>
                                     <td>
                                         Username:

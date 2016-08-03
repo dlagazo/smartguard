@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    SmartGuardPortalv1.Models.UsersContext db = new SmartGuardPortalv1.Models.UsersContext();
 }
 
 <h2>Index</h2>
@@ -10,35 +11,42 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.serialKey)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.stamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fkUserId)
-        </th>
-        <th></th>
-    </tr>
+    
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.serialKey)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.stamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fkUserId)
+            Serial: @Html.DisplayFor(modelItem => item.serialKey)
+            <br />
+            Distributor: 
+            @{
+            try
+            {
+                @db.Distributors.Where(i => i.fkUserId == item.fkDistroId).FirstOrDefault().name
+            }
+            catch (Exception ex) { }
+
+            }
+
+            @*db.Distributors.Where(i => i.fkUserId == item.fkUserId).FirstOrDefault().name*@
+            <br />
+            Owner: @{
+                        try
+                        { 
+                            @db.UserProfiles.Find(item.fkUserId).FirstName @db.UserProfiles.Find(item.fkUserId).LastName
+
+                        }
+                        catch (Exception ex) { }
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.serialKey }) |
             @Html.ActionLink("Details", "Details", new { id=item.serialKey }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.serialKey })
         </td>
+    </tr>
+    <tr>
+        <td><br /></td>
     </tr>
 }
 

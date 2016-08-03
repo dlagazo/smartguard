@@ -1,0 +1,51 @@
+﻿@model SmartGuardPortalv1.Models.Distributor
+
+@{
+    ViewBag.Title = "Details";
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    SmartGuardPortalv1.Models.Distributor distro = context.Distributors.Where(i => i.fkUserId == userId).FirstOrDefault();
+}
+
+<h2>My Business Information</h2>
+
+@{
+    if(distro != null)
+    {
+        <text>Business Name: </text> @distro.name
+        <br />
+        <text>Telephone: </text> @distro.telephone
+        <br />
+        <text>Mobile #: </text> @distro.mobile
+        <br />
+        <text>Email: </text> @distro.email
+        <br />
+        <text>Address: </text> @distro.address
+        <br />
+        <text>City: </text> @distro.city
+        <br />
+        <text>Country: </text> @distro.country
+        <br />
+        <text>Location: </text> 
+        <br />
+        string marker = distro.lat + "," + distro.lng;
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=@distro.lat,@distro.lng&zoom=10&size=800x300&maptype=roadmap
+&markers=color:red%7Clabel:P%7C @marker&key=AIzaSyClGFiboSom1LT8N4QMT2TlbXXh4-TyFLI" />
+    
+        <br />
+        <br />
+        @Html.ActionLink("Edit", "Edit", new { id = distro.id }) 
+        <br /> 
+        @Html.ActionLink("Dashboard", "Distributor", "Home")
+
+    }
+    else
+    {
+        @Html.ActionLink("Create business info", "Create")
+    }
+}
+<p>
+
+
+</p>
+

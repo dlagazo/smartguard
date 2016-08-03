@@ -239,11 +239,13 @@
     <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
     <Compile Include="Controllers\Web\Cms\ContactUsController.cs" />
+    <Compile Include="Controllers\Web\Cms\DistributorsController.cs" />
     <Compile Include="Controllers\Web\Cms\FallProfileController.cs" />
     <Compile Include="Controllers\Web\Cms\AppBuildController.cs" />
     <Compile Include="Controllers\Web\Cms\FAQsController.cs" />
     <Compile Include="Controllers\Web\Cms\InventoriesController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
+    <Compile Include="Controllers\Web\Cms\ShopsController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
     <Compile Include="Controllers\Web\Features\ContactScheduleController.cs" />
@@ -661,7 +663,7 @@
     <Content Include="Views\Country\Details.cshtml" />
     <Content Include="Views\Country\Edit.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
-    <Content Include="Views\Home\Content.cshtml" />
+    <Content Include="Views\Home\Distributor.cshtml" />
     <Content Include="Views\Subscription\Create.cshtml" />
     <Content Include="Views\Subscription\Delete.cshtml" />
     <Content Include="Views\Subscription\Details.cshtml" />
@@ -768,6 +770,16 @@
     <Content Include="Views\Inventories\Details.cshtml" />
     <Content Include="Views\Inventories\Edit.cshtml" />
     <Content Include="Views\Inventories\Index.cshtml" />
+    <Content Include="Views\Distributors\Create.cshtml" />
+    <Content Include="Views\Distributors\Delete.cshtml" />
+    <Content Include="Views\Distributors\Details.cshtml" />
+    <Content Include="Views\Distributors\Edit.cshtml" />
+    <Content Include="Views\Distributors\Index.cshtml" />
+    <Content Include="Views\Shops\Create.cshtml" />
+    <Content Include="Views\Shops\Delete.cshtml" />
+    <Content Include="Views\Shops\Details.cshtml" />
+    <Content Include="Views\Shops\Edit.cshtml" />
+    <Content Include="Views\Shops\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

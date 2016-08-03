@@ -7,108 +7,109 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartGuardPortalv1.Models;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace SmartGuardPortalv1.Controllers.Web.Cms
 {
-    [Authorize(Roles = "Administrator, Distributor")]
-
-    public class InventoriesController : Controller
+    [Authorize(Roles = "Administrator, Distributor" )]
+    public class DistributorsController : Controller
     {
         private UsersContext db = new UsersContext();
 
-        // GET: Inventories
+        // GET: Distributors
         public ActionResult Index()
         {
-            return View(db.Inventories.ToList());
+            return View(db.Distributors.ToList());
         }
 
-        // GET: Inventories/Details/5
+        // GET: Distributors/Details/5
         public ActionResult Details()
         {
             
             return View();
         }
 
-        // GET: Inventories/Create
+        // GET: Distributors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Inventories/Create
+        // POST: Distributors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "serialKey, fkUserId")] Inventory inventory)
+        public ActionResult Create([Bind(Include = "name,lat,lng,address,city,country,telephone,mobile, email")] Distributor distributor)
         {
             if (ModelState.IsValid)
             {
                 int userId = (int)WebSecurity.CurrentUserId;
-                inventory.fkDistroId = userId;
-                inventory.stamp = DateTime.Now;
-                db.Inventories.Add(inventory);
+                distributor.fkUserId = userId;
+                distributor.stamp = DateTime.Now;
+                db.Distributors.Add(distributor);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
 
-            return View(inventory);
+            return View(distributor);
         }
 
-        // GET: Inventories/Edit/5
-        public ActionResult Edit(string id)
+        // GET: Distributors/Edit/5
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
+            Distributor distributor = db.Distributors.Find(id);
+            if (distributor == null)
             {
                 return HttpNotFound();
             }
-            return View(inventory);
+            return View(distributor);
         }
 
-        // POST: Inventories/Edit/5
+        // POST: Distributors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "serialKey,stamp,fkUserId")] Inventory inventory)
+        public ActionResult Edit([Bind(Include = "id,name,lat,lng,address,city,country,stamp,fkUserId,telephone,mobile,email")] Distributor distributor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(inventory).State = EntityState.Modified;
+                db.Entry(distributor).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
-            return View(inventory);
+            return View(distributor);
         }
 
-        // GET: Inventories/Delete/5
+        // GET: Distributors/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Inventory inventory = db.Inventories.Find(id);
-            if (inventory == null)
+            Distributor distributor = db.Distributors.Find(id);
+            if (distributor == null)
             {
                 return HttpNotFound();
             }
-            return View(inventory);
+            return View(distributor);
         }
 
-        // POST: Inventories/Delete/5
+        // POST: Distributors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Inventory inventory = db.Inventories.Find(id);
-            db.Inventories.Remove(inventory);
+            Distributor distributor = db.Distributors.Find(id);
+            db.Distributors.Remove(distributor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

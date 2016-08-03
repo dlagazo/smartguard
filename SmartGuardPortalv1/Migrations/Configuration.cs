@@ -33,6 +33,8 @@ namespace SmartGuardPortalv1.Migrations
                 Roles.CreateRole("LocalAdministrator");
             if (!Roles.RoleExists("ContentAdministrator"))
                 Roles.CreateRole("ContentAdministrator");
+            if (!Roles.RoleExists("Distributor"))
+                Roles.CreateRole("Distributor");
 
             if (!WebSecurity.UserExists("administrator"))
             {

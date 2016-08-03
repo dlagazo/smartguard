@@ -3,9 +3,14 @@
     
 }
 
-<b>@Html.ActionLink("Dashboard", "Administrator", "Home") > Users and Roles</b>
+<b>@Html.ActionLink("Dashboard", "Administrator", "Home") > Users Management</b>
 <br />
-@Html.ActionLink("Create New", "AdminAccount", "Account")
+<br />
+@Html.ActionLink("Create a new administrator account", "AdminAccount", "Account")
+<br />
+<a href="/Account/Register?login_type=2">Create a new distributor account</a>
+<br />
+<br />
 @{
     foreach(string role in Roles.GetAllRoles())
     {

@@ -2,33 +2,33 @@
 
 @{
     ViewBag.Title = "Details";
+    int userId = (int)WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    List<SmartGuardPortalv1.Models.Inventory> inventories = context.Inventories.Where(i => i.fkDistroId == userId).ToList();
+    
 }
 
 <h2>Details</h2>
 
 <div>
     <h4>Inventory</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.stamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.stamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fkUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fkUserId)
-        </dd>
-
-    </dl>
+    @foreach(var inventory in inventories)
+    {
+        <text>Serial: </text> @inventory.serialKey
+        <br />
+        <text>User: </text> 
+        try
+        {    
+            @context.UserProfiles.Find(inventory.fkUserId).FirstName @context.UserProfiles.Find(inventory.fkUserId).LastName
+        
+        }
+        catch (Exception e) { }
+        <br />
+        @Html.ActionLink("Edit", "Edit", new { serialKey = inventory.serialKey }) <text> | </text>
+        @Html.ActionLink("Delete", "Delete", new { serialKey = inventory.serialKey })
+        <br />
+        <br />
+    }
+<br />
+@Html.ActionLink("Add Inventory", "Create")
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.serialKey }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
