@@ -238,12 +238,15 @@
     <Compile Include="Controllers\Mobile\MobileImageUploadController.cs" />
     <Compile Include="Controllers\Mobile\MobileChargeController.cs" />
     <Compile Include="Controllers\Web\Cms\AccountController.cs" />
+    <Compile Include="Controllers\Web\Cms\AppliesController.cs" />
     <Compile Include="Controllers\Web\Cms\ContactUsController.cs" />
     <Compile Include="Controllers\Web\Cms\DistributorsController.cs" />
     <Compile Include="Controllers\Web\Cms\FallProfileController.cs" />
     <Compile Include="Controllers\Web\Cms\AppBuildController.cs" />
     <Compile Include="Controllers\Web\Cms\FAQsController.cs" />
+    <Compile Include="Controllers\Web\Cms\FeaturesController.cs" />
     <Compile Include="Controllers\Web\Cms\InventoriesController.cs" />
+    <Compile Include="Controllers\Web\Cms\PackagesController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
     <Compile Include="Controllers\Web\Cms\ShopsController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
@@ -780,6 +783,21 @@
     <Content Include="Views\Shops\Details.cshtml" />
     <Content Include="Views\Shops\Edit.cshtml" />
     <Content Include="Views\Shops\Index.cshtml" />
+    <Content Include="Views\Features\Create.cshtml" />
+    <Content Include="Views\Features\Delete.cshtml" />
+    <Content Include="Views\Features\Details.cshtml" />
+    <Content Include="Views\Features\Edit.cshtml" />
+    <Content Include="Views\Features\Index.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
+    <Content Include="Views\Applies\Create.cshtml" />
+    <Content Include="Views\Applies\Delete.cshtml" />
+    <Content Include="Views\Applies\Details.cshtml" />
+    <Content Include="Views\Applies\Edit.cshtml" />
+    <Content Include="Views\Applies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

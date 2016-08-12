@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Web.Security;
 using System.Web;
 
+
 namespace SmartGuardPortalv1.Models
 {
     public class UsersContext : DbContext
@@ -48,18 +49,40 @@ namespace SmartGuardPortalv1.Models
 
         public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Shop> Shops { get; set; }
 
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Package> Packages { get; set; }
+
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Apply> Applies { get; set; }
+
 
     }
+
+
 
     [Table("OrderTable")]
     public class Order
     {
         [Key]
         public int id { get; set; }
-        public int fkShopId { get; set; }
+        public int fkShopItemId { get; set; }
         public int fkUserId { get; set; }
         public int quantity { get; set; }
-        public bool status { get; set; } //0-pending, 1-approved/paid
+        public int status { get; set; } //0-pending, 1-approved, 2 - paid, 3 - cancelled
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public string company { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string zip { get; set; }
+        public string phone { get; set; }
+        public string mobile { get; set; }
+        public string relation { get; set; }
+        public string fkDistroId { get; set; }
+        public string fkPaymentType { get; set; }
+        public string timestamp { get; set; }
+
+        
+        
     }
     
     [Table("ShopTable")]
@@ -67,13 +90,18 @@ namespace SmartGuardPortalv1.Models
     {
         [Key]
         public int id { get; set; }
-        public bool type { get; set; } //0 - product, 1 - service
+        public int type { get; set; } //0 - product, 1 - service, 2 - addon, 3 - promo
         public double amount { get; set; }
         public string image { get; set; }
         public string title { get; set; }
-        public string description { get; set; }
-        public int costType { get; set; } // 0 - once, 1 - per use, 2 - daily, 3 - monthly, 4 - yearly
 
+        [System.Web.Mvc.AllowHtml]
+        [DataType(DataType.MultilineText)]
+        public string description { get; set; }
+        public int costType { get; set; } // 0 - once, 1 - per use, 2 - daily, 3 - weekly, 4 - monthly, 5 - yearly
+        public DateTime? expiration { get; set; }
+        public int? upperLimit { get; set; }
+        
         
 
     }
@@ -204,6 +232,37 @@ namespace SmartGuardPortalv1.Models
 
     }
 
+    [Table("ApplyTable")]
+    public class Apply
+    {
+        [Key]
+        public int id { get; set; }
+
+        
+        public string lastName { get; set; }
+        public string firstName { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string zip { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string mobile { get; set; }
+        public int cpRelation { get; set; }
+        public string cpLastName { get; set; }
+        public string cpFirstName { get; set; }
+        public string cpMobile { get; set; }
+        public string cpEmail { get; set; }
+        public string packages { get; set; }
+        public int payFreq { get; set; } //0-monthly, 1-yearly, 2-yearly auto-renew
+        public int payMethod { get; set; } //0-credit card, 2-bank transfer, 3-debit
+        public int status { get; set; } //0-pending, 1-approved, 2-rejected, 3- transit
+        public DateTime stamp { get; set; }
+
+        public int fkDistroId { get; set; }
+    }
+
+
     [Table("Subscription")]
     public class Subscription
     {
@@ -300,6 +359,15 @@ namespace SmartGuardPortalv1.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+    }
+
+    [Table("PackageTable")]
+    public class Package
+    {
+        public int id { get; set; }
+        
+        public int fkPackageId { get; set; }
+        public int fkFeatureId { get; set; }
     }
 
     [Table("FeatureTable")]

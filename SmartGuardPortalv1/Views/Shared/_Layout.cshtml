@@ -79,6 +79,11 @@
                                     <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Distributor"> HOME </a>
 
                                 }
+                                else if(Roles.IsUserInRole("Administrator"))
+                                {
+                                    <a class="nav__item nav__register bttn bttn--medium" href="http://smartguardwatch.azurewebsites.net/Home/Administrator"> HOME </a>
+
+                                }
                                 @Html.AntiForgeryToken()
                                 <a style="color:darkred" class="nav__item nav__register bttn bttn--medium" href="javascript:document.getElementById('logoutForm').submit()">LOGOUT</a>
                             }

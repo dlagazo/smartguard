@@ -4,60 +4,168 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>Products & Services</h3>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.costType)
-        </th>
-        <th></th>
-    </tr>
+    
 
-@foreach (var item in Model) {
+@{
+    
+
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
+        <td width="50%">
+            <p><b>Products & Services</b></p>
+            @foreach (var item in Model.Where(i => i.type != 2))
+            {
+
+                <table>
+                    <tr>
+                        <td style="background-color:lightgreen;border: 1px solid black; padding:5px">
+                            <h3>Title: @Html.DisplayFor(modelItem => item.title)</h3>
+                            <br />
+                            Type:
+                            @{
+                            if (item.type == 0)
+                            {
+                                <text>Product</text>
+                            }
+                            else if (item.type == 1)
+                            {
+                                <text>Service</text>
+                            }
+                            else if (item.type == 2)
+                            {
+                                <text>Add-on</text>
+                            }
+                            }
+                            <br />
+                            Price: @Html.DisplayFor(modelItem => item.amount)
+                            <br />
+                            Icon: @Html.DisplayFor(modelItem => item.image)
+                            
+                            
+                            <br />
+                            Description:@Html.Raw(item.description)
+                            <br />
+                            Charge type:
+                            @{
+                if (item.costType == 0)
+                {
+                    <text>Once</text>
+                }
+                else if (item.costType == 1)
+                {
+                    <text>Per use</text>
+                }
+                else if (item.costType == 2)
+                {
+                    <text>Daily</text>
+                }
+                else if (item.costType == 3)
+                {
+                    <text>Weekly</text>
+                }
+                else if (item.costType == 4)
+                {
+                    <text>Monthly</text>
+                }
+                else if (item.costType == 5)
+                {
+                    <text>Yearly</text>
+                }
+                            }
+                            <br />
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            }
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.amount)
+        <td width="50%">
+            <p><b>Add-ons</b></p>
+
+            @foreach (var item in Model.Where(i => i.type == 2))
+            {
+
+                <table>
+                    <tr>
+                        <td style="background-color:lightyellow; padding: 5px; border:1px solid black">
+                            <h3>Title: @Html.DisplayFor(modelItem => item.title)</h3>
+                            <br />
+                            Type:
+                            @{
+                                if (item.type == 0)
+                                {
+                                    <text>Product</text>
+                                }
+                                else if (item.type == 1)
+                                {
+                                    <text>Service</text>
+                                }
+                                else if (item.type == 2)
+                                {
+                                    <text>Add-on</text>
+                                }
+                            }
+                            <br />
+                            Price: @Html.DisplayFor(modelItem => item.amount)
+                            <br />
+                            Icon: @Html.DisplayFor(modelItem => item.image)
+                            
+                            <br />
+                            Description:@Html.Raw(item.description)
+                            <br />
+                            Charge type:
+                            @{
+                if (item.costType == 0)
+                {
+                    <text>Once</text>
+                }
+                else if (item.costType == 1)
+                {
+                    <text>Per use</text>
+                }
+                else if (item.costType == 2)
+                {
+                    <text>Daily</text>
+                }
+                else if (item.costType == 3)
+                {
+                    <text>Weekly</text>
+                }
+                else if (item.costType == 4)
+                {
+                    <text>Monthly</text>
+                }
+                else if (item.costType == 5)
+                {
+                    <text>Yearly</text>
+                }
+                            }
+                            <br />
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                </table>
+
+            }
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.costType)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
+
     </tr>
+    
 }
-
 </table>

@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SmartGuardPortalv1.Models.Apply>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Order Management</h3>
+
+
+<table class="table">
+    
+
+@foreach (var item in Model) {
+    string color = "white";
+    if(item.status == 0)
+    {
+        color = "lightyellow";
+    }
+    else if (item.status == 1)
+    {
+        color = "lightgreen";
+    }
+    else if (item.status == 2)
+    {
+        color = "lightred";
+    }
+    else if (item.status == 3)
+    {
+        color = "lightblue";
+    }
+    <tr style="background-color: @color;border: solid 1px black">
+        <td>
+            <p>
+            Email:
+            @Html.DisplayFor(modelItem => item.email)
+            <br />
+            Last Name:
+            @Html.DisplayFor(modelItem => item.lastName)
+            <br />
+            First Name:
+            @Html.DisplayFor(modelItem => item.firstName)
+            <br />
+            Address:
+            @Html.DisplayFor(modelItem => item.address)
+            <br />
+            City:
+            @Html.DisplayFor(modelItem => item.city)
+            <br />
+            Country:
+            @Html.DisplayFor(modelItem => item.country)
+            <br />
+            Zip:
+            @Html.DisplayFor(modelItem => item.zip)
+            <br />
+            Phone:
+            @Html.DisplayFor(modelItem => item.phone)
+            <br />
+            Mobile:
+            @Html.DisplayFor(modelItem => item.mobile)
+            
+            </p>
+         </td>
+        
+         <td>
+             <p>
+            Contact Person Details
+            <br />
+            Last Name:
+            @Html.DisplayFor(modelItem => item.cpLastName)
+            <br />
+             First Name:
+            @Html.DisplayFor(modelItem => item.cpFirstName)
+            <br />
+             Mobile:
+            @Html.DisplayFor(modelItem => item.cpMobile)
+            <br />
+             Email:
+            @Html.DisplayFor(modelItem => item.cpEmail)
+            <br />
+             Packages:
+            @Html.DisplayFor(modelItem => item.packages)
+            <br />
+            Subscription:
+             @{
+                 if(item.payFreq == 0)
+                 {
+                     <text>Monthly</text>
+                 }
+                 else if(item.payFreq == 1)
+                 {
+                     <text>1 year</text>
+                 }
+                 else if(item.payFreq == 2)
+                 {
+                     <text>1 year - auto renewal</text>
+                 }
+             }
+            
+            <br />
+            Payment Method:
+            
+             @{
+                 if(item.payMethod == 0)
+                 {
+                     <text>Credit Card</text>
+                 }
+                 else if(item.payMethod == 1)
+                 {
+                     <text>Bank Transfer</text>
+                 }
+                 else if(item.payMethod == 2)
+                 {
+                     <text>Debit Card</text>
+                 }
+             }
+             <br />
+             Date of Application:
+             @Html.DisplayFor(modelItem => item.stamp)
+             <br />
+            Status of Application:
+            @{
+                if(item.status == 0)
+                {
+                    <text>Pending</text>
+                }
+                else if (item.status == 1)
+                {
+                    <text>Approved</text>
+                }
+                else if(item.status == 2)
+                {
+                    <text>Rejected</text>
+                }
+                else if(item.status == 3)
+                {
+                    <text>Approved - In transit</text>
+                }
+}
+
+
+
+            </p>
+        </td>
+        
+        <td>
+            @Html.ActionLink("Approve", "Edit", new { id = item.id })
+            <br /> 
+            @Html.ActionLink("Reject", "Edit", new { id = item.id }) 
+            <br />
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) 
+            <br />
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

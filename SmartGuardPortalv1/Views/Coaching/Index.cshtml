@@ -5,7 +5,7 @@
     int userId = (int)WebSecurity.CurrentUserId;
 }
 
-<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Day Rhythm Coaching </b>
+<b>@Html.ActionLink("Dashboard", "Modules", "Home") > Coaching & Reminders </b>
 <br />
 <br />
 <p>
@@ -55,12 +55,19 @@ medication use behaviour. This guarantees your medication adherence and therefor
             <br />
             <b>Instructions: </b> @item.MemoryInstructions
             <br />
-            <b>Activity Type: </b> @if(item.MemoryType == 1) 
-                { <text>Medication Protocol</text> }
+            <b>Activity Type: </b>
+                @{
+                    if (item.MemoryType == 0)
+                    { <text>Mandatory</text> } 
+                    else if(item.MemoryType == 2) 
+                    { <text>Fitminutes</text> }
+                    else if(item.MemoryType == 3) 
+                    { <text>Reminder</text> }
        
-                else if(item.MemoryType == 3) { <text>Daily Reminder</text> }
-                                   else if (item.MemoryType == 4)
-                                   { <text>Measure weight</text> }
+                   
+                    else if (item.MemoryType == 4)
+                    { <text>Measure weight</text> }
+                 }
                 
         </td>
         

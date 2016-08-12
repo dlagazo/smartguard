@@ -20,6 +20,7 @@ namespace SmartGuardPortalv1.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Distributor")]
         public ActionResult Distributor()
         {
             return View();
