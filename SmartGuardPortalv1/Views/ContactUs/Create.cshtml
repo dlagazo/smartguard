@@ -6,24 +6,26 @@
     List<SmartGuardPortalv1.Models.Distributor> distros = context.Distributors.ToList();
 
     var listDistros = new List<SelectListItem>();
-    int count = 0;
+    //int count = 0;
     listDistros.Add(new SelectListItem { Text = "Select", Value = "-1" });
     foreach(var distro in distros)
     {
-        listDistros.Add(new SelectListItem { Text = distro.name, Value = count.ToString() });
-        count++;
+        listDistros.Add(new SelectListItem { Text = distro.name, Value = distro.id.ToString() });
+        //count++;
     }
 
     var listItems = new List<SelectListItem>();
+    var listPrice = new Dictionary<int, double>();
     List<SmartGuardPortalv1.Models.Shop> items = context.Shops.ToList();
     foreach(var item in items)
     {
         if(item.type == 0)
         {
             listItems.Add(new SelectListItem { Text = item.title, Value = item.id.ToString() });
+            listPrice.Add(item.id, item.amount);
         }
     }
-              
+    var defaultTotal = listPrice.First().Value * 1.12;      
     
 }
 <script>
@@ -35,6 +37,8 @@
     {
         if (index != -1)
         {
+            var sel = document.getElementById("ddDistros");
+            document.getElementById("fkDistroId").value = sel.options[sel.selectedIndex].value;
             document.getElementById("distroName").innerHTML = "Distributor: " + distro_name[index - 1];
             document.getElementById("distroAdd").innerHTML = "Address: " + distro_address[index - 1];
             document.getElementById("distroTel").innerHTML = "Telephone: " + distro_phone[index - 1];
@@ -51,6 +55,38 @@
         
     }
 
+    function calculateTotalPackage(pack)
+    {
+       // alert(pack.getAttribute("price"));
+        //alert(pack.options[pack.selectedIndex].getAttribute("price"));
+        document.getElementById("totalPackage").value = pack.options[pack.selectedIndex].getAttribute("price");
+        var totalAddons = parseInt(document.getElementById("totalAddons").value, 0);
+        var totalPackage = parseInt(document.getElementById("totalPackage").value, 0);
+        document.getElementById("totalAmt").value = ((totalAddons + totalPackage)*1.12);
+    }
+
+    function calculateTotalAddons(box)
+    {
+        //alert(box.getAttribute("price"));
+        if(box.checked)
+        {
+            var boxVal = parseInt(box.getAttribute("price"), 0);
+            var currVal = parseInt(document.getElementById("totalAddons").value, 0);
+            var newVal = boxVal + currVal;
+            document.getElementById("totalAddons").value = newVal;
+        }
+        else if (!box.checked) {
+            var boxVal = parseInt(box.getAttribute("price"), 0);
+            var currVal = parseInt(document.getElementById("totalAddons").value, 0);
+            var newVal = currVal - boxVal;
+            document.getElementById("totalAddons").value = newVal;
+
+        }
+        var totalAddons = parseInt(document.getElementById("totalAddons").value, 0);
+        var totalPackage = parseInt(document.getElementById("totalPackage").value, 0);
+        document.getElementById("totalAmt").value = (totalAddons + totalPackage) * 1.12;
+    }
+
     function submitApplicationForm()
     {
         var sel = document.getElementById("ddDistros");
@@ -60,8 +96,30 @@
         }
         else
         {
-            document.getElementById("fkDistroId").value = sel.options[sel.selectedIndex].value;
-            alert(sel.options[sel.selectedIndex].value);
+            
+            //alert(sel.options[sel.selectedIndex].value);
+            var pack = document.getElementById("package");
+            var packages = document.getElementById("packages");
+            var packValue = pack.options[pack.selectedIndex].value;
+            var addons = document.getElementsByName("addons");
+            var packagesString = packValue + ",";
+
+            for (var i = 0; i < addons.length; i++)
+            {
+                if(addons[i].type == "checkbox")
+                {
+                    if(addons[i].checked)
+                    {
+                        //alert("checked");
+                        packagesString += addons[i].getAttribute("value") + ",";
+                    }
+                }
+            }
+
+            packages.setAttribute("value",packagesString);
+            
+            
+
             document.getElementById("formApply").submit();
         }
 
@@ -659,12 +717,12 @@
                         Package:
                         <br />
                         <div style="text-align:left;width:90%;background-color:blue;border: 1px solid black;color:white;height:100%;padding:10px">
-                            <select id="package">
+                            <select id="package" onchange="calculateTotalPackage(this)">
                                 @{
-        foreach (var item in listItems)
-        {
-            <option value="@item.Value">@item.Text</option>
-        }
+                                    foreach (var item in listItems)
+                                    {
+                                        <option value="@item.Value" price="@listPrice[Int32.Parse(item.Value)]">@item.Text</option>
+                                    }
                                 }
 
 
@@ -683,14 +741,14 @@
                         <br />
                         <div style="text-align:left;width:90%;background-color:cyan;border: 1px solid black;color:black;padding:10px">
                             @{
-        foreach (var item in items)
-        {
-            if (item.type == 2)
-            {
-                <input type="checkbox" name="addons"/> <text>@item.title</text>
-                                <br />
-            }
-        }
+                                foreach (var item in items)
+                                {
+                                    if (item.type == 2)
+                                    {
+                                        <input type="checkbox" name="addons" value="@item.id" price="@item.amount" onchange="calculateTotalAddons(this)"/> <text>@item.title</text>
+                                        <br />
+                                    }
+                                }
                             }
 
 
@@ -703,15 +761,17 @@
                         Price:
                         <br />
                         <div style="text-align:left;width:90%;border:1px solid black;color:black;height:100%;padding:10px">
-                            Total Price: &euro;50
+                            Package: &euro; <input type="text" contenteditable="false" id="totalPackage" value="@listPrice.First().Value" />
                             <br />
-                            Hardware Price: &euro;38
+                            Total Addons: &euro; <input type="text" contenteditable="false" id="totalAddons" value="0"/>
                             <br />
-                            VAT: &euro;12
+                           
+                            VAT: &euro;12%
                             <br />
                             ______________________
                             <br />
-                            Total: &euro;100
+                            Total: &euro; <input type="text" contenteditable="false" id="totalAmt" value="@defaultTotal" />
+
 
                         </div>
                     </td>
@@ -766,7 +826,7 @@
                 </tr>
 
             </table>
-            <input type="hidden" name="packages" />
+            <input type="hidden" name="packages" id="packages"/>
             <input type="hidden" name="fkDistroId" id="fkDistroId" />
             <br />
             <input type="button" value="ORDER" onclick="submitApplicationForm();" />

@@ -53,6 +53,8 @@ namespace SmartGuardPortalv1.Models
 
         public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Apply> Applies { get; set; }
 
+        public System.Data.Entity.DbSet<SmartGuardPortalv1.Models.Purchase> Purchases { get; set; }
+
 
     }
 
@@ -229,6 +231,19 @@ namespace SmartGuardPortalv1.Models
         //0-Sunday, 1-Monday
         public string ContactSchedules { get; set; }
         public bool canContactOutsideSched { get; set; }
+
+    }
+
+    [Table("fTable")]
+    public class Purchase
+    {
+        [Key]
+        public int id { get; set; }
+        public int fkUserId { get; set; }
+        public int fkShopId { get; set; }
+        public DateTime stamp { get; set; }
+        //0-active, 1-inactive, 2-suspended
+        public int status { get; set; }
 
     }
 

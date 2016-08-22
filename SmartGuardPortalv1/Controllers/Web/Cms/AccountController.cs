@@ -168,7 +168,7 @@ namespace SmartGuardPortalv1.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", e.StatusCode.ToString());
                 }
             }
             return View(model);
@@ -521,13 +521,253 @@ namespace SmartGuardPortalv1.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", e.StatusCode.ToString());
                 }
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+       
+        public ActionResult Approve(int id)
+        {
+            Apply model = db.Applies.Find(id);
+            if (ModelState.IsValid && !WebSecurity.UserExists(model.email))
+            {
+                // Attempt to register the user
+
+                //Random temporary password generator
+                string tempPassword = System.Web.Security.Membership.GeneratePassword(6, 1);
+                tempPassword = System.Text.RegularExpressions.Regex.Replace(tempPassword, @"^a-zA-Z0-9", m => "0");
+                try
+                {
+
+                    WebSecurity.CreateUserAndAccount(model.email, tempPassword,
+                        propertyValues: new
+                        {
+                            LastName = model.lastName,
+                            Country = model.country,
+                            FirstName = model.firstName,
+                            Email = model.email
+                        });
+                    /*
+                    FkTitle = model.FkTitle, BirthDate = model.BirthDate, ,
+                    Phone = model.Phone, Address = model.Address, City = model.City, Country = model.Country,
+                    Zip = model.Zip, Gender = model.Gender, Hand = model.Hand});
+                     */
+                    var emailMessage = new SendGrid.SendGridMessage();
+                    emailMessage.From = new MailAddress("mailer-no-reply@smartguard");
+                    emailMessage.AddTo(model.email);
+
+                    
+
+                    emailMessage.Subject = "Smart Guard temporary password";
+                    emailMessage.Html = "Dear Sir/Madam " + model.lastName + ", <br/><br/>" +
+                        "<p>Thank you for registering. Your registration information:</p> <br/><br/>" +
+                        "<p>username: " + model.email + "</p><br/>" +
+                        "<p>password: " + tempPassword + "</p><br/><br/>" +
+
+                        "<p>Please log in using your temporary password and change it immediately.</p>" +
+                        "<p>If you did not register, please disregard this message.</p>" +
+
+                        "<br/><br/>Regards, <br/> Smart Guard Team";
+
+                    sendEmail(emailMessage);
+                    //WebSecurity.Login(model.UserName, tempPassword);
+                    if (!Roles.GetRolesForUser(model.email).Contains("User"))
+                        {
+                            Roles.AddUsersToRoles(new[] { model.email }, new[] { "User" });
+                        }
+                    WebSecurity.CreateUserAndAccount(model.cpEmail, tempPassword,
+                        propertyValues: new
+                        {
+                            LastName = model.cpLastName,
+                            Country = model.country,
+                            FirstName = model.cpFirstName,
+                            Email = model.cpEmail
+                        });
+
+                    if (!Roles.GetRolesForUser(model.cpEmail).Contains("Contact"))
+                    {
+                        Roles.AddUsersToRoles(new[] { model.cpEmail }, new[] { "Contact" });
+                    }
+                        UserInformation ui = new UserInformation();
+                        ui.Address = model.address;
+                        ui.BirthDate = System.DateTime.Now;
+                        ui.City = model.city;
+                        
+                        ui.fkUserId = WebSecurity.GetUserId(model.email);
+                        
+                        
+                        ui.Phone = model.phone;
+                        ui.Zip = model.zip;
+                        db.UserInfos.Add(ui);
+
+                        //db.SaveChanges();
+
+                        ChargeData charge = new ChargeData();
+                        charge.ChargePct = 100;
+                        charge.fkUserId = WebSecurity.GetUserId(model.email);
+                        charge.ChargeTimeStamp = System.DateTime.Now;
+
+                        Place place = new Place();
+                        place.fkUserId = WebSecurity.GetUserId(model.email);
+                        place.PlaceName = "Home";
+                        place.PlaceLat = "48.4620863";
+                        place.PlaceLong = "13.8696551";
+
+                       
+
+                        
+
+                        Memory wake = new Memory();
+                        wake.fkUserId = WebSecurity.GetUserId(model.email);
+
+                        wake.MemoryFreq = 0;
+                        wake.MemoryInstructions = "Please input your wake up settings";
+                        wake.MemoryName = "Wake";
+                        wake.MemoryDates = "";
+                        wake.MemoryType = 0;
+
+                        Memory sleep = new Memory();
+                        sleep.fkUserId = WebSecurity.GetUserId(model.email);
+                        sleep.MemoryType = 0;
+                        sleep.MemoryFreq = 0;
+                        sleep.MemoryInstructions = "Please input your sleep settings";
+                        sleep.MemoryName = "Sleep";
+                        sleep.MemoryDates = "";
+
+                        Memory fitminutes = new Memory();
+                        fitminutes.fkUserId = WebSecurity.GetUserId(model.email);
+
+                        fitminutes.MemoryFreq = 0;
+                        fitminutes.MemoryInstructions = "Please input your sleep settings";
+                        fitminutes.MemoryName = "Fitminutes";
+                        fitminutes.MemoryDates = "";
+
+                        VitalInfo name = new VitalInfo();
+                        name.fkUserId = WebSecurity.GetUserId(model.email);
+                        name.Title = "Name";
+                        name.Value = model.firstName + " " + model.lastName;
+
+                        VitalInfo address = new VitalInfo();
+                        address.fkUserId = WebSecurity.GetUserId(model.email);
+                        address.Title = "Address";
+                        address.Value = ui.Address;
+
+                       
+
+                        VitalInfo weight = new VitalInfo();
+                        weight.fkUserId = WebSecurity.GetUserId(model.email);
+                        weight.Title = "Weight";
+                        weight.Value = "0 lbs";
+
+                        VitalInfo height = new VitalInfo();
+                        height.fkUserId = WebSecurity.GetUserId(model.email);
+                        height.Title = "Height";
+                        height.Value = "5'5''";
+
+
+                        db.Charges.Add(charge);
+                        
+                        
+                        db.Memories.Add(wake);
+                        db.Memories.Add(sleep);
+                        db.Memories.Add(fitminutes);
+                        db.Places.Add(place);
+                        db.VitalInfos.Add(name);
+                        db.VitalInfos.Add(address);
+                        
+                        db.VitalInfos.Add(weight);
+                        db.VitalInfos.Add(height);
+                        
+
+                        
+                        //ui = new UserInformation();
+                        
+                        //ui.fkUserId = WebSecurity.GetUserId(model.cpEmail);
+                        
+
+                        ContactSchedule cs = new ContactSchedule();
+                        cs.fkUserId = WebSecurity.GetUserId(model.email);
+
+                        db.ContactSchedules.Add(cs);
+                        db.UserInfos.Add(ui);
+                        db.SaveChanges();
+
+                        Contact contact = new Contact();
+                        contact.Email = model.cpEmail ;
+                        contact.FirstName = model.cpFirstName;
+                        contact.LastName = model.cpLastName;
+                       
+                        //contact.Relationship = model.cpRelation;
+                        contact.Mobile = model.cpMobile;
+                        contact.fkUserId = WebSecurity.GetUserId(model.email);
+
+                        db.Contacts.Add(contact);
+                    
+                    string[] packages = model.packages.Split(',');
+                    foreach(string pack in packages)
+                    {
+                        if(pack.Trim().Length > 0)
+                        {
+                            Purchase package = new Purchase();
+                            package.fkShopId = int.Parse(pack.Trim());
+                            package.fkUserId = WebSecurity.GetUserId(model.email);
+                            package.stamp = System.DateTime.Now;
+                            package.status = 0;
+                            db.Purchases.Add(package);
+                        }
+                        
+                    }
+                    
+
+                    //FormsAuthentication.SetAuthCookie(model.email, true);
+
+                    //return RedirectToAction("Email", "Home");
+                    model.status = 1;
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                }
+            }
+
+            else
+            {
+                try
+                {
+                    int userId = WebSecurity.GetUserId(model.email);
+                    string[] packages = model.packages.Split(',');
+                    foreach (string pack in packages)
+                    {
+                        if (pack.Trim().Length > 0)
+                        {
+                            Purchase package = new Purchase();
+                            package.fkShopId = int.Parse(pack.Trim());
+                            package.fkUserId = userId;
+                            package.stamp = System.DateTime.Now;
+                            package.status = 0;
+                            db.Purchases.Add(package);
+                        }
+
+                    }
+                    model.status = 1;
+                    db.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+
+                }
+                
+            }
+
+            return RedirectToAction("Index", "Applies");
+        }
+           
 
         public Boolean sendEmail(SendGrid.SendGridMessage message)
         {

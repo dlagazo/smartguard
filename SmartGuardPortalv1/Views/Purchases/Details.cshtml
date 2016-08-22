@@ -1,0 +1,52 @@
+﻿@model SmartGuardPortalv1.Models.Purchase
+
+@{
+    ViewBag.Title = "Details";
+    int userId = WebSecurity.CurrentUserId;
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
+    List<SmartGuardPortalv1.Models.Purchase> subscriptions = context.Purchases.Where(i => i.fkUserId == userId).ToList();
+    double balance = 0;
+}
+<h3>My Statement of Account</h3>
+
+<div>
+    <b>Active Subscriptions</b>
+    <br />
+    @{
+        foreach(var subscription in subscriptions)
+        {
+            if(subscription.status == 0)
+            {
+                SmartGuardPortalv1.Models.Shop product = context.Shops.Find(subscription.fkShopId);
+                <text>@product.title &euro;@product.amount</text>
+
+
+                if (product.costType == 4)
+                {
+                    <text>per month </text>
+                    TimeSpan months = DateTime.Now - subscription.stamp;
+                    <text>Active for @months.Duration() days</text>
+                }
+                else if(product.costType == 0)
+                {
+                    <text>one-time fee</text>
+                }
+                else if(product.costType == 5)
+                {
+                    <text>per year </text>
+                    TimeSpan months = DateTime.Now - subscription.stamp;
+                    <text>Active for @months.Duration() days</text>
+                }
+                <br />
+                
+            }
+
+        }
+    }
+    <br />
+    <br />
+    <b>Payments</b>
+    <br />
+    <br />
+    <b>Inactive Subscriptions</b>
+</div>

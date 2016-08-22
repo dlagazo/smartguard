@@ -23,11 +23,11 @@
     user = title + " " + profile.FirstName + " " + profile.LastName + "!"; 
 }
 
-<b>@Html.ActionLink("Dashboard", "Index", "Home") > User Information</b>
+<b>@Html.ActionLink("Dashboard", "Index", "Home") > Account Details</b>
 <br />
 <br />
 <fieldset>
-    <legend>Feature</legend>
+    <legend>Account Details</legend>
 
     <div class="display-label">
         <b>First Name:</b> @Html.DisplayFor(model => model.FirstName) 
@@ -70,9 +70,49 @@
     </div>
     <div class="display-label">
         <b>Phone number:</b> @info.Phone
+        <br />
+        userid: @userId
     </div>
+   
     
-    
+</fieldset>
+<fieldset>
+    <legend>My Active Subscriptions</legend>
+    <div>
+        @{
+            if (Roles.IsUserInRole("User"))
+            {
+                List<SmartGuardPortalv1.Models.Purchase> subscriptions = context.Purchases.Where(i => i.fkUserId == userId).ToList();
+                if(subscriptions.Count == 0)
+                {
+                    <text>You have no active subscriptions. Please order <a href="/ContactUs/Create">here</a>.</text>
+                }
+                else
+                {
+                    foreach(var subscription in subscriptions)
+                    {
+                        if(subscription.status == 0)
+                        {
+                            SmartGuardPortalv1.Models.Shop product = context.Shops.Find(subscription.fkShopId);
+                            <text>@product.title &euro;@product.amount</text>
+                        
+                        
+                            if (product.costType == 4)
+                            {
+                                <text>per month</text>
+                            }
+                            <br />
+                        }
+                        
+                    }
+                    <br />
+                    <text>View your Statement of Account <a href="/Purchases/Details">here</a></text>
+                    <br />
+                    <text>If you want to change your subscription, please order <a href="/ContactUs/Create">here</a></text>
+                }
+            }
+        }
+    </div>
 </fieldset>
 <p>
     

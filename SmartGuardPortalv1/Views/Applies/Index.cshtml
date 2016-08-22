@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    SmartGuardPortalv1.Models.UsersContext context = new SmartGuardPortalv1.Models.UsersContext();
 }
 
 <h3>Order Management</h3>
@@ -31,6 +32,17 @@
     <tr style="background-color: @color;border: solid 1px black">
         <td>
             <p>
+            Distributor: 
+                @{
+                    try{
+                        @context.Distributors.Find(item.fkDistroId).name
+                    }
+                    catch(Exception ex)
+                    { }
+                }
+                
+            <br />
+
             Email:
             @Html.DisplayFor(modelItem => item.email)
             <br />
@@ -77,8 +89,28 @@
              Email:
             @Html.DisplayFor(modelItem => item.cpEmail)
             <br />
-             Packages:
-            @Html.DisplayFor(modelItem => item.packages)
+            Packages: @item.packages <br />
+            @{
+                try
+                {
+                    if(item.packages.Length > 1)
+                    {
+                        string[] packs = item.packages.Split(',');
+                        foreach(string pack in packs)
+                        {
+                            <text>@context.Shops.Find(Int32.Parse(pack)).title, </text>
+                        }
+                    }
+                    else
+                    {
+                        <text>@context.Shops.Find(Int32.Parse(item.packages)).title, </text>
+                    }
+                }
+                catch (Exception ex) { }
+                
+                
+            }
+            
             <br />
             Subscription:
              @{
@@ -143,7 +175,7 @@
         </td>
         
         <td>
-            @Html.ActionLink("Approve", "Edit", new { id = item.id })
+            @Html.ActionLink("Approve", "Approve", "Account", new { id = item.id }, null)
             <br /> 
             @Html.ActionLink("Reject", "Edit", new { id = item.id }) 
             <br />

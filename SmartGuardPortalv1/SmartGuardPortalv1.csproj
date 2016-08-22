@@ -248,6 +248,7 @@
     <Compile Include="Controllers\Web\Cms\InventoriesController.cs" />
     <Compile Include="Controllers\Web\Cms\PackagesController.cs" />
     <Compile Include="Controllers\Web\Cms\ProductController.cs" />
+    <Compile Include="Controllers\Web\Cms\PurchasesController.cs" />
     <Compile Include="Controllers\Web\Cms\ShopsController.cs" />
     <Compile Include="Controllers\Web\Cms\VideoController.cs" />
     <Compile Include="Controllers\Web\Features\ContactController.cs" />
@@ -798,6 +799,11 @@
     <Content Include="Views\Applies\Details.cshtml" />
     <Content Include="Views\Applies\Edit.cshtml" />
     <Content Include="Views\Applies\Index.cshtml" />
+    <Content Include="Views\Purchases\Create.cshtml" />
+    <Content Include="Views\Purchases\Delete.cshtml" />
+    <Content Include="Views\Purchases\Details.cshtml" />
+    <Content Include="Views\Purchases\Edit.cshtml" />
+    <Content Include="Views\Purchases\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
